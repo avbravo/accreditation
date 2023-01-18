@@ -4,6 +4,7 @@
  */
 package com.sft.accreditation.controller;
 
+import com.jmoordb.core.annotation.date.DateFormat;
 import com.sft.model.User;
 import com.sft.repository.UserRepository;
 import jakarta.annotation.security.RolesAllowed;
@@ -21,6 +22,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import org.eclipse.microprofile.metrics.Counter;
 import org.eclipse.microprofile.metrics.Histogram;
@@ -122,10 +124,31 @@ public class UserController {
     public User findByIduser(
             @Parameter(description = "El iduser", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("iduser") Long iduser) {
 
-        counter.inc();
+
 
         return userRepository.findByPk(iduser).orElseThrow(
                 () -> new WebApplicationException("No hay user con iduser " + iduser, Response.Status.NOT_FOUND));
+
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="User findByIduser">
+    @GET
+    @RolesAllowed({"admin"})
+    @Path("username")
+    @Operation(summary = "Busca un user por el usernam", description = "Busqueda de user por iduser")
+    @APIResponse(responseCode = "200", description = "El user")
+    @APIResponse(responseCode = "404", description = "Cuando no existe el username")
+    @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
+    @Tag(name = "BETA", description = "Esta api esta en desarrollo")
+    @APIResponse(description = "El user", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = User.class)))
+    
+   
+    public User findByUsername(@Parameter(description = "El username", required = true, example = "1", schema = @Schema(type = SchemaType.STRING)) @QueryParam("username") final String username) {
+
+
+
+        return userRepository.findByUsername(username).orElseThrow(
+                () -> new WebApplicationException("No hay user con username " + username, Response.Status.NOT_FOUND));
 
     }
 // </editor-fold>

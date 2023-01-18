@@ -4,9 +4,11 @@
  */
 package com.sft.repository;
 
+import com.jmoordb.core.annotation.repository.Find;
 import com.jmoordb.core.annotation.repository.Repository;
 import com.jmoordb.core.repository.CrudRepository;
 import com.sft.model.User;
+import java.util.Optional;
 
 /**
  *
@@ -14,5 +16,6 @@ import com.sft.model.User;
  */
 @Repository(entity = User.class)
 public interface UserRepository extends CrudRepository<User, Long> {
-    
+    @Find
+    public Optional<User> findByUsername(String username);
 }
