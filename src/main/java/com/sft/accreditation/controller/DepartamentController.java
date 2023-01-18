@@ -6,6 +6,7 @@ package com.sft.accreditation.controller;
 
 import com.sft.model.Departament;
 import com.sft.repository.DepartamentRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -43,6 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("departament")
 @Tag(name = "Información del departament", description = "End-point para entidad Departament")
+@RolesAllowed({"admin"})
 public class DepartamentController {
 
     
@@ -68,6 +70,7 @@ public class DepartamentController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Departament> insert(@QueryParam("inicial") final Integer inicial) {
@@ -89,6 +92,7 @@ public class DepartamentController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "departamentesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los departamentes",
@@ -106,6 +110,7 @@ public class DepartamentController {
 
     // <editor-fold defaultstate="collapsed" desc="Departament findByIddepartament">
     @GET
+    @RolesAllowed({"admin"})
     @Path("{iddepartament}")
     @Operation(summary = "Busca un departament por el iddepartament", description = "Busqueda de departament por iddepartament")
     @APIResponse(responseCode = "200", description = "El departament")
@@ -126,6 +131,7 @@ public class DepartamentController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+    @RolesAllowed({"admin"})
     @Metered(name = "departamentSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar departament",
@@ -144,6 +150,7 @@ public class DepartamentController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo departament", description = "Inserta un nuevo departament")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  departament")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -158,6 +165,7 @@ public class DepartamentController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{iddepartament}")
     @Operation(summary = "Elimina un departament por  iddepartament", description = "Elimina un departament por su iddepartament")
     @APIResponse(responseCode = "200", description = "Cuando elimina el departament")

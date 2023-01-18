@@ -6,6 +6,7 @@ package com.sft.poa.controller;
 
 import com.sft.model.Proyecto;
 import com.sft.repository.ProyectoRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -43,6 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("proyecto")
 @Tag(name = "Información del proyecto", description = "End-point para entidad Proyecto")
+@RolesAllowed({"admin"})
 public class ProyectoController {
 
     
@@ -68,6 +70,7 @@ public class ProyectoController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Proyecto> insert(@QueryParam("inicial") final Integer inicial) {
@@ -89,6 +92,7 @@ public class ProyectoController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "proyectoesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los proyectoes",
@@ -106,6 +110,7 @@ public class ProyectoController {
 
     // <editor-fold defaultstate="collapsed" desc="Proyecto findByIdproyecto">
     @GET
+    @RolesAllowed({"admin"})
     @Path("{idproyecto}")
     @Operation(summary = "Busca un proyecto por el idproyecto", description = "Busqueda de proyecto por idproyecto")
     @APIResponse(responseCode = "200", description = "El proyecto")
@@ -126,6 +131,7 @@ public class ProyectoController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+    @RolesAllowed({"admin"})
     @Metered(name = "proyectoSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar proyecto",
@@ -144,6 +150,7 @@ public class ProyectoController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo proyecto", description = "Inserta un nuevo proyecto")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  proyecto")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -158,6 +165,7 @@ public class ProyectoController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{idproyecto}")
     @Operation(summary = "Elimina un proyecto por  idproyecto", description = "Elimina un proyecto por su idproyecto")
     @APIResponse(responseCode = "200", description = "Cuando elimina el proyecto")

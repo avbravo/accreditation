@@ -6,6 +6,7 @@ package com.sft.accreditation.controller;
 
 import com.sft.model.Province;
 import com.sft.repository.ProvinceRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -43,6 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("province")
 @Tag(name = "Información del province", description = "End-point para entidad Province")
+@RolesAllowed({"admin"})
 public class ProvinceController {
 
     
@@ -68,6 +70,7 @@ public class ProvinceController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Province> insert(@QueryParam("inicial") final Integer inicial) {
@@ -89,6 +92,7 @@ public class ProvinceController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "provinceesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los provincees",
@@ -106,6 +110,7 @@ public class ProvinceController {
 
     // <editor-fold defaultstate="collapsed" desc="Province findByIdprovince">
     @GET
+    @RolesAllowed({"admin"})
     @Path("{idprovince}")
     @Operation(summary = "Busca un province por el idprovince", description = "Busqueda de province por idprovince")
     @APIResponse(responseCode = "200", description = "El province")
@@ -126,6 +131,7 @@ public class ProvinceController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+    @RolesAllowed({"admin"})
     @Metered(name = "provinceSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar province",
@@ -144,6 +150,7 @@ public class ProvinceController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo province", description = "Inserta un nuevo province")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  province")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -158,6 +165,7 @@ public class ProvinceController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{idprovince}")
     @Operation(summary = "Elimina un province por  idprovince", description = "Elimina un province por su idprovince")
     @APIResponse(responseCode = "200", description = "Cuando elimina el province")

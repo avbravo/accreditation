@@ -6,6 +6,7 @@ package com.sft.accreditation.controller;
 
 import com.sft.model.Role;
 import com.sft.repository.RoleRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -43,6 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("role")
 @Tag(name = "Información del role", description = "End-point para entidad Role")
+@RolesAllowed({"admin"})
 public class RoleController {
 
     
@@ -68,6 +70,7 @@ public class RoleController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Role> insert(@QueryParam("inicial") final Integer inicial) {
@@ -89,6 +92,7 @@ public class RoleController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "roleesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los rolees",
@@ -106,6 +110,7 @@ public class RoleController {
 
     // <editor-fold defaultstate="collapsed" desc="Role findByIdrole">
     @GET
+    @RolesAllowed({"admin"})
     @Path("{idrole}")
     @Operation(summary = "Busca un role por el idrole", description = "Busqueda de role por idrole")
     @APIResponse(responseCode = "200", description = "El role")
@@ -126,6 +131,7 @@ public class RoleController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+    @RolesAllowed({"admin"})
     @Metered(name = "roleSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar role",
@@ -144,6 +150,7 @@ public class RoleController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo role", description = "Inserta un nuevo role")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  role")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -158,6 +165,7 @@ public class RoleController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{idrole}")
     @Operation(summary = "Elimina un role por  idrole", description = "Elimina un role por su idrole")
     @APIResponse(responseCode = "200", description = "Cuando elimina el role")

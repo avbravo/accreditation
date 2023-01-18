@@ -6,6 +6,7 @@ package com.sft.accreditation.controller;
 
 import com.sft.model.Appmoduleconfiguration;
 import com.sft.repository.AppmoduleconfigurationRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -43,6 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("appmoduleconfiguration")
 @Tag(name = "Información del appmoduleconfiguration", description = "End-point para entidad Appmoduleconfiguration")
+@RolesAllowed({"admin"})
 public class AppmoduleconfigurationController {
 
     
@@ -69,6 +71,7 @@ public class AppmoduleconfigurationController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Appmoduleconfiguration> insert(@QueryParam("inicial") final Integer inicial) {
@@ -90,6 +93,7 @@ public class AppmoduleconfigurationController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "appmoduleconfigurationesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los appmoduleconfigurationes",
@@ -107,6 +111,7 @@ public class AppmoduleconfigurationController {
 
     // <editor-fold defaultstate="collapsed" desc="Appmoduleconfiguration findByIdappmoduleconfiguration">
     @GET
+    @RolesAllowed({"admin"})
     @Path("{idappmoduleconfiguration}")
     @Operation(summary = "Busca un appmoduleconfiguration por el idappmoduleconfiguration", description = "Busqueda de appmoduleconfiguration por idappmoduleconfiguration")
     @APIResponse(responseCode = "200", description = "El appmoduleconfiguration")
@@ -127,6 +132,7 @@ public class AppmoduleconfigurationController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+    @RolesAllowed({"admin"})
     @Metered(name = "appmoduleconfigurationSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar appmoduleconfiguration",
@@ -145,6 +151,7 @@ public class AppmoduleconfigurationController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo appmoduleconfiguration", description = "Inserta un nuevo appmoduleconfiguration")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  appmoduleconfiguration")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -159,6 +166,7 @@ public class AppmoduleconfigurationController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{idappmoduleconfiguration}")
     @Operation(summary = "Elimina un appmoduleconfiguration por  idappmoduleconfiguration", description = "Elimina un appmoduleconfiguration por su idappmoduleconfiguration")
     @APIResponse(responseCode = "200", description = "Cuando elimina el appmoduleconfiguration")

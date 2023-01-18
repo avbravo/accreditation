@@ -6,6 +6,7 @@ package com.sft.accreditation.controller;
 
 import com.sft.model.District;
 import com.sft.repository.DistrictRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -43,6 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("district")
 @Tag(name = "Información del district", description = "End-point para entidad District")
+@RolesAllowed({"admin"})
 public class DistrictController {
 
     
@@ -68,6 +70,7 @@ public class DistrictController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<District> insert(@QueryParam("inicial") final Integer inicial) {
@@ -89,6 +92,7 @@ public class DistrictController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "districtesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los districtes",
@@ -106,6 +110,7 @@ public class DistrictController {
 
     // <editor-fold defaultstate="collapsed" desc="District findByIddistrict">
     @GET
+    @RolesAllowed({"admin"})
     @Path("{iddistrict}")
     @Operation(summary = "Busca un district por el iddistrict", description = "Busqueda de district por iddistrict")
     @APIResponse(responseCode = "200", description = "El district")
@@ -126,6 +131,7 @@ public class DistrictController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+    @RolesAllowed({"admin"})
     @Metered(name = "districtSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar district",
@@ -144,6 +150,7 @@ public class DistrictController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo district", description = "Inserta un nuevo district")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  district")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -158,6 +165,7 @@ public class DistrictController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{iddistrict}")
     @Operation(summary = "Elimina un district por  iddistrict", description = "Elimina un district por su iddistrict")
     @APIResponse(responseCode = "200", description = "Cuando elimina el district")

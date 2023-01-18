@@ -6,6 +6,7 @@ package com.sft.poa.controller;
 
 import com.sft.model.Tarjeta;
 import com.sft.repository.TarjetaRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -43,6 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("tarjeta")
 @Tag(name = "Información del tarjeta", description = "End-point para entidad Tarjeta")
+  @RolesAllowed({"admin"})
 public class TarjetaController {
 
     
@@ -68,6 +70,7 @@ public class TarjetaController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+      @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Tarjeta> insert(@QueryParam("inicial") final Integer inicial) {
@@ -89,6 +92,7 @@ public class TarjetaController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+      @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "tarjetaesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los tarjetaes",
@@ -106,6 +110,7 @@ public class TarjetaController {
 
     // <editor-fold defaultstate="collapsed" desc="Tarjeta findByIdtarjeta">
     @GET
+      @RolesAllowed({"admin"})
     @Path("{idtarjeta}")
     @Operation(summary = "Busca un tarjeta por el idtarjeta", description = "Busqueda de tarjeta por idtarjeta")
     @APIResponse(responseCode = "200", description = "El tarjeta")
@@ -126,6 +131,7 @@ public class TarjetaController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+      @RolesAllowed({"admin"})
     @Metered(name = "tarjetaSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar tarjeta",
@@ -144,6 +150,7 @@ public class TarjetaController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+      @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo tarjeta", description = "Inserta un nuevo tarjeta")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  tarjeta")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -158,6 +165,7 @@ public class TarjetaController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+      @RolesAllowed({"admin"})
     @Path("{idtarjeta}")
     @Operation(summary = "Elimina un tarjeta por  idtarjeta", description = "Elimina un tarjeta por su idtarjeta")
     @APIResponse(responseCode = "200", description = "Cuando elimina el tarjeta")

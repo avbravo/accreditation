@@ -6,6 +6,7 @@ package com.sft.accreditation.controller;
 
 import com.sft.model.Institution;
 import com.sft.repository.InstitutionRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -43,6 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("institution")
 @Tag(name = "Información del institution", description = "End-point para entidad Institution")
+@RolesAllowed({"admin"})
 public class InstitutionController {
 
     
@@ -68,6 +70,7 @@ public class InstitutionController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Institution> insert(@QueryParam("inicial") final Integer inicial) {
@@ -89,6 +92,7 @@ public class InstitutionController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "institutionesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los institutiones",
@@ -106,6 +110,7 @@ public class InstitutionController {
 
     // <editor-fold defaultstate="collapsed" desc="Institution findByIdinstitution">
     @GET
+    @RolesAllowed({"admin"})
     @Path("{idinstitution}")
     @Operation(summary = "Busca un institution por el idinstitution", description = "Busqueda de institution por idinstitution")
     @APIResponse(responseCode = "200", description = "El institution")
@@ -126,6 +131,7 @@ public class InstitutionController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+    @RolesAllowed({"admin"})
     @Metered(name = "institutionSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar institution",
@@ -144,6 +150,7 @@ public class InstitutionController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo institution", description = "Inserta un nuevo institution")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  institution")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -158,6 +165,7 @@ public class InstitutionController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{idinstitution}")
     @Operation(summary = "Elimina un institution por  idinstitution", description = "Elimina un institution por su idinstitution")
     @APIResponse(responseCode = "200", description = "Cuando elimina el institution")

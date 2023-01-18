@@ -6,6 +6,7 @@ package com.sft.poa.controller;
 
 import com.sft.model.Actividad;
 import com.sft.repository.ActividadRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -43,6 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("actividad")
 @Tag(name = "Información del actividad", description = "End-point para entidad Actividad")
+@RolesAllowed({"admin"})
 public class ActividadController {
 
     
@@ -68,6 +70,7 @@ public class ActividadController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Actividad> insert(@QueryParam("inicial") final Integer inicial) {
@@ -89,6 +92,7 @@ public class ActividadController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "actividadesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los actividades",
@@ -106,6 +110,7 @@ public class ActividadController {
 
     // <editor-fold defaultstate="collapsed" desc="Actividad findByIdactividad">
     @GET
+    @RolesAllowed({"admin"})
     @Path("{idactividad}")
     @Operation(summary = "Busca un actividad por el idactividad", description = "Busqueda de actividad por idactividad")
     @APIResponse(responseCode = "200", description = "El actividad")
@@ -126,6 +131,7 @@ public class ActividadController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+    @RolesAllowed({"admin"})
     @Metered(name = "actividadSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar actividad",
@@ -144,6 +150,7 @@ public class ActividadController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo actividad", description = "Inserta un nuevo actividad")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  actividad")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -158,6 +165,7 @@ public class ActividadController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{idactividad}")
     @Operation(summary = "Elimina un actividad por  idactividad", description = "Elimina un actividad por su idactividad")
     @APIResponse(responseCode = "200", description = "Cuando elimina el actividad")

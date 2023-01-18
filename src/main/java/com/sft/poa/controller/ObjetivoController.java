@@ -7,6 +7,7 @@ package com.sft.poa.controller;
 import com.sft.model.Area;
 import com.sft.model.Objetivo;
 import com.sft.repository.ObjetivoRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -45,6 +46,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("objetivo")
 @Tag(name = "Información del objetivo", description = "End-point para entidad Objetivo")
+@RolesAllowed({"admin"})
 public class ObjetivoController {
 
     
@@ -70,6 +72,7 @@ public class ObjetivoController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Objetivo> insert(@QueryParam("inicial") final Integer inicial) {
@@ -91,6 +94,7 @@ public class ObjetivoController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "objetivoesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los objetivoes",
@@ -109,6 +113,7 @@ public class ObjetivoController {
 
     // <editor-fold defaultstate="collapsed" desc="Objetivo findByIdobjetivo">
     @GET
+    @RolesAllowed({"admin"})
     @Path("{idobjetivo}")
     @Operation(summary = "Busca un objetivo por el idobjetivo", description = "Busqueda de objetivo por idobjetivo")
     @APIResponse(responseCode = "200", description = "El objetivo")
@@ -129,6 +134,7 @@ public class ObjetivoController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+    @RolesAllowed({"admin"})
     @Metered(name = "objetivoSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar objetivo",
@@ -147,6 +153,7 @@ public class ObjetivoController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo objetivo", description = "Inserta un nuevo objetivo")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  objetivo")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -161,6 +168,7 @@ public class ObjetivoController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{idobjetivo}")
     @Operation(summary = "Elimina un objetivo por  idobjetivo", description = "Elimina un objetivo por su idobjetivo")
     @APIResponse(responseCode = "200", description = "Cuando elimina el objetivo")

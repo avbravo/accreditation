@@ -6,6 +6,7 @@ package com.sft.accreditation.controller;
 
 import com.sft.model.Appconfiguration;
 import com.sft.repository.AppconfigurationRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -43,6 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("appconfiguration")
 @Tag(name = "Información del appconfiguration", description = "End-point para entidad Appconfiguration")
+@RolesAllowed({"admin"})
 public class AppconfigurationController {
 
     
@@ -69,6 +71,7 @@ public class AppconfigurationController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Appconfiguration> insert(@QueryParam("inicial") final Integer inicial) {
@@ -90,6 +93,7 @@ public class AppconfigurationController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "appconfigurationesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los appconfigurationes",
@@ -107,6 +111,7 @@ public class AppconfigurationController {
 
     // <editor-fold defaultstate="collapsed" desc="Appconfiguration findByIdappconfiguration">
     @GET
+    @RolesAllowed({"admin"})
     @Path("{idappconfiguration}")
     @Operation(summary = "Busca un appconfiguration por el idappconfiguration", description = "Busqueda de appconfiguration por idappconfiguration")
     @APIResponse(responseCode = "200", description = "El appconfiguration")
@@ -127,6 +132,7 @@ public class AppconfigurationController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+    @RolesAllowed({"admin"})
     @Metered(name = "appconfigurationSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar appconfiguration",
@@ -145,6 +151,7 @@ public class AppconfigurationController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo appconfiguration", description = "Inserta un nuevo appconfiguration")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  appconfiguration")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -159,6 +166,7 @@ public class AppconfigurationController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{idappconfiguration}")
     @Operation(summary = "Elimina un appconfiguration por  idappconfiguration", description = "Elimina un appconfiguration por su idappconfiguration")
     @APIResponse(responseCode = "200", description = "Cuando elimina el appconfiguration")

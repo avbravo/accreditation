@@ -6,6 +6,7 @@ package com.sft.accreditation.controller;
 
 import com.sft.model.Building;
 import com.sft.repository.BuildingRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -43,6 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("building")
 @Tag(name = "Información del building", description = "End-point para entidad Building")
+@RolesAllowed({"admin"})
 public class BuildingController {
     
     // <editor-fold defaultstate="collapsed" desc="Inject">
@@ -63,6 +65,7 @@ public class BuildingController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Building> insert(@QueryParam("inicial") final Integer inicial) {
@@ -84,6 +87,7 @@ public class BuildingController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "buildingesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los buildinges",
@@ -101,6 +105,7 @@ public class BuildingController {
 
     // <editor-fold defaultstate="collapsed" desc="Building findByIdbuilding">
     @GET
+    @RolesAllowed({"admin"})
     @Path("{idbuilding}")
     @Operation(summary = "Busca un building por el idbuilding", description = "Busqueda de building por idbuilding")
     @APIResponse(responseCode = "200", description = "El building")
@@ -121,6 +126,7 @@ public class BuildingController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+    @RolesAllowed({"admin"})
     @Metered(name = "buildingSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar building",
@@ -139,6 +145,7 @@ public class BuildingController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo building", description = "Inserta un nuevo building")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  building")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -153,6 +160,7 @@ public class BuildingController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{idbuilding}")
     @Operation(summary = "Elimina un building por  idbuilding", description = "Elimina un building por su idbuilding")
     @APIResponse(responseCode = "200", description = "Cuando elimina el building")

@@ -6,6 +6,7 @@ package com.sft.accreditation.controller;
 
 import com.sft.model.Otp;
 import com.sft.repository.OtpRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -43,6 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("otp")
 @Tag(name = "Información del otp", description = "End-point para entidad Otp")
+@RolesAllowed({"admin"})
 public class OtpController {
 
     
@@ -68,6 +70,7 @@ public class OtpController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Otp> insert(@QueryParam("inicial") final Integer inicial) {
@@ -89,6 +92,7 @@ public class OtpController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "otpesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los otpes",
@@ -106,6 +110,7 @@ public class OtpController {
 
     // <editor-fold defaultstate="collapsed" desc="Otp findByIdotp">
     @GET
+    @RolesAllowed({"admin"})
     @Path("{idotp}")
     @Operation(summary = "Busca un otp por el idotp", description = "Busqueda de otp por idotp")
     @APIResponse(responseCode = "200", description = "El otp")
@@ -126,6 +131,7 @@ public class OtpController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+    @RolesAllowed({"admin"})
     @Metered(name = "otpSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar otp",
@@ -144,6 +150,7 @@ public class OtpController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo otp", description = "Inserta un nuevo otp")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  otp")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -158,6 +165,7 @@ public class OtpController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{idotp}")
     @Operation(summary = "Elimina un otp por  idotp", description = "Elimina un otp por su idotp")
     @APIResponse(responseCode = "200", description = "Cuando elimina el otp")

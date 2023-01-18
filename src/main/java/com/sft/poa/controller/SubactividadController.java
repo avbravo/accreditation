@@ -6,6 +6,7 @@ package com.sft.poa.controller;
 
 import com.sft.model.Subactividad;
 import com.sft.repository.SubactividadRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -44,6 +45,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("subactividad")
 @Tag(name = "Información del subactividad", description = "End-point para entidad Subactividad")
+  @RolesAllowed({"admin"})
 public class SubactividadController {
 
     
@@ -69,6 +71,7 @@ public class SubactividadController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+      @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Subactividad> insert(@QueryParam("inicial") final Integer inicial) {
@@ -90,6 +93,7 @@ public class SubactividadController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+      @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "subactividadesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los subactividades",
@@ -107,6 +111,7 @@ public class SubactividadController {
 
     // <editor-fold defaultstate="collapsed" desc="Subactividad findByIdsubactividad">
     @GET
+      @RolesAllowed({"admin"})
     @Path("{idsubactividad}")
     @Operation(summary = "Busca un subactividad por el idsubactividad", description = "Busqueda de subactividad por idsubactividad")
     @APIResponse(responseCode = "200", description = "El subactividad")
@@ -127,6 +132,7 @@ public class SubactividadController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+      @RolesAllowed({"admin"})
     @Metered(name = "subactividadSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar subactividad",
@@ -145,6 +151,7 @@ public class SubactividadController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+      @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo subactividad", description = "Inserta un nuevo subactividad")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  subactividad")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -159,6 +166,7 @@ public class SubactividadController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+      @RolesAllowed({"admin"})
     @Path("{idsubactividad}")
     @Operation(summary = "Elimina un subactividad por  idsubactividad", description = "Elimina un subactividad por su idsubactividad")
     @APIResponse(responseCode = "200", description = "Cuando elimina el subactividad")

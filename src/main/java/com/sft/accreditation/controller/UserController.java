@@ -69,6 +69,7 @@ public class UserController {
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
+    @RolesAllowed({"admin"})
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
@@ -91,8 +92,9 @@ public class UserController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-        @RolesAllowed({"admin"})
+        
     @Timed(name = "useresFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los useres",
             unit = MetricUnits.MILLISECONDS, absolute = true)
@@ -109,6 +111,7 @@ public class UserController {
 
     // <editor-fold defaultstate="collapsed" desc="User findByIduser">
     @GET
+    @RolesAllowed({"admin"})
     @Path("{iduser}")
     @Operation(summary = "Busca un user por el iduser", description = "Busqueda de user por iduser")
     @APIResponse(responseCode = "200", description = "El user")
@@ -129,6 +132,7 @@ public class UserController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+    @RolesAllowed({"admin"})
     @Metered(name = "userSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar user",
@@ -147,6 +151,7 @@ public class UserController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo user", description = "Inserta un nuevo user")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  user")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -161,6 +166,7 @@ public class UserController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{iduser}")
     @Operation(summary = "Elimina un user por  iduser", description = "Elimina un user por su iduser")
     @APIResponse(responseCode = "200", description = "Cuando elimina el user")

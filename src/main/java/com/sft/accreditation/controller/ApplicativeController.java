@@ -6,6 +6,7 @@ package com.sft.accreditation.controller;
 
 import com.sft.model.Applicative;
 import com.sft.repository.ApplicativeRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -43,6 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("applicative")
 @Tag(name = "Información del applicative", description = "End-point para entidad Applicative")
+@RolesAllowed({"admin"})
 public class ApplicativeController {
 
     
@@ -68,6 +70,7 @@ public class ApplicativeController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Applicative> insert(@QueryParam("inicial") final Integer inicial) {
@@ -89,6 +92,7 @@ public class ApplicativeController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "applicativeesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los applicativees",
@@ -106,6 +110,7 @@ public class ApplicativeController {
 
     // <editor-fold defaultstate="collapsed" desc="Applicative findByIdapplicative">
     @GET
+    @RolesAllowed({"admin"})
     @Path("{idapplicative}")
     @Operation(summary = "Busca un applicative por el idapplicative", description = "Busqueda de applicative por idapplicative")
     @APIResponse(responseCode = "200", description = "El applicative")
@@ -126,6 +131,7 @@ public class ApplicativeController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+    @RolesAllowed({"admin"})
     @Metered(name = "applicativeSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar applicative",
@@ -144,6 +150,7 @@ public class ApplicativeController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo applicative", description = "Inserta un nuevo applicative")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  applicative")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -158,6 +165,7 @@ public class ApplicativeController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{idapplicative}")
     @Operation(summary = "Elimina un applicative por  idapplicative", description = "Elimina un applicative por su idapplicative")
     @APIResponse(responseCode = "200", description = "Cuando elimina el applicative")

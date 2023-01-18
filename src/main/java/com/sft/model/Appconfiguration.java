@@ -28,27 +28,31 @@ public class Appconfiguration {
     private Applicative applicative;
     
     @Referenced(from = "role", localField = "idrole")
-    private Role role;
+    private List<Role> role;
 
     
 
     public Appconfiguration() {
     }
 
-    public Appconfiguration(Long idappconfiguration, Boolean active, Applicative applicative, Role role) {
+    public Appconfiguration(Long idappconfiguration, Boolean active, Applicative applicative, List<Role> role) {
         this.idappconfiguration = idappconfiguration;
         this.active = active;
         this.applicative = applicative;
         this.role = role;
     }
 
-    public Role getRole() {
+    public List<Role> getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(List<Role> role) {
         this.role = role;
     }
+
+ 
+
+   
 
    
 
@@ -87,6 +91,8 @@ public class Appconfiguration {
         sb.append('}');
         return sb.toString();
     }
+
+   
 
   
 

@@ -6,6 +6,7 @@ package com.sft.poa.controller;
 
 import com.sft.model.Sprint;
 import com.sft.repository.SprintRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -43,6 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("sprint")
 @Tag(name = "Información del sprint", description = "End-point para entidad Sprint")
+  @RolesAllowed({"admin"})
 public class SprintController {
 
     
@@ -68,6 +70,7 @@ public class SprintController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+      @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Sprint> insert(@QueryParam("inicial") final Integer inicial) {
@@ -89,6 +92,7 @@ public class SprintController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+      @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "sprintesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los sprintes",
@@ -106,6 +110,7 @@ public class SprintController {
 
     // <editor-fold defaultstate="collapsed" desc="Sprint findByIdsprint">
     @GET
+      @RolesAllowed({"admin"})
     @Path("{idsprint}")
     @Operation(summary = "Busca un sprint por el idsprint", description = "Busqueda de sprint por idsprint")
     @APIResponse(responseCode = "200", description = "El sprint")
@@ -126,6 +131,7 @@ public class SprintController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+      @RolesAllowed({"admin"})
     @Metered(name = "sprintSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar sprint",
@@ -144,6 +150,7 @@ public class SprintController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+      @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo sprint", description = "Inserta un nuevo sprint")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  sprint")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -158,6 +165,7 @@ public class SprintController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{idsprint}")
     @Operation(summary = "Elimina un sprint por  idsprint", description = "Elimina un sprint por su idsprint")
     @APIResponse(responseCode = "200", description = "Cuando elimina el sprint")

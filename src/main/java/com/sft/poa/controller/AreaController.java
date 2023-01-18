@@ -6,6 +6,7 @@ package com.sft.poa.controller;
 
 import com.sft.model.Area;
 import com.sft.repository.AreaRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -43,6 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("area")
 @Tag(name = "Información del area", description = "End-point para entidad Area")
+@RolesAllowed({"admin"})
 public class AreaController {
 
     
@@ -68,6 +70,7 @@ public class AreaController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Area> insert(@QueryParam("inicial") final Integer inicial) {
@@ -89,6 +92,7 @@ public class AreaController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "areaesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los areaes",
@@ -106,6 +110,7 @@ public class AreaController {
 
     // <editor-fold defaultstate="collapsed" desc="Area findByIdarea">
     @GET
+    @RolesAllowed({"admin"})
     @Path("{idarea}")
     @Operation(summary = "Busca un area por el idarea", description = "Busqueda de area por idarea")
     @APIResponse(responseCode = "200", description = "El area")
@@ -126,6 +131,7 @@ public class AreaController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+    @RolesAllowed({"admin"})
     @Metered(name = "areaSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar area",
@@ -144,6 +150,7 @@ public class AreaController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo area", description = "Inserta un nuevo area")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  area")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -158,6 +165,7 @@ public class AreaController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{idarea}")
     @Operation(summary = "Elimina un area por  idarea", description = "Elimina un area por su idarea")
     @APIResponse(responseCode = "200", description = "Cuando elimina el area")

@@ -6,6 +6,7 @@ package com.sft.accreditation.controller;
 
 import com.sft.model.Zone;
 import com.sft.repository.ZoneRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -43,6 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("zone")
 @Tag(name = "Información del zone", description = "End-point para entidad Zone")
+@RolesAllowed({"admin"})
 public class ZoneController {
 
     
@@ -68,6 +70,7 @@ public class ZoneController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Zone> insert(@QueryParam("inicial") final Integer inicial) {
@@ -89,6 +92,7 @@ public class ZoneController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "zoneesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los zonees",
@@ -106,6 +110,7 @@ public class ZoneController {
 
     // <editor-fold defaultstate="collapsed" desc="Zone findByIdzone">
     @GET
+    @RolesAllowed({"admin"})
     @Path("{idzone}")
     @Operation(summary = "Busca un zone por el idzone", description = "Busqueda de zone por idzone")
     @APIResponse(responseCode = "200", description = "El zone")
@@ -126,6 +131,7 @@ public class ZoneController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+    @RolesAllowed({"admin"})
     @Metered(name = "zoneSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar zone",
@@ -144,6 +150,7 @@ public class ZoneController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo zone", description = "Inserta un nuevo zone")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  zone")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -158,6 +165,7 @@ public class ZoneController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{idzone}")
     @Operation(summary = "Elimina un zone por  idzone", description = "Elimina un zone por su idzone")
     @APIResponse(responseCode = "200", description = "Cuando elimina el zone")

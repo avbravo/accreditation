@@ -6,6 +6,7 @@ package com.sft.accreditation.controller;
 
 import com.sft.model.Headquarter;
 import com.sft.repository.HeadquarterRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -43,6 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("headquarter")
 @Tag(name = "Información del headquarter", description = "End-point para entidad Headquarter")
+@RolesAllowed({"admin"})
 public class HeadquarterController {
 
     
@@ -68,6 +70,7 @@ public class HeadquarterController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Headquarter> insert(@QueryParam("inicial") final Integer inicial) {
@@ -89,6 +92,7 @@ public class HeadquarterController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "headquarteresFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los headquarteres",
@@ -106,6 +110,7 @@ public class HeadquarterController {
 
     // <editor-fold defaultstate="collapsed" desc="Headquarter findByIdheadquarter">
     @GET
+    @RolesAllowed({"admin"})
     @Path("{idheadquarter}")
     @Operation(summary = "Busca un headquarter por el idheadquarter", description = "Busqueda de headquarter por idheadquarter")
     @APIResponse(responseCode = "200", description = "El headquarter")
@@ -126,6 +131,7 @@ public class HeadquarterController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+    @RolesAllowed({"admin"})
     @Metered(name = "headquarterSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar headquarter",
@@ -144,6 +150,7 @@ public class HeadquarterController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo headquarter", description = "Inserta un nuevo headquarter")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  headquarter")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -158,6 +165,7 @@ public class HeadquarterController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{idheadquarter}")
     @Operation(summary = "Elimina un headquarter por  idheadquarter", description = "Elimina un headquarter por su idheadquarter")
     @APIResponse(responseCode = "200", description = "Cuando elimina el headquarter")

@@ -6,6 +6,7 @@ package com.sft.accreditation.controller;
 
 import com.sft.model.Country;
 import com.sft.repository.CountryRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -43,6 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("country")
 @Tag(name = "Información del country", description = "End-point para entidad Country")
+@RolesAllowed({"admin"})
 public class CountryController {
 
     
@@ -68,6 +70,7 @@ public class CountryController {
     // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
     @Path("insert")
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public List<Country> insert(@QueryParam("inicial") final Integer inicial) {
@@ -89,6 +92,7 @@ public class CountryController {
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "countryesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los countryes",
@@ -106,6 +110,7 @@ public class CountryController {
 
     // <editor-fold defaultstate="collapsed" desc="Country findByIdcountry">
     @GET
+    @RolesAllowed({"admin"})
     @Path("{idcountry}")
     @Operation(summary = "Busca un country por el idcountry", description = "Busqueda de country por idcountry")
     @APIResponse(responseCode = "200", description = "El country")
@@ -126,6 +131,7 @@ public class CountryController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
+    @RolesAllowed({"admin"})
     @Metered(name = "countrySave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar country",
@@ -144,6 +150,7 @@ public class CountryController {
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo country", description = "Inserta un nuevo country")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  country")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -158,6 +165,7 @@ public class CountryController {
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
+    @RolesAllowed({"admin"})
     @Path("{idcountry}")
     @Operation(summary = "Elimina un country por  idcountry", description = "Elimina un country por su idcountry")
     @APIResponse(responseCode = "200", description = "Cuando elimina el country")
