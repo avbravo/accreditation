@@ -24,20 +24,17 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
  */
 @ApplicationScoped
 public class AuthentificactionIdentityStore implements IdentityStore {
-   
 
 // <editor-fold defaultstate="collapsed" fields ">
     String userAutentification;
     String passwordAutentification;
-    String secretKey="SCox1jmWrkma$*opne2Amwz";
+    String secretKey = "SCox1jmWrkma$*opne2Amwz";
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="@Inject">
-    
+
 //     @Inject
 //           LoggerServices loggerServices;
 // </editor-fold>
-
-    
     // <editor-fold defaultstate="collapsed" desc="Microprofile Config">
     @Inject
     private Config config;
@@ -48,42 +45,39 @@ public class AuthentificactionIdentityStore implements IdentityStore {
     @ConfigProperty(name = "passwordSecurity", defaultValue = "")
     private String passwordSecurity;
 
-
+//</editor-fold>
     // <editor-fold defaultstate="collapsed" desc="init">
     @PostConstruct
     public void init() {
         try {
-            
 
         } catch (Exception e) {
         }
 
     }
 
-   
     // </editor-fold> 
-     // <editor-fold defaultstate="collapsed" desc="CredentialValidationResult validate(UsernamePasswordCredential usernamePasswordCredential)">
+    // <editor-fold defaultstate="collapsed" desc="CredentialValidationResult validate(UsernamePasswordCredential usernamePasswordCredential)">
     public CredentialValidationResult validate(UsernamePasswordCredential usernamePasswordCredential) {
         try {
-            
-            /**
-             * Desencripta el usuario y password que viene del archivo microprofile-config
-             * y lo compara con el que viene del cliente.
-             */
 
+            /**
+             * Desencripta el usuario y password que viene del archivo
+             * microprofile-config y lo compara con el que viene del cliente.
+             */
             userAutentification = Encryptor.decrypt(userSecurity, secretKey);
-            passwordAutentification = Encryptor.decrypt(passwordSecurity,secretKey);
-         
+            passwordAutentification = Encryptor.decrypt(passwordSecurity, secretKey);
+
             if (usernamePasswordCredential.compareTo(userAutentification, passwordAutentification)) {
-         
+
                 return new CredentialValidationResult(userAutentification, new HashSet<>(asList("admin", "testing")));
-            }else{
+            } else {
                 System.out.println("No coinciden las credenciuales");
             }
         } catch (Exception e) {
 
-             System.out.println("validate() "+e.getLocalizedMessage());
-           
+            System.out.println("validate() " + e.getLocalizedMessage());
+
         }
 
         return INVALID_RESULT;
