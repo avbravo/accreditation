@@ -112,75 +112,23 @@
     -->
     
     
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>Developers pages</web-resource-name>
-            <url-pattern>/application/*</url-pattern>
-            
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>DEVELOPERS</role-name>
-            
-        </auth-constraint>
-    </security-constraint>
+  
     
-    <security-constraint>
+     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>Autoridad pages</web-resource-name>
-            <url-pattern>/autoridad/*</url-pattern>
+            <web-resource-name>Application pages</web-resource-name>
+            <url-pattern>/faces/pages/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>DIRECTOR</role-name>
-            <role-name>SUBDIRECTOR-ADMINISTRATIVO</role-name>
-            <role-name>DEVELOPERS</role-name>
+            <role-name>admin</role-name>
+            <role-name>testing</role-name>
         </auth-constraint>
     </security-constraint>
-
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>Colaborador Pages</web-resource-name>
-            <url-pattern>/colaborador/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>COLABORADOR</role-name>
-            <role-name>DEVELOPERS</role-name>
-        </auth-constraint>
-    </security-constraint>
-    
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>JefeUnidad Pages</web-resource-name>
-            <url-pattern>/jefeunidad/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>JEFE-UNIDAD</role-name>
-            <role-name>DEVELOPERS</role-name>
-        </auth-constraint>
-    </security-constraint>
-
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>Public pages</web-resource-name>
-            <url-pattern>/login.xhtml</url-pattern>
-            <url-pattern>/form.xhtml</url-pattern>
-            <url-pattern>/index.xhtml</url-pattern>
-        </web-resource-collection>
-    </security-constraint>
-
     <security-role>
-        <role-name>COLABORADOR</role-name>
+        <role-name>admin</role-name>
     </security-role>
     <security-role>
-        <role-name>JEFE-UNIDAD</role-name>
-    </security-role>
-    <security-role>
-        <role-name>SUBDIRECTOR-ADMINISTRATIVO</role-name>
-    </security-role>
-    <security-role>
-        <role-name>DIRECTOR</role-name>
-    </security-role>
-    <security-role>
-        <role-name>DEVELOPERS</role-name>
+        <role-name>testing</role-name>
     </security-role>
     
 </web-app>

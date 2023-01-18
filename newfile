@@ -1,0 +1,9 @@
+      //String encryptedString = Encryptor.encrypt(password, secretKey);
+//      System.out.println("Encriptar  usernamePasswordCredential.getCaller() "+ usernamePasswordCredential.getCaller());       
+//            System.out.println("Encriptar  usernamePasswordCredential.getPassword( "+ usernamePasswordCredential.getPasswordAsString());       
+//                  String userEncryptedString = Encryptor.encrypt(usernamePasswordCredential.getCaller(), secretKey);
+//                  String passwordEncryptedString = Encryptor.encrypt(usernamePasswordCredential.getPasswordAsString(), secretKey);
+//            System.out.println("userEncryptedString "+userEncryptedString);
+//            System.out.println("passwordEncryptedString "+passwordEncryptedString);
+//             // String decryptedString = Encryptor.decrypt(jWTEntity.getPassword(), secretKey);
+    

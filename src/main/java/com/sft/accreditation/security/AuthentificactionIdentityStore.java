@@ -41,7 +41,6 @@ public class AuthentificactionIdentityStore implements IdentityStore {
     // <editor-fold defaultstate="collapsed" desc="Microprofile Config">
     @Inject
     private Config config;
-    //otp
     @Inject
     @ConfigProperty(name = "userSecurity", defaultValue = "")
     private String userSecurity;
@@ -49,18 +48,7 @@ public class AuthentificactionIdentityStore implements IdentityStore {
     @ConfigProperty(name = "passwordSecurity", defaultValue = "")
     private String passwordSecurity;
 
-//    //#--Path Images
-//    @Inject
-//    @ConfigProperty(name = "pathBaseLinuxAddUserHomeLogger", defaultValue = "true")
-//    private Boolean pathBaseLinuxAddUserHomeLogger;
-//
-//    @Inject
-//    @ConfigProperty(name = "pathLinuxLogger", defaultValue = " ")
-//    private String pathLinuxLogger;
-//    @Inject
-//    @ConfigProperty(name = "pathWindowsLogger", defaultValue = " ")
-//    private String pathWindowsLogger;
- // </editor-fold>
+
     // <editor-fold defaultstate="collapsed" desc="init">
     @PostConstruct
     public void init() {
@@ -68,7 +56,6 @@ public class AuthentificactionIdentityStore implements IdentityStore {
             
 
         } catch (Exception e) {
-//            loggerServices.processException(JsfUtil.nameOfClass(), JsfUtil.nameOfMethod(), e, true); 
         }
 
     }
@@ -78,29 +65,23 @@ public class AuthentificactionIdentityStore implements IdentityStore {
      // <editor-fold defaultstate="collapsed" desc="CredentialValidationResult validate(UsernamePasswordCredential usernamePasswordCredential)">
     public CredentialValidationResult validate(UsernamePasswordCredential usernamePasswordCredential) {
         try {
-      //String encryptedString = Encryptor.encrypt(password, secretKey);
-      System.out.println("Encriptar  usernamePasswordCredential.getCaller() "+ usernamePasswordCredential.getCaller());       
-            System.out.println("Encriptar  usernamePasswordCredential.getPassword( "+ usernamePasswordCredential.getPasswordAsString());       
-                  String userEncryptedString = Encryptor.encrypt(usernamePasswordCredential.getCaller(), secretKey);
-                  String passwordEncryptedString = Encryptor.encrypt(usernamePasswordCredential.getPasswordAsString(), secretKey);
-            System.out.println("userEncryptedString "+userEncryptedString);
-            System.out.println("passwordEncryptedString "+passwordEncryptedString);
-             // String decryptedString = Encryptor.decrypt(jWTEntity.getPassword(), secretKey);
-    
+            
+            /**
+             * Desencripta el usuario y password que viene del archivo microprofile-config
+             * y lo compara con el que viene del cliente.
+             */
+
             userAutentification = Encryptor.decrypt(userSecurity, secretKey);
             passwordAutentification = Encryptor.decrypt(passwordSecurity,secretKey);
-            System.out.println("----microprofile------");
-            System.out.println("userAutentification desencriptado "+userAutentification);
-            System.out.println("passwordAutentificatio desencriptado "+passwordAutentification);
-            
+         
             if (usernamePasswordCredential.compareTo(userAutentification, passwordAutentification)) {
-                System.out.println("--> Coinciden las credenciales");
+         
                 return new CredentialValidationResult(userAutentification, new HashSet<>(asList("admin", "testing")));
             }else{
                 System.out.println("No coinciden las credenciuales");
             }
         } catch (Exception e) {
-//            loggerServices.processException(JsfUtil.nameOfClass(), JsfUtil.nameOfMethod(), e, true); 
+
              System.out.println("validate() "+e.getLocalizedMessage());
            
         }

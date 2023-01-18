@@ -44,7 +44,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("user")
 @Tag(name = "Información del user", description = "End-point para entidad User")
-//    @RolesAllowed({"admin"})
+@RolesAllowed({"admin"})
 public class UserController {
 
     
