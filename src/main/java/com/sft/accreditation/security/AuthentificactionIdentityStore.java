@@ -89,7 +89,10 @@ public class AuthentificactionIdentityStore implements IdentityStore {
     
             userAutentification = Encryptor.decrypt(userSecurity, secretKey);
             passwordAutentification = Encryptor.decrypt(passwordSecurity,secretKey);
-
+            System.out.println("----microprofile------");
+            System.out.println("userAutentification desencriptado "+userAutentification);
+            System.out.println("passwordAutentificatio desencriptado "+passwordAutentification);
+            
             if (usernamePasswordCredential.compareTo(userAutentification, passwordAutentification)) {
                 System.out.println("--> Coinciden las credenciales");
                 return new CredentialValidationResult(userAutentification, new HashSet<>(asList("admin", "testing")));
