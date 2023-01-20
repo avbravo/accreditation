@@ -23,7 +23,7 @@ java -jar payara-micro-6.2023.1.jar --deploy accreditation.war --outputUberJar a
 #Ejecutar el war
 
 
-java -jar /home/avbravo/software/payara/payara-micro-6.2023.1.jar  --deploy /home/avbravo/NetBeansProjects/u/utp/accreditation-stack/master/accreditation/target/accreditation.war --nocluster --logo --port 8080
+java -jar /home/avbravo/software/payara/payara-micro-6.2023.1.jar  --deploy /home/avbravo/NetBeansProjects/u/utp/accreditation-stack/master/accreditation/target/accreditation.war --nocluster --logo --port 9002
 
 
 #Crear  el Uberjar
