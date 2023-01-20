@@ -131,7 +131,7 @@ public class UserController {
 
     }
 // </editor-fold>
-//    // <editor-fold defaultstate="collapsed" desc="User findByUsername">
+    // <editor-fold defaultstate="collapsed" desc="User findByUsername">
     @GET
     @RolesAllowed({"admin"})
     @Path("username")
@@ -152,27 +152,7 @@ public class UserController {
 
     }
 //// </editor-fold>
-//    // <editor-fold defaultstate="collapsed" desc="User findByUsername">
-//    @GET
-//    @RolesAllowed({"admin"})
-//    @Path("/username/{username}")
-//    @Operation(summary = "Busca un user por el usernam", description = "Busqueda de user por iduser")
-//    @APIResponse(responseCode = "200", description = "El user")
-//    @APIResponse(responseCode = "404", description = "Cuando no existe el username")
-//    @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
-//    @Tag(name = "BETA", description = "Esta api esta en desarrollo")
-//    @APIResponse(description = "El user", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = User.class)))
-//    
-//   
-//    public User findByUsername(@Parameter(description = "El username", required = true, example = "1", schema = @Schema(type = SchemaType.STRING)) @PathParam("username") final String username) {
-//
-//
-//
-//        return userRepository.findByUsername(username).orElseThrow(
-//                () -> new WebApplicationException("No hay user con username " + username, Response.Status.NOT_FOUND));
-//
-//    }
-//// </editor-fold>
+
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST

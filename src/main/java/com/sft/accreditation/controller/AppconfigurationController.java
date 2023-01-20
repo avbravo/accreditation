@@ -4,7 +4,13 @@
  */
 package com.sft.accreditation.controller;
 
+import com.jmoordb.core.model.Pagination;
+import com.jmoordb.core.model.Search;
+import com.jmoordb.core.model.Sorted;
+import com.jmoordb.core.util.DocumentUtil;
+import com.jmoordb.core.util.MessagesUtil;
 import com.sft.model.Appconfiguration;
+import com.sft.model.User;
 import com.sft.repository.AppconfigurationRepository;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -22,6 +28,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.bson.Document;
 import org.eclipse.microprofile.metrics.Counter;
 import org.eclipse.microprofile.metrics.Histogram;
 import org.eclipse.microprofile.metrics.MetricRegistry;
@@ -47,13 +54,9 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 @RolesAllowed({"admin"})
 public class AppconfigurationController {
 
-    
     // <editor-fold defaultstate="collapsed" desc="Inject">
     @Inject
     AppconfigurationRepository appconfigurationRepository;
-    
-    
- 
 
     @Inject
     @Metric(name = "counter")
@@ -104,7 +107,7 @@ public class AppconfigurationController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     @APIResponse(description = "Los appconfigurationes", responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Collection.class, readOnly = true, description = "los appconfigurationes", required = true, name = "appconfigurationes")))
     public List<Appconfiguration> findAll() {
-        
+
         return appconfigurationRepository.findAll();
     }
 // </editor-fold>
@@ -130,6 +133,80 @@ public class AppconfigurationController {
     }
 // </editor-fold>
 
+//    // <editor-fold defaultstate="collapsed" desc="List<Appconfiguration> findByLookup()">
+//    @GET
+//    @RolesAllowed({"admin"})
+//    @Path("lookup")
+//    @Operation(summary = "Busca un appconfiguration", description = "Busqueda de user por search")
+//    @APIResponse(responseCode = "200", description = "El user")
+//    @APIResponse(responseCode = "404", description = "Cuando no existe la condicion en el search")
+//    @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
+//    @Tag(name = "BETA", description = "Esta api esta en desarrollo")
+//    @APIResponse(description = "El search", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Appconfiguration.class)))
+//
+////    public List<Appconfiguration> findByLookup(@Parameter(description = "search", required = true, example = "1", schema = @Schema(type = SchemaType.OBJECT)) @QueryParam("search") final Search search) {
+//    public List<Appconfiguration> findByLookup(
+//            @QueryParam("filter") final String filter,
+//            @QueryParam("sort") String sort,
+//            @QueryParam("page") Integer page,
+//            @QueryParam("size") Integer size) {
+//        System.out.println("Llego a al Microservices");
+//        
+//        System.out.println("=============================================");
+//        System.out.println("filter "+filter);
+//        System.out.println("----------------------------------");
+//        System.out.println("sort "+sort);
+//        System.out.println("--------------------------------------");
+//        System.out.println("page "+page);
+//        System.out.println("size"+size);
+//        System.out.println("=============================================");
+//        Pagination pagination = new Pagination(page, size);
+//        Document docFilter = DocumentUtil.jsonToDocument(filter);
+//        Document docSort = DocumentUtil.jsonToDocument(sort);
+//        Sorted sorted = new Sorted();
+//        sorted.setSort(docSort);
+//
+//        Search search = new Search();
+//        search.setFilter(docFilter);
+//        search.setSorted(sorted);
+//        search.setPagination(pagination);
+//
+//        return appconfigurationRepository.lookup(search);
+//
+//    }
+////// </editor-fold>
+    @GET
+    @Path("lookup")
+    @RolesAllowed({"admin"})
+    @Operation(summary = "Busca un appconfiguration", description = "Busqueda de user por search")
+    @APIResponse(responseCode = "200", description = "Appconfiguration")
+    @APIResponse(responseCode = "404", description = "Cuando no existe la condicion en el search")
+    @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
+    @Tag(name = "BETA", description = "Esta api esta en desarrollo")
+    @APIResponse(description = "El search", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Appconfiguration.class)))
+
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+
+    public List<Appconfiguration> lookup(@QueryParam("filter") String filter, @QueryParam("sort") String sort,
+            @QueryParam("page") Integer page, @QueryParam("size") Integer size) {
+        List<Appconfiguration> suggestions = new ArrayList<>();
+        try {
+
+        Search search = DocumentUtil.convertForLookup(filter, sort, page, size);
+        suggestions = appconfigurationRepository.lookup(search);
+
+        } catch (Exception e) {
+       
+          MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + "error: " + e.getLocalizedMessage());
+        }
+
+ 
+
+     
+
+        return suggestions;
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
     @RolesAllowed({"admin"})
@@ -144,7 +221,6 @@ public class AppconfigurationController {
     public Response save(
             @RequestBody(description = "Crea un nuevo appconfiguration.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Appconfiguration.class))) Appconfiguration appconfiguration) {
 
-
         return Response.status(Response.Status.CREATED).entity(appconfigurationRepository.save(appconfiguration)).build();
     }
 // </editor-fold>
@@ -158,7 +234,6 @@ public class AppconfigurationController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response update(
             @RequestBody(description = "Crea un nuevo appconfiguration.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Appconfiguration.class))) Appconfiguration appconfiguration) {
-
 
         return Response.status(Response.Status.CREATED).entity(appconfigurationRepository.save(appconfiguration)).build();
     }
@@ -178,5 +253,5 @@ public class AppconfigurationController {
         return Response.status(Response.Status.NO_CONTENT).build();
     }
     // </editor-fold>
-    
+
 }
