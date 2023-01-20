@@ -4,6 +4,9 @@
  */
 package com.sft.accreditation.controller;
 
+import com.jmoordb.core.model.Search;
+import com.jmoordb.core.util.DocumentUtil;
+import com.jmoordb.core.util.MessagesUtil;
 import com.sft.model.Role;
 import com.sft.repository.RoleRepository;
 import jakarta.annotation.security.RolesAllowed;
@@ -128,6 +131,37 @@ public class RoleController {
 
     }
 // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="List<Role> lookup(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size)">
+
+    @GET
+    @Path("lookup")
+    @RolesAllowed({"admin"})
+    @Operation(summary = "Busca un appconfiguration", description = "Busqueda de user por search")
+    @APIResponse(responseCode = "200", description = "Role")
+    @APIResponse(responseCode = "404", description = "Cuando no existe la condicion en el search")
+    @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
+    @Tag(name = "BETA", description = "Esta api esta en desarrollo")
+    @APIResponse(description = "El search", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Role.class)))
+
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+
+    public List<Role> lookup(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size) {
+        List<Role> suggestions = new ArrayList<>();
+        try {
+
+        Search search = DocumentUtil.convertForLookup(filter, sort, page, size);
+        suggestions = roleRepository.lookup(search);
+
+        } catch (Exception e) {
+       
+          MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + "error: " + e.getLocalizedMessage());
+        }
+
+        return suggestions;
+    }
+
+    // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST

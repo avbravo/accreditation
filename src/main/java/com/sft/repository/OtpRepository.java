@@ -4,9 +4,12 @@
  */
 package com.sft.repository;
 
+import com.jmoordb.core.annotation.repository.Lookup;
 import com.jmoordb.core.annotation.repository.Repository;
+import com.jmoordb.core.model.Search;
 import com.jmoordb.core.repository.CrudRepository;
 import com.sft.model.Otp;
+import java.util.List;
 
 /**
  *
@@ -14,5 +17,6 @@ import com.sft.model.Otp;
  */
 @Repository(entity = Otp.class)
 public interface OtpRepository extends CrudRepository<Otp, Long> {
-    
+       @Lookup
+public List<Otp> lookup(Search search);
 }

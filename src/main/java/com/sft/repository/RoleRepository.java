@@ -4,9 +4,12 @@
  */
 package com.sft.repository;
 
+import com.jmoordb.core.annotation.repository.Lookup;
 import com.jmoordb.core.annotation.repository.Repository;
+import com.jmoordb.core.model.Search;
 import com.jmoordb.core.repository.CrudRepository;
 import com.sft.model.Role;
+import java.util.List;
 
 /**
  *
@@ -14,5 +17,6 @@ import com.sft.model.Role;
  */
 @Repository(entity = Role.class)
 public interface RoleRepository extends CrudRepository<Role, Long> {
-    
+       @Lookup
+public List<Role> lookup(Search search);
 }

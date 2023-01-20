@@ -133,48 +133,8 @@ public class AppconfigurationController {
     }
 // </editor-fold>
 
-//    // <editor-fold defaultstate="collapsed" desc="List<Appconfiguration> findByLookup()">
-//    @GET
-//    @RolesAllowed({"admin"})
-//    @Path("lookup")
-//    @Operation(summary = "Busca un appconfiguration", description = "Busqueda de user por search")
-//    @APIResponse(responseCode = "200", description = "El user")
-//    @APIResponse(responseCode = "404", description = "Cuando no existe la condicion en el search")
-//    @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
-//    @Tag(name = "BETA", description = "Esta api esta en desarrollo")
-//    @APIResponse(description = "El search", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Appconfiguration.class)))
-//
-////    public List<Appconfiguration> findByLookup(@Parameter(description = "search", required = true, example = "1", schema = @Schema(type = SchemaType.OBJECT)) @QueryParam("search") final Search search) {
-//    public List<Appconfiguration> findByLookup(
-//            @QueryParam("filter") final String filter,
-//            @QueryParam("sort") String sort,
-//            @QueryParam("page") Integer page,
-//            @QueryParam("size") Integer size) {
-//        System.out.println("Llego a al Microservices");
-//        
-//        System.out.println("=============================================");
-//        System.out.println("filter "+filter);
-//        System.out.println("----------------------------------");
-//        System.out.println("sort "+sort);
-//        System.out.println("--------------------------------------");
-//        System.out.println("page "+page);
-//        System.out.println("size"+size);
-//        System.out.println("=============================================");
-//        Pagination pagination = new Pagination(page, size);
-//        Document docFilter = DocumentUtil.jsonToDocument(filter);
-//        Document docSort = DocumentUtil.jsonToDocument(sort);
-//        Sorted sorted = new Sorted();
-//        sorted.setSort(docSort);
-//
-//        Search search = new Search();
-//        search.setFilter(docFilter);
-//        search.setSorted(sorted);
-//        search.setPagination(pagination);
-//
-//        return appconfigurationRepository.lookup(search);
-//
-//    }
-////// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="List<Appconfiguration> lookup(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size)">
+
     @GET
     @Path("lookup")
     @RolesAllowed({"admin"})
@@ -187,8 +147,7 @@ public class AppconfigurationController {
 
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
-    public List<Appconfiguration> lookup(@QueryParam("filter") String filter, @QueryParam("sort") String sort,
-            @QueryParam("page") Integer page, @QueryParam("size") Integer size) {
+    public List<Appconfiguration> lookup(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size) {
         List<Appconfiguration> suggestions = new ArrayList<>();
         try {
 
@@ -200,13 +159,11 @@ public class AppconfigurationController {
           MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + "error: " + e.getLocalizedMessage());
         }
 
- 
-
-     
-
         return suggestions;
     }
 
+    // </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
     @RolesAllowed({"admin"})

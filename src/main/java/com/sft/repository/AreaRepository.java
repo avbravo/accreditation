@@ -4,9 +4,12 @@
  */
 package com.sft.repository;
 
+import com.jmoordb.core.annotation.repository.Lookup;
 import com.jmoordb.core.annotation.repository.Repository;
+import com.jmoordb.core.model.Search;
 import com.jmoordb.core.repository.CrudRepository;
 import com.sft.model.Area;
+import java.util.List;
 
 /**
  *
@@ -14,5 +17,6 @@ import com.sft.model.Area;
  */
 @Repository(database = "{mongodb.database1}", entity = Area.class)
 public interface AreaRepository extends CrudRepository<Area, Long>{
-    
+       @Lookup
+public List<Area> lookup(Search search);
 }

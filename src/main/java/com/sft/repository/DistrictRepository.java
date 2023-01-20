@@ -4,9 +4,12 @@
  */
 package com.sft.repository;
 
+import com.jmoordb.core.annotation.repository.Lookup;
 import com.jmoordb.core.annotation.repository.Repository;
+import com.jmoordb.core.model.Search;
 import com.jmoordb.core.repository.CrudRepository;
 import com.sft.model.District;
+import java.util.List;
 
 /**
  *
@@ -14,5 +17,6 @@ import com.sft.model.District;
  */
 @Repository(entity = District.class)
 public interface DistrictRepository extends CrudRepository<District, String> {
-    
+       @Lookup
+public List<District> lookup(Search search);
 }
