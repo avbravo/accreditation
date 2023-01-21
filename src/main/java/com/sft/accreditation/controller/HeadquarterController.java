@@ -70,28 +70,7 @@ public class HeadquarterController {
     private MetricRegistry registry;
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
-    @Path("insert")
-    @GET
-    @RolesAllowed({"admin"})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-
-    public List<Headquarter> insert(@QueryParam("inicial") final Integer inicial) {
-//
-//        Integer limiteFactor = 13545;
-//
-//        Integer maximo = inicial + limiteFactor;
-//        for (int i = inicial; i <= maximo; i++) {
-//
-//            Headquarter headquarter = new Headquarter();
-//            headquarter.setIdheadquarter(JmoordbCoreUtil.integerToLong(i));
-//            headquarter.setHeadquarter("Headquarter - " + headquarter.getIdheadquarter());
-//            headquarter.setFecha(new Date());
-//            headquarterRepository.save(headquarter);
-//        }
-        return new ArrayList<>();
-    }
-// </editor-fold>
+   
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET

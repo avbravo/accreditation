@@ -71,28 +71,7 @@ public class AppmoduleconfigurationController {
     private MetricRegistry registry;
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
-    @Path("insert")
-    @GET
-    @RolesAllowed({"admin"})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
-    public List<Appmoduleconfiguration> insert(@QueryParam("inicial") final Integer inicial) {
-//
-//        Integer limiteFactor = 13545;
-//
-//        Integer maximo = inicial + limiteFactor;
-//        for (int i = inicial; i <= maximo; i++) {
-//
-//            Appmoduleconfiguration appmoduleconfiguration = new Appmoduleconfiguration();
-//            appmoduleconfiguration.setIdappmoduleconfiguration(JmoordbCoreUtil.integerToLong(i));
-//            appmoduleconfiguration.setAppmoduleconfiguration("Appmoduleconfiguration - " + appmoduleconfiguration.getIdappmoduleconfiguration());
-//            appmoduleconfiguration.setFecha(new Date());
-//            appmoduleconfigurationRepository.save(appmoduleconfiguration);
-//        }
-        return new ArrayList<>();
-    }
-// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET

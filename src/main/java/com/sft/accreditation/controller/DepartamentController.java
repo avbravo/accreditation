@@ -70,28 +70,7 @@ public class DepartamentController {
     private MetricRegistry registry;
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
-    @Path("insert")
-    @GET
-    @RolesAllowed({"admin"})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-
-    public List<Departament> insert(@QueryParam("inicial") final Integer inicial) {
-//
-//        Integer limiteFactor = 13545;
-//
-//        Integer maximo = inicial + limiteFactor;
-//        for (int i = inicial; i <= maximo; i++) {
-//
-//            Departament departament = new Departament();
-//            departament.setIddepartament(JmoordbCoreUtil.integerToLong(i));
-//            departament.setDepartament("Departament - " + departament.getIddepartament());
-//            departament.setFecha(new Date());
-//            departamentRepository.save(departament);
-//        }
-        return new ArrayList<>();
-    }
-// </editor-fold>
+  
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET

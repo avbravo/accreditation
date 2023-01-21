@@ -70,28 +70,7 @@ public class ProvinceController {
     private MetricRegistry registry;
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
-    @Path("insert")
-    @GET
-    @RolesAllowed({"admin"})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-
-    public List<Province> insert(@QueryParam("inicial") final Integer inicial) {
-//
-//        Integer limiteFactor = 13545;
-//
-//        Integer maximo = inicial + limiteFactor;
-//        for (int i = inicial; i <= maximo; i++) {
-//
-//            Province province = new Province();
-//            province.setIdprovince(JmoordbCoreUtil.integerToLong(i));
-//            province.setProvince("Province - " + province.getIdprovince());
-//            province.setFecha(new Date());
-//            provinceRepository.save(province);
-//        }
-        return new ArrayList<>();
-    }
-// </editor-fold>
+   
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET

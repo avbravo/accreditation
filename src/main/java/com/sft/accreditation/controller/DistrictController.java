@@ -70,28 +70,7 @@ public class DistrictController {
     private MetricRegistry registry;
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
-    @Path("insert")
-    @GET
-    @RolesAllowed({"admin"})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-
-    public List<District> insert(@QueryParam("inicial") final Integer inicial) {
-//
-//        Integer limiteFactor = 13545;
-//
-//        Integer maximo = inicial + limiteFactor;
-//        for (int i = inicial; i <= maximo; i++) {
-//
-//            District district = new District();
-//            district.setIddistrict(JmoordbCoreUtil.integerToLong(i));
-//            district.setDistrict("District - " + district.getIddistrict());
-//            district.setFecha(new Date());
-//            districtRepository.save(district);
-//        }
-        return new ArrayList<>();
-    }
-// </editor-fold>
+ 
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET

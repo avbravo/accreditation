@@ -5,7 +5,6 @@
 package com.sft.model;
 
 import com.jmoordb.core.annotation.Column;
-import com.jmoordb.core.annotation.Embedded;
 import com.jmoordb.core.annotation.Entity;
 import com.jmoordb.core.annotation.Id;
 import com.jmoordb.core.annotation.Referenced;

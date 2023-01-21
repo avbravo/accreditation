@@ -70,28 +70,7 @@ public class OtpController {
     private MetricRegistry registry;
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
-    @Path("insert")
-    @GET
-    @RolesAllowed({"admin"})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-
-    public List<Otp> insert(@QueryParam("inicial") final Integer inicial) {
-//
-//        Integer limiteFactor = 13545;
-//
-//        Integer maximo = inicial + limiteFactor;
-//        for (int i = inicial; i <= maximo; i++) {
-//
-//            Otp otp = new Otp();
-//            otp.setIdotp(JmoordbCoreUtil.integerToLong(i));
-//            otp.setOtp("Otp - " + otp.getIdotp());
-//            otp.setFecha(new Date());
-//            otpRepository.save(otp);
-//        }
-        return new ArrayList<>();
-    }
-// </editor-fold>
+   
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET

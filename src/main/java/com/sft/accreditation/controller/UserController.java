@@ -70,28 +70,7 @@ public class UserController {
     private MetricRegistry registry;
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
-    @Path("insert")
-    @RolesAllowed({"admin"})
-    @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
-    public List<User> insert(@QueryParam("inicial") final Integer inicial) {
-//
-//        Integer limiteFactor = 13545;
-//
-//        Integer maximo = inicial + limiteFactor;
-//        for (int i = inicial; i <= maximo; i++) {
-//
-//            User user = new User();
-//            user.setIduser(JmoordbCoreUtil.integerToLong(i));
-//            user.setUser("User - " + user.getIduser());
-//            user.setFecha(new Date());
-//            userRepository.save(user);
-//        }
-        return new ArrayList<>();
-    }
-// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET

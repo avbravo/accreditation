@@ -70,28 +70,7 @@ public class InstitutionController {
     private MetricRegistry registry;
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
-    @Path("insert")
-    @GET
-    @RolesAllowed({"admin"})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
-    public List<Institution> insert(@QueryParam("inicial") final Integer inicial) {
-//
-//        Integer limiteFactor = 13545;
-//
-//        Integer maximo = inicial + limiteFactor;
-//        for (int i = inicial; i <= maximo; i++) {
-//
-//            Institution institution = new Institution();
-//            institution.setIdinstitution(JmoordbCoreUtil.integerToLong(i));
-//            institution.setInstitution("Institution - " + institution.getIdinstitution());
-//            institution.setFecha(new Date());
-//            institutionRepository.save(institution);
-//        }
-        return new ArrayList<>();
-    }
-// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET

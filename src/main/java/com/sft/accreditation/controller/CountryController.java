@@ -70,28 +70,7 @@ public class CountryController {
     private MetricRegistry registry;
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
-    @Path("insert")
-    @GET
-    @RolesAllowed({"admin"})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
-    public List<Country> insert(@QueryParam("inicial") final Integer inicial) {
-//
-//        Integer limiteFactor = 13545;
-//
-//        Integer maximo = inicial + limiteFactor;
-//        for (int i = inicial; i <= maximo; i++) {
-//
-//            Country country = new Country();
-//            country.setIdcountry(JmoordbCoreUtil.integerToLong(i));
-//            country.setCountry("Country - " + country.getIdcountry());
-//            country.setFecha(new Date());
-//            countryRepository.save(country);
-//        }
-        return new ArrayList<>();
-    }
-// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET

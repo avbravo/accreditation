@@ -65,28 +65,7 @@ public class BuildingController {
     private MetricRegistry registry;
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
-    @Path("insert")
-    @GET
-    @RolesAllowed({"admin"})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
-    public List<Building> insert(@QueryParam("inicial") final Integer inicial) {
-//
-//        Integer limiteFactor = 13545;
-//
-//        Integer maximo = inicial + limiteFactor;
-//        for (int i = inicial; i <= maximo; i++) {
-//
-//            Building building = new Building();
-//            building.setIdbuilding(JmoordbCoreUtil.integerToLong(i));
-//            building.setBuilding("Building - " + building.getIdbuilding());
-//            building.setFecha(new Date());
-//            buildingRepository.save(building);
-//        }
-        return new ArrayList<>();
-    }
-// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
