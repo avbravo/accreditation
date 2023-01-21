@@ -57,17 +57,6 @@ public class UserController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "iduserhistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de iduser con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
 
 // </editor-fold>
 

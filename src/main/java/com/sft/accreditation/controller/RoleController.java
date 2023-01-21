@@ -57,17 +57,6 @@ public class RoleController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "idrolehistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de idrole con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
 
 // </editor-fold>
 
@@ -103,7 +92,7 @@ public class RoleController {
     public Role findByIdrole(
             @Parameter(description = "El idrole", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idrole") Long idrole) {
 
-        counter.inc();
+   
 
         return roleRepository.findByPk(idrole).orElseThrow(
                 () -> new WebApplicationException("No hay role con idrole " + idrole, Response.Status.NOT_FOUND));

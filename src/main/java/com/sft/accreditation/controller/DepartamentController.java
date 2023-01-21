@@ -57,16 +57,7 @@ public class DepartamentController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "iddepartamenthistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de iddepartament con paginación")
-    private Histogram histogram;
-
-    @Inject
+   
     private MetricRegistry registry;
 
 // </editor-fold>
@@ -103,7 +94,7 @@ public class DepartamentController {
     public Departament findByIddepartament(
             @Parameter(description = "El iddepartament", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("iddepartament") Long iddepartament) {
 
-        counter.inc();
+      
 
         return departamentRepository.findByPk(iddepartament).orElseThrow(
                 () -> new WebApplicationException("No hay departament con iddepartament " + iddepartament, Response.Status.NOT_FOUND));

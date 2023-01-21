@@ -58,17 +58,7 @@ public class AppconfigurationController {
     @Inject
     AppconfigurationRepository appconfigurationRepository;
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "idappconfigurationhistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de idappconfiguration con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
+   
 
 // </editor-fold>
 
@@ -104,7 +94,7 @@ public class AppconfigurationController {
     public Appconfiguration findByIdappconfiguration(
             @Parameter(description = "El idappconfiguration", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idappconfiguration") Long idappconfiguration) {
 
-        counter.inc();
+      
 
         return appconfigurationRepository.findByPk(idappconfiguration).orElseThrow(
                 () -> new WebApplicationException("No hay appconfiguration con idappconfiguration " + idappconfiguration, Response.Status.NOT_FOUND));

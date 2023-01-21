@@ -58,17 +58,7 @@ public class ZoneController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "idzonehistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de idzone con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
+  
 
 // </editor-fold>
 
@@ -104,7 +94,7 @@ public class ZoneController {
     public Zone findByIdzone(
             @Parameter(description = "El idzone", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idzone") Long idzone) {
 
-        counter.inc();
+ 
 
         return zoneRepository.findByPk(idzone).orElseThrow(
                 () -> new WebApplicationException("No hay zone con idzone " + idzone, Response.Status.NOT_FOUND));

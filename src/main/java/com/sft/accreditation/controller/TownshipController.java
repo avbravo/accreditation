@@ -58,17 +58,7 @@ public class TownshipController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "idtownshiphistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de idtownship con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
+  
 
 // </editor-fold>
  
@@ -104,7 +94,7 @@ public class TownshipController {
     public Township findByIdtownship(
             @Parameter(description = "El idtownship", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idtownship") Long idtownship) {
 
-        counter.inc();
+      
 
         return townshipRepository.findByPk(idtownship).orElseThrow(
                 () -> new WebApplicationException("No hay township con idtownship " + idtownship, Response.Status.NOT_FOUND));

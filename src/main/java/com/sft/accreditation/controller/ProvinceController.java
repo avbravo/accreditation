@@ -57,17 +57,6 @@ public class ProvinceController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "idprovincehistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de idprovince con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
 
 // </editor-fold>
    
@@ -103,7 +92,7 @@ public class ProvinceController {
     public Province findByIdprovince(
             @Parameter(description = "El idprovince", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idprovince") Long idprovince) {
 
-        counter.inc();
+       
 
         return provinceRepository.findByPk(idprovince).orElseThrow(
                 () -> new WebApplicationException("No hay province con idprovince " + idprovince, Response.Status.NOT_FOUND));

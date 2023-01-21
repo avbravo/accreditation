@@ -57,15 +57,7 @@ public class ApplicativeController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "idapplicativehistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de idapplicative con paginación")
-    private Histogram histogram;
-
+    
     @Inject
     private MetricRegistry registry;
 
@@ -103,7 +95,7 @@ public class ApplicativeController {
     public Applicative findByIdapplicative(
             @Parameter(description = "El idapplicative", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idapplicative") Long idapplicative) {
 
-        counter.inc();
+    
 
         return applicativeRepository.findByPk(idapplicative).orElseThrow(
                 () -> new WebApplicationException("No hay applicative con idapplicative " + idapplicative, Response.Status.NOT_FOUND));

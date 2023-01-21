@@ -57,17 +57,6 @@ public class CountryController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "idcountryhistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de idcountry con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
 
 // </editor-fold>
 
@@ -103,7 +92,7 @@ public class CountryController {
     public Country findByIdcountry(
             @Parameter(description = "El idcountry", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idcountry") String idcountry) {
 
-        counter.inc();
+    
 
         return countryRepository.findByPk(idcountry).orElseThrow(
                 () -> new WebApplicationException("No hay country con idcountry " + idcountry, Response.Status.NOT_FOUND));

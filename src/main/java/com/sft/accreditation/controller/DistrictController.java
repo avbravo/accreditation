@@ -57,17 +57,6 @@ public class DistrictController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "iddistricthistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de iddistrict con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
 
 // </editor-fold>
  
@@ -103,7 +92,7 @@ public class DistrictController {
     public District findByIddistrict(
             @Parameter(description = "El iddistrict", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("iddistrict") String iddistrict) {
 
-        counter.inc();
+     
 
         return districtRepository.findByPk(iddistrict).orElseThrow(
                 () -> new WebApplicationException("No hay district con iddistrict " + iddistrict, Response.Status.NOT_FOUND));

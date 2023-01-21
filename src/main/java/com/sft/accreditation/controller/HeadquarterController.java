@@ -57,17 +57,7 @@ public class HeadquarterController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "idheadquarterhistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de idheadquarter con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
+   
 
 // </editor-fold>
    
@@ -103,7 +93,7 @@ public class HeadquarterController {
     public Headquarter findByIdheadquarter(
             @Parameter(description = "El idheadquarter", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idheadquarter") Long idheadquarter) {
 
-        counter.inc();
+      
 
         return headquarterRepository.findByPk(idheadquarter).orElseThrow(
                 () -> new WebApplicationException("No hay headquarter con idheadquarter " + idheadquarter, Response.Status.NOT_FOUND));

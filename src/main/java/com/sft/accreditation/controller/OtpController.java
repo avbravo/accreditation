@@ -57,17 +57,7 @@ public class OtpController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "idotphistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de idotp con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
+   
 
 // </editor-fold>
    
@@ -103,7 +93,7 @@ public class OtpController {
     public Otp findByIdotp(
             @Parameter(description = "El idotp", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idotp") Long idotp) {
 
-        counter.inc();
+   
 
         return otpRepository.findByPk(idotp).orElseThrow(
                 () -> new WebApplicationException("No hay otp con idotp " + idotp, Response.Status.NOT_FOUND));

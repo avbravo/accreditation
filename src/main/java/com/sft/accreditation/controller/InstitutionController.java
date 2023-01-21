@@ -57,17 +57,6 @@ public class InstitutionController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "idinstitutionhistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de idinstitution con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
 
 // </editor-fold>
 
@@ -103,7 +92,7 @@ public class InstitutionController {
     public Institution findByIdinstitution(
             @Parameter(description = "El idinstitution", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idinstitution") Long idinstitution) {
 
-        counter.inc();
+
 
         return institutionRepository.findByPk(idinstitution).orElseThrow(
                 () -> new WebApplicationException("No hay institution con idinstitution " + idinstitution, Response.Status.NOT_FOUND));

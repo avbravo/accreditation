@@ -58,18 +58,6 @@ public class AppmoduleconfigurationController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "idappmoduleconfigurationhistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de idappmoduleconfiguration con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
-
 // </editor-fold>
 
 
@@ -104,7 +92,7 @@ public class AppmoduleconfigurationController {
     public Appmoduleconfiguration findByIdappmoduleconfiguration(
             @Parameter(description = "El idappmoduleconfiguration", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idappmoduleconfiguration") Long idappmoduleconfiguration) {
 
-        counter.inc();
+      
 
         return appmoduleconfigurationRepository.findByPk(idappmoduleconfiguration).orElseThrow(
                 () -> new WebApplicationException("No hay appmoduleconfiguration con idappmoduleconfiguration " + idappmoduleconfiguration, Response.Status.NOT_FOUND));
