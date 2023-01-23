@@ -67,28 +67,7 @@ public class ActividadController {
     private MetricRegistry registry;
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
-    @Path("insert")
-    @GET
-    @RolesAllowed({"admin"})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
-    public List<Actividad> insert(@QueryParam("inicial") final Integer inicial) {
-//
-//        Integer limiteFactor = 13545;
-//
-//        Integer maximo = inicial + limiteFactor;
-//        for (int i = inicial; i <= maximo; i++) {
-//
-//            Actividad actividad = new Actividad();
-//            actividad.setIdactividad(JmoordbCoreUtil.integerToLong(i));
-//            actividad.setActividad("Actividad - " + actividad.getIdactividad());
-//            actividad.setFecha(new Date());
-//            actividadRepository.save(actividad);
-//        }
-        return new ArrayList<>();
-    }
-// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
@@ -159,7 +138,7 @@ public class ActividadController {
             @RequestBody(description = "Crea un nuevo actividad.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Actividad.class))) Actividad actividad) {
 
 
-        return Response.status(Response.Status.CREATED).entity(actividadRepository.save(actividad)).build();
+        return Response.status(Response.Status.CREATED).entity(actividadRepository.update(actividad)).build();
     }
 // </editor-fold>
 

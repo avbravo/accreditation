@@ -163,7 +163,7 @@ public class TownshipController {
             @RequestBody(description = "Crea un nuevo township.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Township.class))) Township township) {
 
 
-        return Response.status(Response.Status.CREATED).entity(townshipRepository.save(township)).build();
+        return Response.status(Response.Status.CREATED).entity(townshipRepository.update(township)).build();
     }
 // </editor-fold>
 

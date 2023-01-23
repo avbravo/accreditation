@@ -133,7 +133,7 @@ public class ApplicativeController {
             @RequestBody(description = "Crea un nuevo applicative.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Applicative.class))) Applicative applicative) {
 
 
-        return Response.status(Response.Status.CREATED).entity(applicativeRepository.save(applicative)).build();
+        return Response.status(Response.Status.CREATED).entity(applicativeRepository.update(applicative)).build();
     }
 // </editor-fold>
 

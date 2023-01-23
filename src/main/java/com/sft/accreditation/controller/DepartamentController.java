@@ -163,7 +163,7 @@ public class DepartamentController {
             @RequestBody(description = "Crea un nuevo departament.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Departament.class))) Departament departament) {
 
 
-        return Response.status(Response.Status.CREATED).entity(departamentRepository.save(departament)).build();
+        return Response.status(Response.Status.CREATED).entity(departamentRepository.update(departament)).build();
     }
 // </editor-fold>
 

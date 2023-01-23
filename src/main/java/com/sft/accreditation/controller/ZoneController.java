@@ -163,7 +163,7 @@ public class ZoneController {
             @RequestBody(description = "Crea un nuevo zone.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Zone.class))) Zone zone) {
 
 
-        return Response.status(Response.Status.CREATED).entity(zoneRepository.save(zone)).build();
+        return Response.status(Response.Status.CREATED).entity(zoneRepository.update(zone)).build();
     }
 // </editor-fold>
 

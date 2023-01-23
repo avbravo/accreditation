@@ -161,7 +161,7 @@ public class ProvinceController {
             @RequestBody(description = "Crea un nuevo province.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Province.class))) Province province) {
 
 
-        return Response.status(Response.Status.CREATED).entity(provinceRepository.save(province)).build();
+        return Response.status(Response.Status.CREATED).entity(provinceRepository.update(province)).build();
     }
 // </editor-fold>
 

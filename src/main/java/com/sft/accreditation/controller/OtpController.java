@@ -162,7 +162,7 @@ public class OtpController {
             @RequestBody(description = "Crea un nuevo otp.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Otp.class))) Otp otp) {
 
 
-        return Response.status(Response.Status.CREATED).entity(otpRepository.save(otp)).build();
+        return Response.status(Response.Status.CREATED).entity(otpRepository.update(otp)).build();
     }
 // </editor-fold>
 

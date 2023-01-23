@@ -67,28 +67,7 @@ public class SprintController {
     private MetricRegistry registry;
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
-    @Path("insert")
-    @GET
-      @RolesAllowed({"admin"})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
-    public List<Sprint> insert(@QueryParam("inicial") final Integer inicial) {
-//
-//        Integer limiteFactor = 13545;
-//
-//        Integer maximo = inicial + limiteFactor;
-//        for (int i = inicial; i <= maximo; i++) {
-//
-//            Sprint sprint = new Sprint();
-//            sprint.setIdsprint(JmoordbCoreUtil.integerToLong(i));
-//            sprint.setSprint("Sprint - " + sprint.getIdsprint());
-//            sprint.setFecha(new Date());
-//            sprintRepository.save(sprint);
-//        }
-        return new ArrayList<>();
-    }
-// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
@@ -159,7 +138,7 @@ public class SprintController {
             @RequestBody(description = "Crea un nuevo sprint.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Sprint.class))) Sprint sprint) {
 
 
-        return Response.status(Response.Status.CREATED).entity(sprintRepository.save(sprint)).build();
+        return Response.status(Response.Status.CREATED).entity(sprintRepository.update(sprint)).build();
     }
 // </editor-fold>
 

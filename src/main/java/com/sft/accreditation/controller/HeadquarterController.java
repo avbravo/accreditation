@@ -162,7 +162,7 @@ public class HeadquarterController {
             @RequestBody(description = "Crea un nuevo headquarter.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Headquarter.class))) Headquarter headquarter) {
 
 
-        return Response.status(Response.Status.CREATED).entity(headquarterRepository.save(headquarter)).build();
+        return Response.status(Response.Status.CREATED).entity(headquarterRepository.update(headquarter)).build();
     }
 // </editor-fold>
 

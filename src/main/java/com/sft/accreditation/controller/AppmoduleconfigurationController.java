@@ -161,7 +161,7 @@ public class AppmoduleconfigurationController {
             @RequestBody(description = "Crea un nuevo appmoduleconfiguration.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Appmoduleconfiguration.class))) Appmoduleconfiguration appmoduleconfiguration) {
 
 
-        return Response.status(Response.Status.CREATED).entity(appmoduleconfigurationRepository.save(appmoduleconfiguration)).build();
+        return Response.status(Response.Status.CREATED).entity(appmoduleconfigurationRepository.update(appmoduleconfiguration)).build();
     }
 // </editor-fold>
 

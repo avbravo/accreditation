@@ -161,7 +161,7 @@ public class BuildingController {
             @RequestBody(description = "Crea un nuevo building.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Building.class))) Building building) {
 
 
-        return Response.status(Response.Status.CREATED).entity(buildingRepository.save(building)).build();
+        return Response.status(Response.Status.CREATED).entity(buildingRepository.update(building)).build();
     }
 // </editor-fold>
 

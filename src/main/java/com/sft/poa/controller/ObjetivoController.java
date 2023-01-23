@@ -69,28 +69,7 @@ public class ObjetivoController {
     private MetricRegistry registry;
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
-    @Path("insert")
-    @GET
-    @RolesAllowed({"admin"})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
-    public List<Objetivo> insert(@QueryParam("inicial") final Integer inicial) {
-//
-//        Integer limiteFactor = 13545;
-//
-//        Integer maximo = inicial + limiteFactor;
-//        for (int i = inicial; i <= maximo; i++) {
-//
-//            Objetivo objetivo = new Objetivo();
-//            objetivo.setIdobjetivo(JmoordbCoreUtil.integerToLong(i));
-//            objetivo.setObjetivo("Objetivo - " + objetivo.getIdobjetivo());
-//            objetivo.setFecha(new Date());
-//            objetivoRepository.save(objetivo);
-//        }
-        return new ArrayList<>();
-    }
-// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
@@ -162,7 +141,7 @@ public class ObjetivoController {
             @RequestBody(description = "Crea un nuevo objetivo.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Objetivo.class))) Objetivo objetivo) {
 
 
-        return Response.status(Response.Status.CREATED).entity(objetivoRepository.save(objetivo)).build();
+        return Response.status(Response.Status.CREATED).entity(objetivoRepository.update(objetivo)).build();
     }
 // </editor-fold>
 

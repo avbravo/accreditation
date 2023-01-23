@@ -67,28 +67,8 @@ public class TarjetaController {
     private MetricRegistry registry;
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
-    @Path("insert")
-    @GET
-      @RolesAllowed({"admin"})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
-    public List<Tarjeta> insert(@QueryParam("inicial") final Integer inicial) {
-//
-//        Integer limiteFactor = 13545;
-//
-//        Integer maximo = inicial + limiteFactor;
-//        for (int i = inicial; i <= maximo; i++) {
-//
-//            Tarjeta tarjeta = new Tarjeta();
-//            tarjeta.setIdtarjeta(JmoordbCoreUtil.integerToLong(i));
-//            tarjeta.setTarjeta("Tarjeta - " + tarjeta.getIdtarjeta());
-//            tarjeta.setFecha(new Date());
-//            tarjetaRepository.save(tarjeta);
-//        }
-        return new ArrayList<>();
-    }
-// </editor-fold>
+
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
@@ -159,7 +139,7 @@ public class TarjetaController {
             @RequestBody(description = "Crea un nuevo tarjeta.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Tarjeta.class))) Tarjeta tarjeta) {
 
 
-        return Response.status(Response.Status.CREATED).entity(tarjetaRepository.save(tarjeta)).build();
+        return Response.status(Response.Status.CREATED).entity(tarjetaRepository.update(tarjeta)).build();
     }
 // </editor-fold>
 

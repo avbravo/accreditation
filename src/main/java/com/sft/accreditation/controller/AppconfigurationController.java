@@ -161,7 +161,7 @@ public class AppconfigurationController {
     public Response update(
             @RequestBody(description = "Crea un nuevo appconfiguration.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Appconfiguration.class))) Appconfiguration appconfiguration) {
 
-        return Response.status(Response.Status.CREATED).entity(appconfigurationRepository.save(appconfiguration)).build();
+        return Response.status(Response.Status.CREATED).entity(appconfigurationRepository.update(appconfiguration)).build();
     }
 // </editor-fold>
 

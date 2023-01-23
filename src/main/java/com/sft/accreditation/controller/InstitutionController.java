@@ -161,7 +161,7 @@ public class InstitutionController {
             @RequestBody(description = "Crea un nuevo institution.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Institution.class))) Institution institution) {
 
 
-        return Response.status(Response.Status.CREATED).entity(institutionRepository.save(institution)).build();
+        return Response.status(Response.Status.CREATED).entity(institutionRepository.update(institution)).build();
     }
 // </editor-fold>
 

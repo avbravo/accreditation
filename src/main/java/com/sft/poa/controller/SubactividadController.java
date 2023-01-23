@@ -68,28 +68,7 @@ public class SubactividadController {
     private MetricRegistry registry;
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
-    @Path("insert")
-    @GET
-      @RolesAllowed({"admin"})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
-    public List<Subactividad> insert(@QueryParam("inicial") final Integer inicial) {
-//
-//        Integer limiteFactor = 13545;
-//
-//        Integer maximo = inicial + limiteFactor;
-//        for (int i = inicial; i <= maximo; i++) {
-//
-//            Subactividad subactividad = new Subactividad();
-//            subactividad.setIdsubactividad(JmoordbCoreUtil.integerToLong(i));
-//            subactividad.setSubactividad("Subactividad - " + subactividad.getIdsubactividad());
-//            subactividad.setFecha(new Date());
-//            subactividadRepository.save(subactividad);
-//        }
-        return new ArrayList<>();
-    }
-// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
@@ -160,7 +139,7 @@ public class SubactividadController {
             @RequestBody(description = "Crea un nuevo subactividad.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Subactividad.class))) Subactividad subactividad) {
 
 
-        return Response.status(Response.Status.CREATED).entity(subactividadRepository.save(subactividad)).build();
+        return Response.status(Response.Status.CREATED).entity(subactividadRepository.update(subactividad)).build();
     }
 // </editor-fold>
 

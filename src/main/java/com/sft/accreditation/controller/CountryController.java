@@ -162,7 +162,7 @@ public class CountryController {
             @RequestBody(description = "Crea un nuevo country.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Country.class))) Country country) {
 
 
-        return Response.status(Response.Status.CREATED).entity(countryRepository.save(country)).build();
+        return Response.status(Response.Status.CREATED).entity(countryRepository.update(country)).build();
     }
 // </editor-fold>
 

@@ -67,28 +67,7 @@ public class ProyectoController {
     private MetricRegistry registry;
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="  @Path("insert")">
-    @Path("insert")
-    @GET
-    @RolesAllowed({"admin"})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
-    public List<Proyecto> insert(@QueryParam("inicial") final Integer inicial) {
-//
-//        Integer limiteFactor = 13545;
-//
-//        Integer maximo = inicial + limiteFactor;
-//        for (int i = inicial; i <= maximo; i++) {
-//
-//            Proyecto proyecto = new Proyecto();
-//            proyecto.setIdproyecto(JmoordbCoreUtil.integerToLong(i));
-//            proyecto.setProyecto("Proyecto - " + proyecto.getIdproyecto());
-//            proyecto.setFecha(new Date());
-//            proyectoRepository.save(proyecto);
-//        }
-        return new ArrayList<>();
-    }
-// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
@@ -159,7 +138,7 @@ public class ProyectoController {
             @RequestBody(description = "Crea un nuevo proyecto.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Proyecto.class))) Proyecto proyecto) {
 
 
-        return Response.status(Response.Status.CREATED).entity(proyectoRepository.save(proyecto)).build();
+        return Response.status(Response.Status.CREATED).entity(proyectoRepository.update(proyecto)).build();
     }
 // </editor-fold>
 

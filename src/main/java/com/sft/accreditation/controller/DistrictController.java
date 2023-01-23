@@ -161,7 +161,7 @@ public class DistrictController {
             @RequestBody(description = "Crea un nuevo district.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = District.class))) District district) {
 
 
-        return Response.status(Response.Status.CREATED).entity(districtRepository.save(district)).build();
+        return Response.status(Response.Status.CREATED).entity(districtRepository.update(district)).build();
     }
 // </editor-fold>
 

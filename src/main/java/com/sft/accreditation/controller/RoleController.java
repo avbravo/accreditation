@@ -161,7 +161,7 @@ public class RoleController {
             @RequestBody(description = "Crea un nuevo role.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Role.class))) Role role) {
 
 
-        return Response.status(Response.Status.CREATED).entity(roleRepository.save(role)).build();
+        return Response.status(Response.Status.CREATED).entity(roleRepository.update(role)).build();
     }
 // </editor-fold>
 
