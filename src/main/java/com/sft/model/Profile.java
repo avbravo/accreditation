@@ -6,6 +6,7 @@ package com.sft.model;
 
 import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.DocumentEmbeddable;
+import com.jmoordb.core.annotation.Ignore;
 import com.jmoordb.core.annotation.Referenced;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
 
@@ -15,7 +16,8 @@ import com.jmoordb.core.annotation.enumerations.TypeReferenced;
  */
 @DocumentEmbeddable
 public class Profile {
-    
+    @Ignore
+    private Long id;
      
     @Referenced(from = "applicative", localField = "idapplicative")
     private Applicative applicative;
@@ -29,12 +31,28 @@ public class Profile {
     public Profile() {
     }
 
-    public Profile(Applicative applicative, Role role, Departament departament, Boolean active) {
+    public Profile(Long id, Applicative applicative, Role role, Departament departament, Boolean active) {
+        this.id = id;
         this.applicative = applicative;
         this.role = role;
         this.departament = departament;
         this.active = active;
     }
+
+    
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    
+
+    
+    
 
     public Applicative getApplicative() {
         return applicative;
