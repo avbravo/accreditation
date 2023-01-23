@@ -44,8 +44,7 @@ public class Tarjeta {
     @Column
     private String estimacion;
 
-    @Referenced(from = "subactividad", localField = "idsubactividad")
-    List<Subactividad> subactividad;
+   
 
     @Embedded
     List<Etiqueta> etiqueta;
@@ -76,7 +75,7 @@ public class Tarjeta {
     public Tarjeta() {
     }
 
-    public Tarjeta(Long idtarjeta, String tarjeta, String descripcion, List<User> user, Date fechainicial, Date fechafinal, List<Sprint> sprint, String prioridad, String estimacion, List<Subactividad> subactividad, List<Etiqueta> etiqueta, List<Tarea> tarea, List<Impedimento> impedimento, Boolean active, List<Comentario> comentario, List<Archivo> archivo, List<Requisito> requisito, String estado) {
+    public Tarjeta(Long idtarjeta, String tarjeta, String descripcion, List<User> user, Date fechainicial, Date fechafinal, List<Sprint> sprint, String prioridad, String estimacion, List<Etiqueta> etiqueta, List<Tarea> tarea, List<Impedimento> impedimento, Boolean active, List<Comentario> comentario, List<Archivo> archivo, List<Requisito> requisito, String estado) {
         this.idtarjeta = idtarjeta;
         this.tarjeta = tarjeta;
         this.descripcion = descripcion;
@@ -86,7 +85,6 @@ public class Tarjeta {
         this.sprint = sprint;
         this.prioridad = prioridad;
         this.estimacion = estimacion;
-        this.subactividad = subactividad;
         this.etiqueta = etiqueta;
         this.tarea = tarea;
         this.impedimento = impedimento;
@@ -96,6 +94,8 @@ public class Tarjeta {
         this.requisito = requisito;
         this.estado = estado;
     }
+
+   
 
     public Long getIdtarjeta() {
         return idtarjeta;
@@ -169,13 +169,7 @@ public class Tarjeta {
         this.estimacion = estimacion;
     }
 
-    public List<Subactividad> getSubactividad() {
-        return subactividad;
-    }
-
-    public void setSubactividad(List<Subactividad> subactividad) {
-        this.subactividad = subactividad;
-    }
+    
 
     public List<Etiqueta> getEtiqueta() {
         return etiqueta;
@@ -254,7 +248,6 @@ public class Tarjeta {
         sb.append(", sprint=").append(sprint);
         sb.append(", prioridad=").append(prioridad);
         sb.append(", estimacion=").append(estimacion);
-        sb.append(", subactividad=").append(subactividad);
         sb.append(", etiqueta=").append(etiqueta);
         sb.append(", tarea=").append(tarea);
         sb.append(", impedimento=").append(impedimento);
@@ -266,6 +259,8 @@ public class Tarjeta {
         sb.append('}');
         return sb.toString();
     }
+
+    
 
     
     
