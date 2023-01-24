@@ -42,6 +42,8 @@ docker exec -it e321ee10e65e bash
 ## Backup MongoDB
 
 ```
+cd /home/avbravo
+
 mongodump --archive=accreditation.gz --gzip --db=accreditation
 
 mongodump --archive=configurationjmoordbdb.gz --gzip --db=configurationjmoordbdb
@@ -127,6 +129,9 @@ docker exec -it c27edf2f87f4  bash
 ## Backup MongoDB
 
 ```
+
+cd /home/avbravo
+
 mongodump --archive=accreditation.gz --gzip --db=accreditation
 
 mongodump --archive=configurationjmoordbdb.gz --gzip --db=configurationjmoordbdb
