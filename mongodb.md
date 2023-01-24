@@ -148,7 +148,6 @@ docker cp c27edf2f87f4:/home/avbravo/accreditation.gz  /home/avbravo/Descargas/a
 
 docker cp c27edf2f87f4:/home/avbravo/configurationjmoordbdb.gz  /home/avbravo/Descargas/configurationjmoordbdb.gz
 
-
 docker cp c27edf2f87f4:/home/avbravo/sft.gz  /home/avbravo/Descargas/sft.gz
 
 docker cp c27edf2f87f4:/home/avbravo/sfthistory.gz  /home/avbravo/Descargas/sfthistory.gz
