@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.sft.repository;
 
@@ -9,19 +9,21 @@ import com.jmoordb.core.annotation.repository.Lookup;
 import com.jmoordb.core.annotation.repository.Repository;
 import com.jmoordb.core.model.Search;
 import com.jmoordb.core.repository.CrudRepository;
-import com.sft.model.Proyecto;
+import com.sft.model.Icono;
 import java.util.List;
-
+import java.util.Optional;
 
 /**
  *
  * @author avbravo
  */
-@Repository(database = "{mongodb.database1}", entity = Proyecto.class)
-public interface ProyectoRepository extends CrudRepository<Proyecto, Long>{
+@Repository(entity = Icono.class)
+public interface IconoRepository extends CrudRepository<Icono, Long>{
     
       @Find
-    public List<Proyecto> findByProyecto(String proyecto);
-       @Lookup
-public List<Proyecto> lookup(Search search);
+    public Optional<Icono> findByIcono(String icono);
+    
+    @Lookup
+public List<Icono> lookup(Search search);
+    
 }

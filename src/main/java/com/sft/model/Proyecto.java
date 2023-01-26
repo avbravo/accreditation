@@ -24,29 +24,30 @@ public class Proyecto {
     private Long idproyecto;
     @Column
     private String proyecto;
+    
     @Column
     private Integer anio;
     @Column
     private String descripcion;
- @Column
+    @Column
     private Date fechafinal;
     @Column
     private Date fechainicial;
-       @Referenced(from = "departament", localField = "iddepartament")
+    
+    @Referenced(from = "Icono", localField = "idicono")
+    private Icono icono;
+    @Referenced(from = "departament", localField = "iddepartament")
     List<Departament> departament;
- 
 
-  @Embedded
+    @Embedded
     List<Requisito> requisito;
 
     @Referenced(from = "user", localField = "iduser")
     List<User> user;
 
-   
-   
     @Column
     private Double avance;
-    
+
     @Column
     private String estado;
     @Column
@@ -55,13 +56,14 @@ public class Proyecto {
     public Proyecto() {
     }
 
-    public Proyecto(Long idproyecto, String proyecto, Integer anio, String descripcion, Date fechafinal, Date fechainicial, List<Departament> departament, List<Requisito> requisito, List<User> user, Double avance, String estado, Boolean active) {
+    public Proyecto(Long idproyecto, String proyecto, Integer anio, String descripcion, Date fechafinal, Date fechainicial, Icono icono, List<Departament> departament, List<Requisito> requisito, List<User> user, Double avance, String estado, Boolean active) {
         this.idproyecto = idproyecto;
         this.proyecto = proyecto;
         this.anio = anio;
         this.descripcion = descripcion;
         this.fechafinal = fechafinal;
         this.fechainicial = fechainicial;
+        this.icono = icono;
         this.departament = departament;
         this.requisito = requisito;
         this.user = user;
@@ -71,9 +73,16 @@ public class Proyecto {
     }
 
     
+    
+    
+    public Icono getIcono() {
+        return icono;
+    }
 
-    
-    
+    public void setIcono(Icono icono) {
+        this.icono = icono;
+    }
+
     
     public Long getIdproyecto() {
         return idproyecto;
@@ -83,7 +92,6 @@ public class Proyecto {
         this.idproyecto = idproyecto;
     }
 
-   
     public Integer getAnio() {
         return anio;
     }
@@ -182,6 +190,7 @@ public class Proyecto {
         sb.append(", descripcion=").append(descripcion);
         sb.append(", fechafinal=").append(fechafinal);
         sb.append(", fechainicial=").append(fechainicial);
+        sb.append(", icono=").append(icono);
         sb.append(", departament=").append(departament);
         sb.append(", requisito=").append(requisito);
         sb.append(", user=").append(user);
@@ -191,8 +200,6 @@ public class Proyecto {
         sb.append('}');
         return sb.toString();
     }
-
-  
 
     
 

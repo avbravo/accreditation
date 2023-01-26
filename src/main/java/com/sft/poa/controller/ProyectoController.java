@@ -108,6 +108,26 @@ public class ProyectoController {
     }
 // </editor-fold>
 
+        // <editor-fold defaultstate="collapsed" desc="Proyecto findByProyecto">
+    @GET
+    @RolesAllowed({"admin"})
+    @Path("proyecto")
+    @Operation(summary = "Busca un proyecto por proyecti", description = "Busqueda de proyecto por proyecto")
+    @APIResponse(responseCode = "200", description = "El proyecto")
+    @APIResponse(responseCode = "404", description = "Cuando no existe el proyecto")
+    @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
+    @Tag(name = "BETA", description = "Esta api esta en desarrollo")
+    @APIResponse(description = "El proyecto", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Proyecto.class)))
+    
+   
+    public List<Proyecto> findByProyecto(@Parameter(description = "El proyecto", required = true, example = "1", schema = @Schema(type = SchemaType.STRING)) @QueryParam("proyecto") final String proyecto) {
+
+ return proyectoRepository.findByProyecto(proyecto);
+
+        
+
+    }
+//// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
     @RolesAllowed({"admin"})
