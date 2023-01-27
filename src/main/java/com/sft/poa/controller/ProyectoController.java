@@ -54,17 +54,7 @@ public class ProyectoController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
 
-    @Inject
-    @Metric(name = "idproyectohistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de idproyecto con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
 
 // </editor-fold>
 
@@ -100,7 +90,7 @@ public class ProyectoController {
     public Proyecto findByIdproyecto(
             @Parameter(description = "El idproyecto", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idproyecto") Long idproyecto) {
 
-        counter.inc();
+      
 
         return proyectoRepository.findByPk(idproyecto).orElseThrow(
                 () -> new WebApplicationException("No hay proyecto con idproyecto " + idproyecto, Response.Status.NOT_FOUND));

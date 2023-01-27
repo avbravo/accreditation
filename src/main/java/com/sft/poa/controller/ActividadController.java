@@ -54,17 +54,7 @@ public class ActividadController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "idactividadhistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de idactividad con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
+ 
 
 // </editor-fold>
 
@@ -100,7 +90,7 @@ public class ActividadController {
     public Actividad findByIdactividad(
             @Parameter(description = "El idactividad", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idactividad") Long idactividad) {
 
-        counter.inc();
+      
 
         return actividadRepository.findByPk(idactividad).orElseThrow(
                 () -> new WebApplicationException("No hay actividad con idactividad " + idactividad, Response.Status.NOT_FOUND));

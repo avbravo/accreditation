@@ -24,9 +24,6 @@ public class Proyecto {
     private Long idproyecto;
     @Column
     private String proyecto;
-    
-    @Column
-    private Integer anio;
     @Column
     private String descripcion;
     @Column
@@ -39,12 +36,14 @@ public class Proyecto {
     @Referenced(from = "departament", localField = "iddepartament")
     List<Departament> departament;
 
-    @Embedded
-    List<Requisito> requisito;
-
+  
     @Referenced(from = "user", localField = "iduser")
-    List<User> user;
-
+    private List<User> user;
+    
+    @Referenced(from = "grupo", localField = "idgrupo")
+    private Grupo grupo;
+ @Referenced(from = "headquarter", localField = "idheadquarter")
+    private Headquarter headquarter;
     @Column
     private Double avance;
 
@@ -56,34 +55,22 @@ public class Proyecto {
     public Proyecto() {
     }
 
-    public Proyecto(Long idproyecto, String proyecto, Integer anio, String descripcion, Date fechafinal, Date fechainicial, Icono icono, List<Departament> departament, List<Requisito> requisito, List<User> user, Double avance, String estado, Boolean active) {
+    public Proyecto(Long idproyecto, String proyecto, String descripcion, Date fechafinal, Date fechainicial, Icono icono, List<Departament> departament, List<User> user, Grupo grupo, Headquarter headquarter, Double avance, String estado, Boolean active) {
         this.idproyecto = idproyecto;
         this.proyecto = proyecto;
-        this.anio = anio;
         this.descripcion = descripcion;
         this.fechafinal = fechafinal;
         this.fechainicial = fechainicial;
         this.icono = icono;
         this.departament = departament;
-        this.requisito = requisito;
         this.user = user;
+        this.grupo = grupo;
+        this.headquarter = headquarter;
         this.avance = avance;
         this.estado = estado;
         this.active = active;
     }
 
-    
-    
-    
-    public Icono getIcono() {
-        return icono;
-    }
-
-    public void setIcono(Icono icono) {
-        this.icono = icono;
-    }
-
-    
     public Long getIdproyecto() {
         return idproyecto;
     }
@@ -92,20 +79,12 @@ public class Proyecto {
         this.idproyecto = idproyecto;
     }
 
-    public Integer getAnio() {
-        return anio;
+    public String getProyecto() {
+        return proyecto;
     }
 
-    public void setAnio(Integer anio) {
-        this.anio = anio;
-    }
-
-    public List<Departament> getDepartament() {
-        return departament;
-    }
-
-    public void setDepartament(List<Departament> departament) {
-        this.departament = departament;
+    public void setProyecto(String proyecto) {
+        this.proyecto = proyecto;
     }
 
     public String getDescripcion() {
@@ -132,20 +111,20 @@ public class Proyecto {
         this.fechainicial = fechainicial;
     }
 
-    public String getProyecto() {
-        return proyecto;
+    public Icono getIcono() {
+        return icono;
     }
 
-    public void setProyecto(String proyecto) {
-        this.proyecto = proyecto;
+    public void setIcono(Icono icono) {
+        this.icono = icono;
     }
 
-    public List<Requisito> getRequisito() {
-        return requisito;
+    public List<Departament> getDepartament() {
+        return departament;
     }
 
-    public void setRequisito(List<Requisito> requisito) {
-        this.requisito = requisito;
+    public void setDepartament(List<Departament> departament) {
+        this.departament = departament;
     }
 
     public List<User> getUser() {
@@ -154,6 +133,22 @@ public class Proyecto {
 
     public void setUser(List<User> user) {
         this.user = user;
+    }
+
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
+
+    public Headquarter getHeadquarter() {
+        return headquarter;
+    }
+
+    public void setHeadquarter(Headquarter headquarter) {
+        this.headquarter = headquarter;
     }
 
     public Double getAvance() {
@@ -186,14 +181,14 @@ public class Proyecto {
         sb.append("Proyecto{");
         sb.append("idproyecto=").append(idproyecto);
         sb.append(", proyecto=").append(proyecto);
-        sb.append(", anio=").append(anio);
         sb.append(", descripcion=").append(descripcion);
         sb.append(", fechafinal=").append(fechafinal);
         sb.append(", fechainicial=").append(fechainicial);
         sb.append(", icono=").append(icono);
         sb.append(", departament=").append(departament);
-        sb.append(", requisito=").append(requisito);
         sb.append(", user=").append(user);
+        sb.append(", grupo=").append(grupo);
+        sb.append(", headquarter=").append(headquarter);
         sb.append(", avance=").append(avance);
         sb.append(", estado=").append(estado);
         sb.append(", active=").append(active);
@@ -201,6 +196,8 @@ public class Proyecto {
         return sb.toString();
     }
 
+   
+    
     
 
 }

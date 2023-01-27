@@ -54,17 +54,7 @@ public class SprintController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "idsprinthistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de idsprint con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
+ 
 
 // </editor-fold>
 
@@ -100,7 +90,7 @@ public class SprintController {
     public Sprint findByIdsprint(
             @Parameter(description = "El idsprint", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idsprint") Long idsprint) {
 
-        counter.inc();
+      
 
         return sprintRepository.findByPk(idsprint).orElseThrow(
                 () -> new WebApplicationException("No hay sprint con idsprint " + idsprint, Response.Status.NOT_FOUND));

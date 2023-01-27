@@ -54,17 +54,7 @@ public class AreaController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
 
-    @Inject
-    @Metric(name = "idareahistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de idarea con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
 
 // </editor-fold>
 
@@ -99,7 +89,7 @@ public class AreaController {
     public Area findByIdarea(
             @Parameter(description = "El idarea", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idarea") Long idarea) {
 
-        counter.inc();
+      
 
         return areaRepository.findByPk(idarea).orElseThrow(
                 () -> new WebApplicationException("No hay area con idarea " + idarea, Response.Status.NOT_FOUND));

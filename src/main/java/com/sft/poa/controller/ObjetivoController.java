@@ -56,17 +56,6 @@ public class ObjetivoController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "idobjetivohistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de idobjetivo con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
 
 // </editor-fold>
 
@@ -103,7 +92,7 @@ public class ObjetivoController {
     public Objetivo findByIdobjetivo(
             @Parameter(description = "El idobjetivo", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idobjetivo") Long idobjetivo) {
 
-        counter.inc();
+      
 
         return objetivoRepository.findByPk(idobjetivo).orElseThrow(
                 () -> new WebApplicationException("No hay objetivo con idobjetivo " + idobjetivo, Response.Status.NOT_FOUND));

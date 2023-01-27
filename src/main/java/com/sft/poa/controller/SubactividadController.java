@@ -55,17 +55,6 @@ public class SubactividadController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "idsubactividadhistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de idsubactividad con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
 
 // </editor-fold>
 
@@ -101,7 +90,7 @@ public class SubactividadController {
     public Subactividad findByIdsubactividad(
             @Parameter(description = "El idsubactividad", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idsubactividad") Long idsubactividad) {
 
-        counter.inc();
+
 
         return subactividadRepository.findByPk(idsubactividad).orElseThrow(
                 () -> new WebApplicationException("No hay subactividad con idsubactividad " + idsubactividad, Response.Status.NOT_FOUND));

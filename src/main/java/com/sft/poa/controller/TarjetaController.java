@@ -54,17 +54,7 @@ public class TarjetaController {
     
  
 
-    @Inject
-    @Metric(name = "counter")
-    private Counter counter;
-
-    @Inject
-    @Metric(name = "idtarjetahistrograma", description = "Ejemplo de histograma.",
-            displayName = "Histogra de idtarjeta con paginación")
-    private Histogram histogram;
-
-    @Inject
-    private MetricRegistry registry;
+;
 
 // </editor-fold>
 
@@ -101,7 +91,7 @@ public class TarjetaController {
     public Tarjeta findByIdtarjeta(
             @Parameter(description = "El idtarjeta", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idtarjeta") Long idtarjeta) {
 
-        counter.inc();
+   
 
         return tarjetaRepository.findByPk(idtarjeta).orElseThrow(
                 () -> new WebApplicationException("No hay tarjeta con idtarjeta " + idtarjeta, Response.Status.NOT_FOUND));
