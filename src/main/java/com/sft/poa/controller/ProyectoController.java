@@ -4,8 +4,11 @@
  */
 package com.sft.poa.controller;
 
+import com.jmoordb.core.util.ConsoleUtil;
 import com.sft.model.Proyecto;
 import com.sft.repository.ProyectoRepository;
+import com.sft.repository.UserPersonalRepository;
+import com.sft.repository.UserRepository;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
@@ -22,12 +25,8 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.eclipse.microprofile.metrics.Counter;
-import org.eclipse.microprofile.metrics.Histogram;
-import org.eclipse.microprofile.metrics.MetricRegistry;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metered;
-import org.eclipse.microprofile.metrics.annotation.Metric;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -47,12 +46,15 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 @RolesAllowed({"admin"})
 public class ProyectoController {
 
-    
+    @Inject
+ UserPersonalRepository userPersonalRepository;
+    @Inject
+    UserRepository userRepository;
     // <editor-fold defaultstate="collapsed" desc="Inject">
     @Inject
     ProyectoRepository proyectoRepository;
     
- 
+
 
 
 
@@ -70,9 +72,28 @@ public class ProyectoController {
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
     @APIResponse(responseCode = "200", description = "Los proyectoes")
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
-    @APIResponse(description = "Los proyectoes", responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Collection.class, readOnly = true, description = "los proyectoes", required = true, name = "proyectoes")))
+    @APIResponse(description = "Los proyectoes", responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Collection.class, readOnly = true, description = "los proyectos", required = true, name = "proyectoes")))
     public List<Proyecto> findAll() {
+        List<Proyecto> proyectoList = new ArrayList<>();
         
+       
+      proyectoList = proyectoRepository.findAll();
+        Proyecto proyecto = proyectoList.get(0);
+        /**
+         * @Projection
+         */
+//      List<UserPersonal> userPersonalList = proyecto.getUserPersonal();
+//       
+//        Optional<UserPersonal> userPersonalNew=userPersonalRepository.findByPk(7L);
+//       userPersonalList.add(userPersonalNew.get());
+       
+       
+       //    proyecto.setUserPersonal(userPersonalList);
+       
+//       ConsoleUtil.info("|--> voy a actualizar el proyecto");
+//       proyecto.getUser().add(userRepository.findByPk(19L).get());
+//         
+//        proyectoRepository.update(proyecto);
         return proyectoRepository.findAll();
     }
 // </editor-fold>

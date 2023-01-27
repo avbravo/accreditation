@@ -5,7 +5,6 @@
 package com.sft.model;
 
 import com.jmoordb.core.annotation.Column;
-import com.jmoordb.core.annotation.Embedded;
 import com.jmoordb.core.annotation.Entity;
 import com.jmoordb.core.annotation.Id;
 import com.jmoordb.core.annotation.Referenced;
@@ -26,6 +25,10 @@ public class Proyecto {
     private String proyecto;
     @Column
     private String descripcion;
+    
+    @Column
+    private String prefijo;
+    
     @Column
     private Date fechafinal;
     @Column
@@ -37,6 +40,8 @@ public class Proyecto {
     List<Departament> departament;
 
   
+//    @Referenced(from = "user", localField = "iduser")
+//    private List<UserPersonal> userPersonal;
     @Referenced(from = "user", localField = "iduser")
     private List<User> user;
     
@@ -55,10 +60,11 @@ public class Proyecto {
     public Proyecto() {
     }
 
-    public Proyecto(Long idproyecto, String proyecto, String descripcion, Date fechafinal, Date fechainicial, Icono icono, List<Departament> departament, List<User> user, Grupo grupo, Headquarter headquarter, Double avance, String estado, Boolean active) {
+    public Proyecto(Long idproyecto, String proyecto, String descripcion, String prefijo, Date fechafinal, Date fechainicial, Icono icono, List<Departament> departament, List<User> user, Grupo grupo, Headquarter headquarter, Double avance, String estado, Boolean active) {
         this.idproyecto = idproyecto;
         this.proyecto = proyecto;
         this.descripcion = descripcion;
+        this.prefijo = prefijo;
         this.fechafinal = fechafinal;
         this.fechainicial = fechainicial;
         this.icono = icono;
@@ -70,6 +76,20 @@ public class Proyecto {
         this.estado = estado;
         this.active = active;
     }
+
+    
+    
+    public String getPrefijo() {
+        return prefijo;
+    }
+
+    public void setPrefijo(String prefijo) {
+        this.prefijo = prefijo;
+    }
+
+   
+
+    
 
     public Long getIdproyecto() {
         return idproyecto;
@@ -135,6 +155,9 @@ public class Proyecto {
         this.user = user;
     }
 
+   
+
+
     public Grupo getGrupo() {
         return grupo;
     }
@@ -182,6 +205,7 @@ public class Proyecto {
         sb.append("idproyecto=").append(idproyecto);
         sb.append(", proyecto=").append(proyecto);
         sb.append(", descripcion=").append(descripcion);
+        sb.append(", prefijo=").append(prefijo);
         sb.append(", fechafinal=").append(fechafinal);
         sb.append(", fechainicial=").append(fechainicial);
         sb.append(", icono=").append(icono);
@@ -195,6 +219,12 @@ public class Proyecto {
         sb.append('}');
         return sb.toString();
     }
+
+  
+
+    
+
+   
 
    
     
