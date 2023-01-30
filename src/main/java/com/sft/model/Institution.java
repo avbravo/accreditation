@@ -56,5 +56,16 @@ public class Institution {
         this.active = active;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Institution{");
+        sb.append("idinstitution=").append(idinstitution);
+        sb.append(", institution=").append(institution);
+        sb.append(", active=").append(active);
+        sb.append('}');
+        return sb.toString();
+    }
+
 
 }

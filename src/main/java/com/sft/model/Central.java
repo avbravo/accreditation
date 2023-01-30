@@ -8,48 +8,46 @@ import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.Entity;
 import com.jmoordb.core.annotation.Id;
 import com.jmoordb.core.annotation.Referenced;
-import com.jmoordb.core.annotation.enumerations.TypeReferenced;
 
 /**
  *
  * @author avbravo
  */
 @Entity
-public class Headquarter {
+public class Central {
     @Id
-    private Long idheadquarter;
+    private Long idcentral;
     @Column
-    private String headquarter;
+    private String central;
     @Column
     private Boolean active;
-    
-    @Referenced(from = "institution",localField = "idinstitution",typeReferenced = TypeReferenced.REFERENCED)
+    @Referenced(from = "institution", localField = "idinstitution")
     private Institution institution;
 
-    public Headquarter() {
+    public Central() {
     }
 
-    public Headquarter(Long idheadquarter, String headquarter, Boolean active, Institution institution) {
-        this.idheadquarter = idheadquarter;
-        this.headquarter = headquarter;
+    public Central(Long idcentral, String central, Boolean active, Institution institution) {
+        this.idcentral = idcentral;
+        this.central = central;
         this.active = active;
         this.institution = institution;
     }
 
-    public Long getIdheadquarter() {
-        return idheadquarter;
+    public Long getIdcentral() {
+        return idcentral;
     }
 
-    public void setIdheadquarter(Long idheadquarter) {
-        this.idheadquarter = idheadquarter;
+    public void setIdcentral(Long idcentral) {
+        this.idcentral = idcentral;
     }
 
-    public String getHeadquarter() {
-        return headquarter;
+    public String getCentral() {
+        return central;
     }
 
-    public void setHeadquarter(String headquarter) {
-        this.headquarter = headquarter;
+    public void setCentral(String central) {
+        this.central = central;
     }
 
     public Boolean getActive() {
@@ -71,9 +69,9 @@ public class Headquarter {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Headquarter{");
-        sb.append("idheadquarter=").append(idheadquarter);
-        sb.append(", headquarter=").append(headquarter);
+        sb.append("Central{");
+        sb.append("idcentral=").append(idcentral);
+        sb.append(", central=").append(central);
         sb.append(", active=").append(active);
         sb.append(", institution=").append(institution);
         sb.append('}');
@@ -81,5 +79,7 @@ public class Headquarter {
     }
 
    
-  
+    
+    
+    
 }

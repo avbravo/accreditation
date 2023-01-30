@@ -48,8 +48,8 @@ public class User {
       @Embedded
       List<Profile> profile;
       
-      @Referenced(from = "headquarter", localField = "idheadquarter")
-      Headquarter headquarter;
+      @Referenced(from = "central", localField = "idcentral")
+      Central central;
       
       @Column 
       private Date dateofbirth;
@@ -57,7 +57,7 @@ public class User {
     public User() {
     }
 
-    public User(Long iduser, String username, String cellphone, String email, String identificationcard, String sex, String socialsecuritynumber, String name, String password, String photo, Boolean active, List<Profile> profile, Headquarter headquarter, Date dateofbirth) {
+    public User(Long iduser, String username, String cellphone, String email, String identificationcard, String sex, String socialsecuritynumber, String name, String password, String photo, Boolean active, List<Profile> profile, Central central, Date dateofbirth) {
         this.iduser = iduser;
         this.username = username;
         this.cellphone = cellphone;
@@ -70,7 +70,7 @@ public class User {
         this.photo = photo;
         this.active = active;
         this.profile = profile;
-        this.headquarter = headquarter;
+        this.central = central;
         this.dateofbirth = dateofbirth;
     }
 
@@ -170,12 +170,12 @@ public class User {
         this.profile = profile;
     }
 
-    public Headquarter getHeadquarter() {
-        return headquarter;
+    public Central getCentral() {
+        return central;
     }
 
-    public void setHeadquarter(Headquarter headquarter) {
-        this.headquarter = headquarter;
+    public void setCentral(Central central) {
+        this.central = central;
     }
 
     public Date getDateofbirth() {
@@ -202,11 +202,13 @@ public class User {
         sb.append(", photo=").append(photo);
         sb.append(", active=").append(active);
         sb.append(", profile=").append(profile);
-        sb.append(", headquarter=").append(headquarter);
+        sb.append(", central=").append(central);
         sb.append(", dateofbirth=").append(dateofbirth);
         sb.append('}');
         return sb.toString();
     }
+
+    
 
    
 

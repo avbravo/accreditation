@@ -79,27 +79,25 @@ public class ProyectoController {
         List<Proyecto> proyectoList = new ArrayList<>();
         
        
-      proyectoList = proyectoRepository.findAll();
-        Proyecto proyecto = proyectoList.get(0);
-        ConsoleUtil.info("=======================================");
-        ConsoleUtil.info("proyecto.toString() "+proyecto.toString());
-        ConsoleUtil.info("=======================================");
-        /**
-         * @Projection
-         */
-      List<UserView> userViewList = proyecto.getUserView();
+//      proyectoList = proyectoRepository.findAll();
+//        Proyecto proyecto = proyectoList.get(0);
+//        ConsoleUtil.info("=======================================");
+//        ConsoleUtil.info("proyecto.toString() "+proyecto.toString());
+//        ConsoleUtil.info("=======================================");
+//        /**
+//         * @Projection
+//         */
+//      List<UserView> userViewList = proyecto.getUserView();
+//       
+//        Optional<UserView> userViewNew=userViewRepository.findByPk(7L);
+//       userViewList.add(userViewNew.get());
+//           
+//         proyecto.setUserView(userViewList);
+//                 proyectoRepository.update(proyecto);
+//            ConsoleUtil.info("Agregue un nuevo usuario");
+//                 
        
-        Optional<UserView> userViewNew=userViewRepository.findByPk(7L);
-       userViewList.add(userViewNew.get());
-           
-         proyecto.setUserView(userViewList);
-                 proyectoRepository.update(proyecto);
-            ConsoleUtil.info("Agregue un nuevo usuario");
-                 
        
-//       ConsoleUtil.info("|--> voy a actualizar el proyecto");
-//       proyecto.getUser().add(userRepository.findByPk(19L).get());
-//         
 
         return proyectoRepository.findAll();
     }

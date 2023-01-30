@@ -47,6 +47,17 @@ public class UserView {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("UserView{");
+        sb.append("iduser=").append(iduser);
+        sb.append(", name=").append(name);
+        sb.append(", photo=").append(photo);
+        sb.append('}');
+        return sb.toString();
+    }
     
     
     
