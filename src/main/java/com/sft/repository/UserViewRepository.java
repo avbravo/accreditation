@@ -9,8 +9,7 @@ import com.jmoordb.core.annotation.repository.Lookup;
 import com.jmoordb.core.annotation.repository.Repository;
 import com.jmoordb.core.model.Search;
 import com.jmoordb.core.repository.CrudRepository;
-import com.sft.model.User;
-import com.sft.model.UserPersonal;
+import com.sft.model.UserView;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,11 +17,11 @@ import java.util.Optional;
  *
  * @author avbravo
  */
-@Repository(entity = UserPersonal.class,collection = "user")
-public interface UserPersonalRepository extends CrudRepository<UserPersonal, Long> {
+@Repository(entity = UserView.class,collection = "user")
+public interface UserViewRepository extends CrudRepository<UserView, Long> {
     @Find
-    public Optional<UserPersonal> findByUsername(String username);
+    public Optional<UserView> findByUsername(String username);
     
     @Lookup
-public List<UserPersonal> lookup(Search search);
+public List<UserView> lookup(Search search);
 }

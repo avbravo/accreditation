@@ -6,9 +6,10 @@ package com.sft.poa.controller;
 
 import com.jmoordb.core.util.ConsoleUtil;
 import com.sft.model.Proyecto;
+import com.sft.model.UserView;
 import com.sft.repository.ProyectoRepository;
-import com.sft.repository.UserPersonalRepository;
 import com.sft.repository.UserRepository;
+import com.sft.repository.UserViewRepository;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
@@ -25,6 +26,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metered;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -47,7 +49,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 public class ProyectoController {
 
     @Inject
- UserPersonalRepository userPersonalRepository;
+ UserViewRepository userViewRepository;
     @Inject
     UserRepository userRepository;
     // <editor-fold defaultstate="collapsed" desc="Inject">
@@ -79,21 +81,26 @@ public class ProyectoController {
        
       proyectoList = proyectoRepository.findAll();
         Proyecto proyecto = proyectoList.get(0);
+        ConsoleUtil.info("=======================================");
+        ConsoleUtil.info("proyecto.toString() "+proyecto.toString());
+        ConsoleUtil.info("=======================================");
         /**
          * @Projection
          */
-//      List<UserPersonal> userPersonalList = proyecto.getUserPersonal();
-//       
-//        Optional<UserPersonal> userPersonalNew=userPersonalRepository.findByPk(7L);
-//       userPersonalList.add(userPersonalNew.get());
+      List<UserView> userViewList = proyecto.getUserView();
        
-       
-       //    proyecto.setUserPersonal(userPersonalList);
+        Optional<UserView> userViewNew=userViewRepository.findByPk(7L);
+       userViewList.add(userViewNew.get());
+           
+         proyecto.setUserView(userViewList);
+                 proyectoRepository.update(proyecto);
+            ConsoleUtil.info("Agregue un nuevo usuario");
+                 
        
 //       ConsoleUtil.info("|--> voy a actualizar el proyecto");
 //       proyecto.getUser().add(userRepository.findByPk(19L).get());
 //         
-//        proyectoRepository.update(proyecto);
+
         return proyectoRepository.findAll();
     }
 // </editor-fold>
