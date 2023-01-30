@@ -127,7 +127,7 @@
         <dependency>
             <groupId>com.avbravo.jmoordb.core.processor</groupId>
             <artifactId>jmoordb-core</artifactId>
-            <version>0.13.100</version>
+            <version>0.13.200</version>
         </dependency>
         <dependency>
             <groupId>com.github.avbravo</groupId>

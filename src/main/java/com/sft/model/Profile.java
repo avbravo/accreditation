@@ -8,7 +8,7 @@ import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.DocumentEmbeddable;
 import com.jmoordb.core.annotation.Ignore;
 import com.jmoordb.core.annotation.Referenced;
-import com.jmoordb.core.annotation.enumerations.TypeReferenced;
+import com.jmoordb.core.annotation.ViewReferenced;
 
 /**
  *
@@ -21,25 +21,52 @@ public class Profile {
      
     @Referenced(from = "applicative", localField = "idapplicative")
     private Applicative applicative;
+//    @ViewReferenced(from = "applicative", localField = "idapplicative")
+//    private ApplicativeView applicativeView;
     @Referenced(from = "role", localField = "idrole")    
     private Role role;
-    @Referenced(from = "departament", localField = "iddepartament")
-    private Departament departament;
+//    @Referenced(from = "departament", localField = "iddepartament")
+//    private Departament departament;
+   
+    @ViewReferenced(from = "departament", localField = "iddepartament")
+    private DepartamentView departamentView;
    
  @Column
     private Boolean active;
     public Profile() {
     }
 
-    public Profile(Long id, Applicative applicative, Role role, Departament departament, Boolean active) {
+    public Profile(Long id, Applicative applicative, Role role, DepartamentView departamentView, Boolean active) {
         this.id = id;
         this.applicative = applicative;
         this.role = role;
-        this.departament = departament;
+        this.departamentView = departamentView;
         this.active = active;
     }
 
+    public DepartamentView getDepartamentView() {
+        return departamentView;
+    }
+
+    public void setDepartamentView(DepartamentView departamentView) {
+        this.departamentView = departamentView;
+    }
+
+  
     
+    
+    public Applicative getApplicative() {
+        return applicative;
+    }
+
+    public void setApplicative(Applicative applicative) {
+        this.applicative = applicative;
+    }
+
+    
+
+   
+ 
     
     public Long getId() {
         return id;
@@ -49,18 +76,7 @@ public class Profile {
         this.id = id;
     }
 
-    
-
-    
-    
-
-    public Applicative getApplicative() {
-        return applicative;
-    }
-
-    public void setApplicative(Applicative applicative) {
-        this.applicative = applicative;
-    }
+   
 
     public Role getRole() {
         return role;
@@ -70,13 +86,7 @@ public class Profile {
         this.role = role;
     }
 
-    public Departament getDepartament() {
-        return departament;
-    }
-
-    public void setDepartament(Departament departament) {
-        this.departament = departament;
-    }
+   
 
     public Boolean getActive() {
         return active;
@@ -90,13 +100,19 @@ public class Profile {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Profile{");
-        sb.append("applicative=").append(applicative);
+        sb.append("id=").append(id);
+        sb.append(", applicative=").append(applicative);
         sb.append(", role=").append(role);
-        sb.append(", departament=").append(departament);
+        sb.append(", departamentView=").append(departamentView);
         sb.append(", active=").append(active);
         sb.append('}');
         return sb.toString();
     }
+
+ 
+
+    
+
 
       
     

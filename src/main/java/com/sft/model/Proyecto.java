@@ -39,16 +39,23 @@ public class Proyecto {
     private Icono icono;
     @Referenced(from = "departament", localField = "iddepartament")
     List<Departament> departament;
+    
+        @Referenced(from = "user", localField = "iduser")
+   private List<User> user;
 
-    @ViewReferenced(from = "user", localField = "iduser")
-    private List<UserView> userView;
-//    @Referenced(from = "user", localField = "iduser")
-//   private List<User> user;
+//    @ViewReferenced(from = "user", localField = "iduser")
+//    private List<UserView> userView;
+   
+//    @Referenced(from = "departament", localField = "iddepartament")
+//    List<DepartamentView> departamentView;
 
     @Referenced(from = "grupo", localField = "idgrupo")
     private Grupo grupo;
-    @Referenced(from = "central", localField = "idcentral")
-    private Central central;
+//    @Referenced(from = "central", localField = "idcentral")
+//    private Central central;
+    
+    @ViewReferenced(from = "central", localField = "idcentral")
+    private CentralView centralView;
    
     @Column
     private Double avance;
@@ -61,7 +68,7 @@ public class Proyecto {
     public Proyecto() {
     }
 
-    public Proyecto(Long idproyecto, String proyecto, String descripcion, String prefijo, Date fechafinal, Date fechainicial, Icono icono, List<Departament> departament, List<UserView> userView, Grupo grupo, Central central, Double avance, String estado, Boolean active) {
+    public Proyecto(Long idproyecto, String proyecto, String descripcion, String prefijo, Date fechafinal, Date fechainicial, Icono icono, List<Departament> departament, List<User> user, Grupo grupo, CentralView centralView, Double avance, String estado, Boolean active) {
         this.idproyecto = idproyecto;
         this.proyecto = proyecto;
         this.descripcion = descripcion;
@@ -70,13 +77,24 @@ public class Proyecto {
         this.fechainicial = fechainicial;
         this.icono = icono;
         this.departament = departament;
-        this.userView = userView;
+        this.user = user;
         this.grupo = grupo;
-        this.central = central;
+        this.centralView = centralView;
         this.avance = avance;
         this.estado = estado;
         this.active = active;
     }
+
+    public CentralView getCentralView() {
+        return centralView;
+    }
+
+    public void setCentralView(CentralView centralView) {
+        this.centralView = centralView;
+    }
+
+   
+  
 
     public Long getIdproyecto() {
         return idproyecto;
@@ -142,14 +160,7 @@ public class Proyecto {
         this.departament = departament;
     }
 
-    public List<UserView> getUserView() {
-        return userView;
-    }
-
-    public void setUserView(List<UserView> userView) {
-        this.userView = userView;
-    }
-
+  
     public Grupo getGrupo() {
         return grupo;
     }
@@ -158,13 +169,7 @@ public class Proyecto {
         this.grupo = grupo;
     }
 
-    public Central getCentral() {
-        return central;
-    }
-
-    public void setCentral(Central central) {
-        this.central = central;
-    }
+  
 
     public Double getAvance() {
         return avance;
@@ -190,12 +195,39 @@ public class Proyecto {
         this.active = active;
     }
 
-    @Override
-    public String toString() {
-        return "Proyecto{" + "idproyecto=" + idproyecto + ", proyecto=" + proyecto + ", descripcion=" + descripcion + ", prefijo=" + prefijo + ", fechafinal=" + fechafinal + ", fechainicial=" + fechainicial + ", icono=" + icono + ", departament=" + departament + ", userView=" + userView + ", grupo=" + grupo + ", central=" + central + ", avance=" + avance + ", estado=" + estado + ", active=" + active + '}';
+    public List<User> getUser() {
+        return user;
     }
 
+    public void setUser(List<User> user) {
+        this.user = user;
+    }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Proyecto{");
+        sb.append("idproyecto=").append(idproyecto);
+        sb.append(", proyecto=").append(proyecto);
+        sb.append(", descripcion=").append(descripcion);
+        sb.append(", prefijo=").append(prefijo);
+        sb.append(", fechafinal=").append(fechafinal);
+        sb.append(", fechainicial=").append(fechainicial);
+        sb.append(", icono=").append(icono);
+        sb.append(", departament=").append(departament);
+        sb.append(", user=").append(user);
+        sb.append(", grupo=").append(grupo);
+        sb.append(", centralView=").append(centralView);
+        sb.append(", avance=").append(avance);
+        sb.append(", estado=").append(estado);
+        sb.append(", active=").append(active);
+        sb.append('}');
+        return sb.toString();
+    }
+
+   
+
+  
     
    
 

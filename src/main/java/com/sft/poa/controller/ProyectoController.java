@@ -78,8 +78,12 @@ public class ProyectoController {
     public List<Proyecto> findAll() {
         List<Proyecto> proyectoList = new ArrayList<>();
         
-       
+//        ConsoleUtil.info("=======================================");
+//        ConsoleUtil.info("ProyectoController.findAll() ");
+//        ConsoleUtil.info("=======================================");
 //      proyectoList = proyectoRepository.findAll();
+//      
+//      ConsoleUtil.warning("Proyecto encontrado para actualizar");
 //        Proyecto proyecto = proyectoList.get(0);
 //        ConsoleUtil.info("=======================================");
 //        ConsoleUtil.info("proyecto.toString() "+proyecto.toString());
@@ -87,17 +91,32 @@ public class ProyectoController {
 //        /**
 //         * @Projection
 //         */
-//      List<UserView> userViewList = proyecto.getUserView();
-//       
-//        Optional<UserView> userViewNew=userViewRepository.findByPk(7L);
-//       userViewList.add(userViewNew.get());
-//           
-//         proyecto.setUserView(userViewList);
+////      List<UserView> userViewList = proyecto.getUserView();
+////       
+////        Optional<UserView> userViewNew=userViewRepository.findByPk(7L);
+////       userViewList.add(userViewNew.get());
+////           
+////         proyecto.setUserView(userViewList);
+////         
+////         
+////         ConsoleUtil.error("Proyecto con datos cambiados para Actulizar: ");
+////         ConsoleUtil.error(proyecto.toString());
+//         proyecto.setAvance(75.00);
 //                 proyectoRepository.update(proyecto);
 //            ConsoleUtil.info("Agregue un nuevo usuario");
 //                 
-       
-       
+//       /**
+//        * Agrega uno nuevo
+//        */
+//       
+//    ConsoleUtil.info("Agregue un nuevo usuario");
+//               proyecto.setIdproyecto(42L);
+//               proyecto.setActive(false);
+//               if(proyectoRepository.save(proyecto).isPresent()){
+//                   ConsoleUtil.info("Se creo el nuevo documento");
+//               }else{
+//                   ConsoleUtil.info("No Se creo el nuevo documento");
+//               }
 
         return proyectoRepository.findAll();
     }
