@@ -19,10 +19,10 @@ public class Profile {
     @Ignore
     private Long id;
      
-    @Referenced(from = "applicative", localField = "idapplicative")
-    private Applicative applicative;
-//    @ViewReferenced(from = "applicative", localField = "idapplicative")
-//    private ApplicativeView applicativeView;
+//    @Referenced(from = "applicative", localField = "idapplicative")
+//    private Applicative applicative;
+    @ViewReferenced(from = "applicative", localField = "idapplicative")
+    private ApplicativeView applicativeView;
     @Referenced(from = "role", localField = "idrole")    
     private Role role;
 //    @Referenced(from = "departament", localField = "iddepartament")
@@ -36,13 +36,23 @@ public class Profile {
     public Profile() {
     }
 
-    public Profile(Long id, Applicative applicative, Role role, DepartamentView departamentView, Boolean active) {
+    public Profile(Long id, ApplicativeView applicativeView, Role role, DepartamentView departamentView, Boolean active) {
         this.id = id;
-        this.applicative = applicative;
+        this.applicativeView = applicativeView;
         this.role = role;
         this.departamentView = departamentView;
         this.active = active;
     }
+
+    public ApplicativeView getApplicativeView() {
+        return applicativeView;
+    }
+
+    public void setApplicativeView(ApplicativeView applicativeView) {
+        this.applicativeView = applicativeView;
+    }
+
+  
 
     public DepartamentView getDepartamentView() {
         return departamentView;
@@ -55,14 +65,7 @@ public class Profile {
   
     
     
-    public Applicative getApplicative() {
-        return applicative;
-    }
-
-    public void setApplicative(Applicative applicative) {
-        this.applicative = applicative;
-    }
-
+ 
     
 
    
@@ -101,7 +104,7 @@ public class Profile {
         StringBuilder sb = new StringBuilder();
         sb.append("Profile{");
         sb.append("id=").append(id);
-        sb.append(", applicative=").append(applicative);
+        sb.append(", applicativeView=").append(applicativeView);
         sb.append(", role=").append(role);
         sb.append(", departamentView=").append(departamentView);
         sb.append(", active=").append(active);
@@ -109,6 +112,7 @@ public class Profile {
         return sb.toString();
     }
 
+   
  
 
     
