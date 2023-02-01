@@ -41,6 +41,18 @@ public class Departament {
         this.central = central;
     }
 
+    public Central getCentral() {
+        return central;
+    }
+
+    public void setCentral(Central central) {
+        this.central = central;
+    }
+
+  
+
+    
+
     public Long getIddepartament() {
         return iddepartament;
     }
@@ -73,14 +85,6 @@ public class Departament {
         this.active = active;
     }
 
-    public Central getCentral() {
-        return central;
-    }
-
-    public void setCentral(Central central) {
-        this.central = central;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -96,6 +100,8 @@ public class Departament {
 
    
 
+
+   
    
 
    

@@ -4,12 +4,14 @@
  */
 package com.sft.repository;
 
+import com.jmoordb.core.annotation.repository.Find;
 import com.jmoordb.core.annotation.repository.Lookup;
 import com.jmoordb.core.annotation.repository.Repository;
 import com.jmoordb.core.model.Search;
 import com.jmoordb.core.repository.CrudRepository;
 import com.sft.model.Institution;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  *
@@ -19,4 +21,8 @@ import java.util.List;
 public interface InstitutionRepository extends CrudRepository<Institution, Long> {
        @Lookup
 public List<Institution> lookup(Search search);
+@Find
+public Stream<Institution> findByInstitutionAndActive(String institutio, Boolean active);
+
+
 }

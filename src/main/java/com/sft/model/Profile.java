@@ -16,23 +16,20 @@ import com.jmoordb.core.annotation.ViewReferenced;
  */
 @DocumentEmbeddable
 public class Profile {
+
     @Ignore
     private Long id;
-     
-//    @Referenced(from = "applicative", localField = "idapplicative")
-//    private Applicative applicative;
+
     @ViewReferenced(from = "applicative", localField = "idapplicative")
     private ApplicativeView applicativeView;
-    @Referenced(from = "role", localField = "idrole")    
+    @Referenced(from = "role", localField = "idrole")
     private Role role;
-//    @Referenced(from = "departament", localField = "iddepartament")
-//    private Departament departament;
-   
     @ViewReferenced(from = "departament", localField = "iddepartament")
     private DepartamentView departamentView;
-   
- @Column
+
+    @Column
     private Boolean active;
+
     public Profile() {
     }
 
@@ -44,33 +41,6 @@ public class Profile {
         this.active = active;
     }
 
-    public ApplicativeView getApplicativeView() {
-        return applicativeView;
-    }
-
-    public void setApplicativeView(ApplicativeView applicativeView) {
-        this.applicativeView = applicativeView;
-    }
-
-  
-
-    public DepartamentView getDepartamentView() {
-        return departamentView;
-    }
-
-    public void setDepartamentView(DepartamentView departamentView) {
-        this.departamentView = departamentView;
-    }
-
-  
-    
-    
- 
-    
-
-   
- 
-    
     public Long getId() {
         return id;
     }
@@ -79,7 +49,13 @@ public class Profile {
         this.id = id;
     }
 
-   
+    public ApplicativeView getApplicativeView() {
+        return applicativeView;
+    }
+
+    public void setApplicativeView(ApplicativeView applicativeView) {
+        this.applicativeView = applicativeView;
+    }
 
     public Role getRole() {
         return role;
@@ -89,7 +65,13 @@ public class Profile {
         this.role = role;
     }
 
-   
+    public DepartamentView getDepartamentView() {
+        return departamentView;
+    }
+
+    public void setDepartamentView(DepartamentView departamentView) {
+        this.departamentView = departamentView;
+    }
 
     public Boolean getActive() {
         return active;
@@ -112,13 +94,4 @@ public class Profile {
         return sb.toString();
     }
 
-   
- 
-
-    
-
-
-      
-    
-   
 }

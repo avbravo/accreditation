@@ -37,22 +37,17 @@ public class Proyecto {
 
     @Referenced(from = "Icono", localField = "idicono")
     private Icono icono;
-    @Referenced(from = "departament", localField = "iddepartament")
-    List<Departament> departament;
+    @ViewReferenced(from = "departament", localField = "iddepartament")
+    List<DepartamentView> departamentView;
     
-        @Referenced(from = "user", localField = "iduser")
-   private List<User> user;
 
-//    @ViewReferenced(from = "user", localField = "iduser")
-//    private List<UserView> userView;
+    @ViewReferenced(from = "user", localField = "iduser")
+    private List<UserView> userView;
    
-//    @Referenced(from = "departament", localField = "iddepartament")
-//    List<DepartamentView> departamentView;
-
+    
     @Referenced(from = "grupo", localField = "idgrupo")
     private Grupo grupo;
-//    @Referenced(from = "central", localField = "idcentral")
-//    private Central central;
+
     
     @ViewReferenced(from = "central", localField = "idcentral")
     private CentralView centralView;
@@ -68,33 +63,7 @@ public class Proyecto {
     public Proyecto() {
     }
 
-    public Proyecto(Long idproyecto, String proyecto, String descripcion, String prefijo, Date fechafinal, Date fechainicial, Icono icono, List<Departament> departament, List<User> user, Grupo grupo, CentralView centralView, Double avance, String estado, Boolean active) {
-        this.idproyecto = idproyecto;
-        this.proyecto = proyecto;
-        this.descripcion = descripcion;
-        this.prefijo = prefijo;
-        this.fechafinal = fechafinal;
-        this.fechainicial = fechainicial;
-        this.icono = icono;
-        this.departament = departament;
-        this.user = user;
-        this.grupo = grupo;
-        this.centralView = centralView;
-        this.avance = avance;
-        this.estado = estado;
-        this.active = active;
-    }
-
-    public CentralView getCentralView() {
-        return centralView;
-    }
-
-    public void setCentralView(CentralView centralView) {
-        this.centralView = centralView;
-    }
-
-   
-  
+    
 
     public Long getIdproyecto() {
         return idproyecto;
@@ -152,15 +121,24 @@ public class Proyecto {
         this.icono = icono;
     }
 
-    public List<Departament> getDepartament() {
-        return departament;
+    
+
+    public List<UserView> getUserView() {
+        return userView;
     }
 
-    public void setDepartament(List<Departament> departament) {
-        this.departament = departament;
+    public void setUserView(List<UserView> userView) {
+        this.userView = userView;
     }
 
-  
+    public List<DepartamentView> getDepartamentView() {
+        return departamentView;
+    }
+
+    public void setDepartamentView(List<DepartamentView> departamentView) {
+        this.departamentView = departamentView;
+    }
+
     public Grupo getGrupo() {
         return grupo;
     }
@@ -169,7 +147,13 @@ public class Proyecto {
         this.grupo = grupo;
     }
 
-  
+    public CentralView getCentralView() {
+        return centralView;
+    }
+
+    public void setCentralView(CentralView centralView) {
+        this.centralView = centralView;
+    }
 
     public Double getAvance() {
         return avance;
@@ -195,14 +179,6 @@ public class Proyecto {
         this.active = active;
     }
 
-    public List<User> getUser() {
-        return user;
-    }
-
-    public void setUser(List<User> user) {
-        this.user = user;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -214,8 +190,8 @@ public class Proyecto {
         sb.append(", fechafinal=").append(fechafinal);
         sb.append(", fechainicial=").append(fechainicial);
         sb.append(", icono=").append(icono);
-        sb.append(", departament=").append(departament);
-        sb.append(", user=").append(user);
+        sb.append(", departamentView=").append(departamentView);
+        sb.append(", userView=").append(userView);
         sb.append(", grupo=").append(grupo);
         sb.append(", centralView=").append(centralView);
         sb.append(", avance=").append(avance);
@@ -225,10 +201,9 @@ public class Proyecto {
         return sb.toString();
     }
 
-   
-
-  
     
+    
+   
    
 
   
