@@ -70,3 +70,6 @@ cd target
 
 java -jar accreditation-bundle.jar
 ````
+
+#@ViewEntity
+Utiliza vistas para mejorar el rendimiento de muchas operaciones
