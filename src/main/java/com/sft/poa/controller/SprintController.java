@@ -4,6 +4,9 @@
  */
 package com.sft.poa.controller;
 
+import com.jmoordb.core.model.Search;
+import com.jmoordb.core.util.DocumentUtil;
+import com.jmoordb.core.util.MessagesUtil;
 import com.sft.model.Sprint;
 import com.sft.repository.SprintRepository;
 import jakarta.annotation.security.RolesAllowed;
@@ -22,12 +25,8 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.eclipse.microprofile.metrics.Counter;
-import org.eclipse.microprofile.metrics.Histogram;
-import org.eclipse.microprofile.metrics.MetricRegistry;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metered;
-import org.eclipse.microprofile.metrics.annotation.Metric;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -145,6 +144,37 @@ public class SprintController {
         sprintRepository.deleteByPk(idsprint);
         return Response.status(Response.Status.NO_CONTENT).build();
     }
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="List<Sprint> lookup(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size)">
+
+    @GET
+    @Path("lookup")
+    @RolesAllowed({"admin"})
+    @Operation(summary = "Busca un sprint", description = "Busqueda de sprint por search")
+    @APIResponse(responseCode = "200", description = "Sprint")
+    @APIResponse(responseCode = "404", description = "Cuando no existe la condicion en el search")
+    @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
+    @Tag(name = "BETA", description = "Esta api esta en desarrollo")
+    @APIResponse(description = "El search", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Sprint.class)))
+
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+
+    public List<Sprint> lookup(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size) {
+        List<Sprint> suggestions = new ArrayList<>();
+        try {
+
+        Search search = DocumentUtil.convertForLookup(filter, sort, page, size);
+        suggestions = sprintRepository.lookup(search);
+
+        } catch (Exception e) {
+       
+          MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + "error: " + e.getLocalizedMessage());
+        }
+
+        return suggestions;
+    }
+
     // </editor-fold>
     
 }

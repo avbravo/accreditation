@@ -4,6 +4,10 @@
  */
 package com.sft.poa.controller;
 
+import com.jmoordb.core.model.Search;
+import com.jmoordb.core.util.DocumentUtil;
+import com.jmoordb.core.util.MessagesUtil;
+import com.sft.model.Tarjeta;
 import com.sft.model.Tarjeta;
 import com.sft.repository.TarjetaRepository;
 import jakarta.annotation.security.RolesAllowed;
@@ -148,4 +152,34 @@ public class TarjetaController {
     }
     // </editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="List<Tarjeta> lookup(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size)">
+
+    @GET
+    @Path("lookup")
+    @RolesAllowed({"admin"})
+    @Operation(summary = "Busca un tarjeta", description = "Busqueda de tarjeta por search")
+    @APIResponse(responseCode = "200", description = "Tarjeta")
+    @APIResponse(responseCode = "404", description = "Cuando no existe la condicion en el search")
+    @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
+    @Tag(name = "BETA", description = "Esta api esta en desarrollo")
+    @APIResponse(description = "El search", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Tarjeta.class)))
+
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+
+    public List<Tarjeta> lookup(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size) {
+        List<Tarjeta> suggestions = new ArrayList<>();
+        try {
+
+        Search search = DocumentUtil.convertForLookup(filter, sort, page, size);
+        suggestions = tarjetaRepository.lookup(search);
+
+        } catch (Exception e) {
+       
+          MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + "error: " + e.getLocalizedMessage());
+        }
+
+        return suggestions;
+    }
+
+    // </editor-fold>
 }
