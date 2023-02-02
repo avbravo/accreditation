@@ -6,7 +6,9 @@ package com.sft.model;
 
 import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.DocumentEmbeddable;
+import com.jmoordb.core.annotation.ViewReferenced;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -28,16 +30,20 @@ public class Archivo {
 
     @Column
     private Boolean active;
+    
+        @ViewReferenced(from = "user", localField = "iduser")
+   private UserView userView;
 
     public Archivo() {
     }
 
-    public Archivo(String path, Date fecha, String descripcion, String extension, Boolean active) {
+    public Archivo(String path, Date fecha, String descripcion, String extension, Boolean active, UserView userView) {
         this.path = path;
         this.fecha = fecha;
         this.descripcion = descripcion;
         this.extension = extension;
         this.active = active;
+        this.userView = userView;
     }
 
     public String getPath() {
@@ -80,6 +86,14 @@ public class Archivo {
         this.active = active;
     }
 
+    public UserView getUserView() {
+        return userView;
+    }
+
+    public void setUserView(UserView userView) {
+        this.userView = userView;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -89,9 +103,12 @@ public class Archivo {
         sb.append(", descripcion=").append(descripcion);
         sb.append(", extension=").append(extension);
         sb.append(", active=").append(active);
+        sb.append(", userView=").append(userView);
         sb.append('}');
         return sb.toString();
     }
+
+  
 
    
 }

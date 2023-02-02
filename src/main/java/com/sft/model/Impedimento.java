@@ -6,7 +6,9 @@ package com.sft.model;
 
 import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.DocumentEmbeddable;
+import com.jmoordb.core.annotation.ViewReferenced;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -16,21 +18,22 @@ import java.util.Date;
 public class Impedimento {
     @Column
     private String impedimento;
-    @Column
-    private String nombreusuario;
+  
      @Column
     private Date fecha;
     @Column
     private Boolean active;
 
-    public Impedimento() {
+      @ViewReferenced(from = "user", localField = "iduser")
+  private UserView userView; 
+  public Impedimento() {
     }
 
-    public Impedimento(String impedimento, String nombreusuario, Date fecha, Boolean active) {
+    public Impedimento(String impedimento, Date fecha, Boolean active, UserView userView) {
         this.impedimento = impedimento;
-        this.nombreusuario = nombreusuario;
         this.fecha = fecha;
         this.active = active;
+        this.userView = userView;
     }
 
     public String getImpedimento() {
@@ -39,14 +42,6 @@ public class Impedimento {
 
     public void setImpedimento(String impedimento) {
         this.impedimento = impedimento;
-    }
-
-    public String getNombreusuario() {
-        return nombreusuario;
-    }
-
-    public void setNombreusuario(String nombreusuario) {
-        this.nombreusuario = nombreusuario;
     }
 
     public Date getFecha() {
@@ -65,22 +60,27 @@ public class Impedimento {
         this.active = active;
     }
 
+    public UserView getUserView() {
+        return userView;
+    }
+
+    public void setUserView(UserView userView) {
+        this.userView = userView;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Impedimento{");
         sb.append("impedimento=").append(impedimento);
-        sb.append(", nombreusuario=").append(nombreusuario);
         sb.append(", fecha=").append(fecha);
         sb.append(", active=").append(active);
+        sb.append(", userView=").append(userView);
         sb.append('}');
         return sb.toString();
     }
 
-    
-
-    
-    
+  
     
     
 }

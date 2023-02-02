@@ -6,7 +6,9 @@ package com.sft.model;
 
 import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.DocumentEmbeddable;
+import com.jmoordb.core.annotation.ViewReferenced;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -16,21 +18,22 @@ import java.util.Date;
 public class Comentario {
     @Column
     private String comentario;
-    @Column
-    private String nombreusuario;
+
      @Column
     private Date fecha;
     @Column
     private Boolean active;
+        @ViewReferenced(from = "user", localField = "iduser")
+private UserView userView;
 
     public Comentario() {
     }
 
-    public Comentario(String comentario, String nombreusuario, Date fecha, Boolean active) {
+    public Comentario(String comentario, Date fecha, Boolean active, UserView userView) {
         this.comentario = comentario;
-        this.nombreusuario = nombreusuario;
         this.fecha = fecha;
         this.active = active;
+        this.userView = userView;
     }
 
     public String getComentario() {
@@ -39,14 +42,6 @@ public class Comentario {
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
-    }
-
-    public String getNombreusuario() {
-        return nombreusuario;
-    }
-
-    public void setNombreusuario(String nombreusuario) {
-        this.nombreusuario = nombreusuario;
     }
 
     public Date getFecha() {
@@ -65,19 +60,25 @@ public class Comentario {
         this.active = active;
     }
 
+    public UserView getUserView() {
+        return userView;
+    }
+
+    public void setUserView(UserView userView) {
+        this.userView = userView;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Comentario{");
         sb.append("comentario=").append(comentario);
-        sb.append(", nombreusuario=").append(nombreusuario);
         sb.append(", fecha=").append(fecha);
         sb.append(", active=").append(active);
+        sb.append(", userView=").append(userView);
         sb.append('}');
         return sb.toString();
     }
-
-   
 
     
     

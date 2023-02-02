@@ -5,7 +5,6 @@
 package com.sft.model.domain;
 
 import com.jmoordb.core.annotation.Domain;
-import com.sft.model.Proyecto;
 import lombok.Data;
 
 /**
@@ -15,12 +14,12 @@ import lombok.Data;
 @Data
 @Domain(commentary = "Se usa para calular los totales del proyecto")
 public class ProyectoEstadistica {
-    public Integer totalSprint;
-    public Integer totalTarjetasBacklog;
-    public Integer totalTarjetasPendiente;
-    public Integer totalTarjetasProgreso;
-    public Integer totalTarjetasFinalizado;
-    public Long proyecto;
+    private Integer totalSprint;
+    private Integer totalTarjetasBacklog;
+    private Integer totalTarjetasPendiente;
+    private Integer totalTarjetasProgreso;
+    private Integer totalTarjetasFinalizado;
+    private Long proyecto;
 
     public ProyectoEstadistica() {
     }
