@@ -19,20 +19,21 @@ public class ProyectoEstadistica {
     private Integer totalTarjetasPendiente;
     private Integer totalTarjetasProgreso;
     private Integer totalTarjetasFinalizado;
-    private Long proyecto;
+    private Long idproyecto;
 
     public ProyectoEstadistica() {
     }
 
-    public ProyectoEstadistica(Integer totalSprint, Integer totalTarjetasBacklog, Integer totalTarjetasPendiente, Integer totalTarjetasProgreso, Integer totalTarjetasFinalizado, Long proyecto) {
+    public ProyectoEstadistica(Integer totalSprint, Integer totalTarjetasBacklog, Integer totalTarjetasPendiente, Integer totalTarjetasProgreso, Integer totalTarjetasFinalizado, Long idproyecto) {
         this.totalSprint = totalSprint;
         this.totalTarjetasBacklog = totalTarjetasBacklog;
         this.totalTarjetasPendiente = totalTarjetasPendiente;
         this.totalTarjetasProgreso = totalTarjetasProgreso;
         this.totalTarjetasFinalizado = totalTarjetasFinalizado;
-        this.proyecto = proyecto;
+        this.idproyecto = idproyecto;
     }
 
+    
    
 
   
