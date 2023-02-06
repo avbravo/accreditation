@@ -112,23 +112,19 @@
         jmoordb-core
         -->
         
-<!--        <dependency>
+      <dependency>
             <groupId>com.github.avbravo</groupId>
             <artifactId>jmoordb-core</artifactId>
             <version>${version.jmoordbcore}</version>
         </dependency>
-        -->
+      
   
       
      
         <!--
          Encriptation
         -->
-        <dependency>
-            <groupId>com.avbravo.jmoordb.core.processor</groupId>
-            <artifactId>jmoordb-core</artifactId>
-            <version>0.18.100</version>
-        </dependency>
+      
         <dependency>
             <groupId>com.github.avbravo</groupId>
             <artifactId>jmoordbencripter</artifactId>
