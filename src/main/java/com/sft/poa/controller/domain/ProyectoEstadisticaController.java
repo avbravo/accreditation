@@ -84,8 +84,7 @@ public class ProyectoEstadisticaController {
                 Integer totalTarjetasProgreso = 0;
                 Integer totalTarjetasFinalizado = 0;
                 for (Sprint s : sprintList) {
-
-                    Bson filterTarjeta = new Document("sprint.idsprint", s.getIdsprint()).append("active", Boolean.TRUE);
+                                       Bson filterTarjeta = new Document("sprint.idsprint", s.getIdsprint()).append("active", Boolean.TRUE);
                     Document sortTarjeta = new Document("idsprint", 1);
                     Search searchTarjeta = DocumentUtil.convertForLookup(DocumentUtil.bsonToJson(filterTarjeta), DocumentUtil.bsonToJson(sortTarjeta), page, size);
                     
