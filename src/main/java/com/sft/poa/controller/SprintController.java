@@ -25,6 +25,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metered;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -110,9 +111,13 @@ public class SprintController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response save(
             @RequestBody(description = "Crea un nuevo sprint.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Sprint.class))) Sprint sprint) {
-
-
-        return Response.status(Response.Status.CREATED).entity(sprintRepository.save(sprint)).build();
+        Optional<Sprint> sprintOptional=sprintRepository.save(sprint);
+        if(sprintOptional.isPresent()){
+               return Response.status(201).entity(sprintOptional.get()).build();
+        }else{
+              return Response.status(400).entity("Error " + sprintRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
+ 
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Response update">

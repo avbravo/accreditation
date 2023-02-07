@@ -19,4 +19,5 @@ import java.util.List;
 public interface SprintRepository extends CrudRepository<Sprint, Long> {
        @Lookup
 public List<Sprint> lookup(Search search);
+
 }
