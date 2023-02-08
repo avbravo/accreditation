@@ -4,6 +4,7 @@
  */
 package com.sft.repository;
 
+import com.jmoordb.core.annotation.repository.Count;
 import com.jmoordb.core.annotation.repository.Find;
 import com.jmoordb.core.annotation.repository.Lookup;
 import com.jmoordb.core.annotation.repository.Repository;
@@ -24,4 +25,7 @@ public interface ProyectoRepository extends CrudRepository<Proyecto, Long>{
     public List<Proyecto> findByProyecto(String proyecto);
        @Lookup
 public List<Proyecto> lookup(Search search);
+
+  @Count()
+    public Long count(Search... search);
 }

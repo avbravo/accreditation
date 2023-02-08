@@ -4,6 +4,7 @@
  */
 package com.sft.repository;
 
+import com.jmoordb.core.annotation.repository.Count;
 import com.jmoordb.core.annotation.repository.Find;
 import com.jmoordb.core.annotation.repository.Lookup;
 import com.jmoordb.core.annotation.repository.Repository;
@@ -25,5 +26,7 @@ public interface IconoRepository extends CrudRepository<Icono, Long>{
     
     @Lookup
 public List<Icono> lookup(Search search);
+  @Count()
+    public Long count(Search... search);
     
 }

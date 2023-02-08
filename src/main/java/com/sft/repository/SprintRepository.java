@@ -4,6 +4,7 @@
  */
 package com.sft.repository;
 
+import com.jmoordb.core.annotation.repository.Count;
 import com.jmoordb.core.annotation.repository.Lookup;
 import com.jmoordb.core.annotation.repository.Repository;
 import com.jmoordb.core.model.Search;
@@ -19,5 +20,7 @@ import java.util.List;
 public interface SprintRepository extends CrudRepository<Sprint, Long> {
        @Lookup
 public List<Sprint> lookup(Search search);
+  @Count()
+    public Long count(Search... search);
 
 }

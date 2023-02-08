@@ -4,6 +4,7 @@
  */
 package com.sft.repository;
 
+import com.jmoordb.core.annotation.repository.Count;
 import com.jmoordb.core.annotation.repository.Lookup;
 import com.jmoordb.core.annotation.repository.Ping;
 import com.jmoordb.core.annotation.repository.Repository;
@@ -22,4 +23,6 @@ public interface ApplicativeRepository extends CrudRepository<Applicative, Long>
     public Boolean ping();
        @Lookup
 public List<Applicative> lookup(Search search);
+  @Count()
+    public Long count(Search... search);
 }

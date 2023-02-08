@@ -25,6 +25,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metered;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -163,7 +164,12 @@ public class UserController {
             @RequestBody(description = "Crea un nuevo user.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))) User user) {
 
 
-        return Response.status(Response.Status.CREATED).entity(userRepository.save(user)).build();
+        Optional<User> userOptional=userRepository.save(user);
+        if(userOptional.isPresent()){
+               return Response.status(201).entity(userOptional.get()).build();
+        }else{
+              return Response.status(400).entity("Error " + userRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Response update">
@@ -178,7 +184,11 @@ public class UserController {
             @RequestBody(description = "Crea un nuevo user.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))) User user) {
 
 
-        return Response.status(Response.Status.CREATED).entity(userRepository.update(user)).build();
+    if(userRepository.update(user)){
+               return Response.status(201).entity(user).build();
+        }else{
+              return Response.status(400).entity("Error " + userRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
 
@@ -192,9 +202,43 @@ public class UserController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response delete(
             @Parameter(description = "El elemento iduser", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("iduser") Long iduser) {
-        userRepository.deleteByPk(iduser);
-        return Response.status(Response.Status.NO_CONTENT).build();
+         if(userRepository.deleteByPk(iduser) ==0L){
+              return Response.status(201).entity(Boolean.TRUE).build();
+        }else{
+            return Response.status(400).entity("Error " + userRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
+    // </editor-fold>
+    
+     // <editor-fold defaultstate="collapsed" desc="Long count(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size)">
+
+    @GET
+    @Path("count")
+    @RolesAllowed({"admin"})
+    @Operation(summary = "Cuenta ", description = "Cuenta user")
+    @APIResponse(responseCode = "200", description = "contador")
+    @APIResponse(responseCode = "404", description = "Cuando no existe la condicion en el search")
+    @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
+    @Tag(name = "BETA", description = "Esta api esta en desarrollo")
+    @APIResponse(description = "El search", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = User.class)))
+
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+
+    public Long count(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size) {
+       Long result = 0L;
+        try {
+
+        Search search = DocumentUtil.convertForLookup(filter, sort, page, size);
+        result = userRepository.count(search);
+
+        } catch (Exception e) {
+       
+          MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + "error: " + e.getLocalizedMessage());
+        }
+
+        return result;
+    }
+
     // </editor-fold>
     
 }

@@ -8,7 +8,6 @@ import com.jmoordb.core.model.Search;
 import com.jmoordb.core.util.DocumentUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.sft.model.Township;
-import com.sft.model.Township;
 import com.sft.repository.TownshipRepository;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -26,12 +25,9 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.eclipse.microprofile.metrics.Counter;
-import org.eclipse.microprofile.metrics.Histogram;
-import org.eclipse.microprofile.metrics.MetricRegistry;
+import java.util.Optional;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metered;
-import org.eclipse.microprofile.metrics.annotation.Metric;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -148,7 +144,12 @@ public class TownshipController {
             @RequestBody(description = "Crea un nuevo township.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Township.class))) Township township) {
 
 
-        return Response.status(Response.Status.CREATED).entity(townshipRepository.save(township)).build();
+ Optional<Township> townshipOptional=townshipRepository.save(township);
+        if(townshipOptional.isPresent()){
+               return Response.status(201).entity(townshipOptional.get()).build();
+        }else{
+              return Response.status(400).entity("Error " + townshipRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Response update">
@@ -163,7 +164,12 @@ public class TownshipController {
             @RequestBody(description = "Crea un nuevo township.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Township.class))) Township township) {
 
 
-        return Response.status(Response.Status.CREATED).entity(townshipRepository.update(township)).build();
+       
+        if(townshipRepository.update(township)){
+               return Response.status(201).entity(township).build();
+        }else{
+              return Response.status(400).entity("Error " + townshipRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
 
@@ -177,9 +183,43 @@ public class TownshipController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response delete(
             @Parameter(description = "El elemento idtownship", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idtownship") Long idtownship) {
-        townshipRepository.deleteByPk(idtownship);
-        return Response.status(Response.Status.NO_CONTENT).build();
+        if(townshipRepository.deleteByPk(idtownship) ==0L){
+              return Response.status(201).entity(Boolean.TRUE).build();
+        }else{
+            return Response.status(400).entity("Error " + townshipRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
+    // </editor-fold>
+    
+     // <editor-fold defaultstate="collapsed" desc="Long count(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size)">
+
+    @GET
+    @Path("count")
+    @RolesAllowed({"admin"})
+    @Operation(summary = "Cuenta ", description = "Cuenta township")
+    @APIResponse(responseCode = "200", description = "contador")
+    @APIResponse(responseCode = "404", description = "Cuando no existe la condicion en el search")
+    @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
+    @Tag(name = "BETA", description = "Esta api esta en desarrollo")
+    @APIResponse(description = "El search", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Township.class)))
+
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+
+    public Long count(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size) {
+       Long result = 0L;
+        try {
+
+        Search search = DocumentUtil.convertForLookup(filter, sort, page, size);
+        result = townshipRepository.count(search);
+
+        } catch (Exception e) {
+       
+          MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + "error: " + e.getLocalizedMessage());
+        }
+
+        return result;
+    }
+
     // </editor-fold>
     
 }

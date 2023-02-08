@@ -25,6 +25,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metered;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -162,8 +163,12 @@ public class IconoController {
     public Response save(
             @RequestBody(description = "Crea un nuevo icono.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Icono.class))) Icono icono) {
 
-
-        return Response.status(Response.Status.CREATED).entity(iconoRepository.save(icono)).build();
+  Optional<Icono> iconoOptional=iconoRepository.save(icono);
+        if(iconoOptional.isPresent()){
+               return Response.status(201).entity(iconoOptional.get()).build();
+        }else{
+              return Response.status(400).entity("Error " + iconoRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Response update">
@@ -178,7 +183,11 @@ public class IconoController {
             @RequestBody(description = "Crea un nuevo icono.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Icono.class))) Icono icono) {
 
 
-        return Response.status(Response.Status.CREATED).entity(iconoRepository.update(icono)).build();
+         if(iconoRepository.update(icono)){
+               return Response.status(201).entity(icono).build();
+        }else{
+              return Response.status(400).entity("Error " + iconoRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
 
@@ -192,9 +201,43 @@ public class IconoController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response delete(
             @Parameter(description = "El elemento idicono", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idicono") Long idicono) {
-        iconoRepository.deleteByPk(idicono);
-        return Response.status(Response.Status.NO_CONTENT).build();
+        if(iconoRepository.deleteByPk(idicono) ==0L){
+              return Response.status(201).entity(Boolean.TRUE).build();
+        }else{
+            return Response.status(400).entity("Error " + iconoRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
+    // </editor-fold>
+    
+     // <editor-fold defaultstate="collapsed" desc="Long count(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size)">
+
+    @GET
+    @Path("count")
+    @RolesAllowed({"admin"})
+    @Operation(summary = "Cuenta ", description = "Cuenta icono")
+    @APIResponse(responseCode = "200", description = "contador")
+    @APIResponse(responseCode = "404", description = "Cuando no existe la condicion en el search")
+    @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
+    @Tag(name = "BETA", description = "Esta api esta en desarrollo")
+    @APIResponse(description = "El search", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Icono.class)))
+
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+
+    public Long count(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size) {
+       Long result = 0L;
+        try {
+
+        Search search = DocumentUtil.convertForLookup(filter, sort, page, size);
+        result = iconoRepository.count(search);
+
+        } catch (Exception e) {
+       
+          MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + "error: " + e.getLocalizedMessage());
+        }
+
+        return result;
+    }
+
     // </editor-fold>
     
 }

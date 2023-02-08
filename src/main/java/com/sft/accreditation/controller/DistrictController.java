@@ -25,12 +25,9 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.eclipse.microprofile.metrics.Counter;
-import org.eclipse.microprofile.metrics.Histogram;
-import org.eclipse.microprofile.metrics.MetricRegistry;
+import java.util.Optional;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metered;
-import org.eclipse.microprofile.metrics.annotation.Metric;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -146,7 +143,12 @@ public class DistrictController {
             @RequestBody(description = "Crea un nuevo district.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = District.class))) District district) {
 
 
-        return Response.status(Response.Status.CREATED).entity(districtRepository.save(district)).build();
+         Optional<District> districtOptional=districtRepository.save(district);
+        if(districtOptional.isPresent()){
+               return Response.status(201).entity(districtOptional.get()).build();
+        }else{
+              return Response.status(400).entity("Error " + districtRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Response update">
@@ -161,7 +163,11 @@ public class DistrictController {
             @RequestBody(description = "Crea un nuevo district.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = District.class))) District district) {
 
 
-        return Response.status(Response.Status.CREATED).entity(districtRepository.update(district)).build();
+         if(districtRepository.update(district)){
+               return Response.status(201).entity(district).build();
+        }else{
+              return Response.status(400).entity("Error " + districtRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
 
@@ -175,9 +181,43 @@ public class DistrictController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response delete(
             @Parameter(description = "El elemento iddistrict", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("iddistrict") String iddistrict) {
-        districtRepository.deleteByPk(iddistrict);
-        return Response.status(Response.Status.NO_CONTENT).build();
+      if(districtRepository.deleteByPk(iddistrict) ==0L){
+              return Response.status(201).entity(Boolean.TRUE).build();
+        }else{
+            return Response.status(400).entity("Error " + districtRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
+    // </editor-fold>
+    
+     // <editor-fold defaultstate="collapsed" desc="Long count(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size)">
+
+    @GET
+    @Path("count")
+    @RolesAllowed({"admin"})
+    @Operation(summary = "Cuenta ", description = "Cuenta district")
+    @APIResponse(responseCode = "200", description = "contador")
+    @APIResponse(responseCode = "404", description = "Cuando no existe la condicion en el search")
+    @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
+    @Tag(name = "BETA", description = "Esta api esta en desarrollo")
+    @APIResponse(description = "El search", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = District.class)))
+
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+
+    public Long count(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size) {
+       Long result = 0L;
+        try {
+
+        Search search = DocumentUtil.convertForLookup(filter, sort, page, size);
+        result = districtRepository.count(search);
+
+        } catch (Exception e) {
+       
+          MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + "error: " + e.getLocalizedMessage());
+        }
+
+        return result;
+    }
+
     // </editor-fold>
     
 }

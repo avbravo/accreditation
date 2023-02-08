@@ -208,5 +208,34 @@ public class GrupoController {
     }
 
     // </editor-fold>
-    
+    // <editor-fold defaultstate="collapsed" desc="Long count(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size)">
+
+    @GET
+    @Path("count")
+    @RolesAllowed({"admin"})
+    @Operation(summary = "Cuenta ", description = "Cuenta grupo")
+    @APIResponse(responseCode = "200", description = "contador")
+    @APIResponse(responseCode = "404", description = "Cuando no existe la condicion en el search")
+    @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
+    @Tag(name = "BETA", description = "Esta api esta en desarrollo")
+    @APIResponse(description = "El search", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Grupo.class)))
+
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+
+    public Long count(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size) {
+       Long result = 0L;
+        try {
+
+        Search search = DocumentUtil.convertForLookup(filter, sort, page, size);
+        result = grupoRepository.count(search);
+
+        } catch (Exception e) {
+       
+          MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + "error: " + e.getLocalizedMessage());
+        }
+
+        return result;
+    }
+
+    // </editor-fold>
 }

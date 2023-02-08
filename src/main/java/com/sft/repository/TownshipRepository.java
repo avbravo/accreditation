@@ -4,6 +4,7 @@
  */
 package com.sft.repository;
 
+import com.jmoordb.core.annotation.repository.Count;
 import com.jmoordb.core.annotation.repository.Lookup;
 import com.jmoordb.core.annotation.repository.Repository;
 import com.jmoordb.core.model.Search;
@@ -19,4 +20,7 @@ import java.util.List;
 public interface TownshipRepository extends CrudRepository<Township, Long> {
        @Lookup
 public List<Township> lookup(Search search);
+
+ @Count()
+    public Long count(Search... search);
 }

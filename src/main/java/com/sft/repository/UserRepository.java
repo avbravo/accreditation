@@ -4,6 +4,7 @@
  */
 package com.sft.repository;
 
+import com.jmoordb.core.annotation.repository.Count;
 import com.jmoordb.core.annotation.repository.Find;
 import com.jmoordb.core.annotation.repository.Lookup;
 import com.jmoordb.core.annotation.repository.Repository;
@@ -24,4 +25,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     
     @Lookup
 public List<User> lookup(Search search);
+
+ @Count()
+    public Long count(Search... search);
 }

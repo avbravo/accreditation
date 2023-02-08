@@ -4,6 +4,7 @@
  */
 package com.sft.repository;
 
+import com.jmoordb.core.annotation.repository.Count;
 import com.jmoordb.core.annotation.repository.Lookup;
 import com.jmoordb.core.annotation.repository.Repository;
 import com.jmoordb.core.model.Search;
@@ -20,4 +21,6 @@ import java.util.List;
 public interface TarjetaRepository extends CrudRepository<Tarjeta, Long>{
        @Lookup
 public List<Tarjeta> lookup(Search search);
+ @Count()
+    public Long count(Search... search);
 }
