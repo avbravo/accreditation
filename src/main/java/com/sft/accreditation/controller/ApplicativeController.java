@@ -25,12 +25,10 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.eclipse.microprofile.metrics.Counter;
-import org.eclipse.microprofile.metrics.Histogram;
+import java.util.Optional;
 import org.eclipse.microprofile.metrics.MetricRegistry;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metered;
-import org.eclipse.microprofile.metrics.annotation.Metric;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -118,7 +116,12 @@ public class ApplicativeController {
             @RequestBody(description = "Crea un nuevo applicative.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Applicative.class))) Applicative applicative) {
 
 
-        return Response.status(Response.Status.CREATED).entity(applicativeRepository.save(applicative)).build();
+       Optional<Applicative> applicativeOptional=applicativeRepository.save(applicative);
+        if(applicativeOptional.isPresent()){
+               return Response.status(201).entity(applicativeOptional.get()).build();
+        }else{
+              return Response.status(400).entity("Error " + applicativeRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Response update">
@@ -133,7 +136,11 @@ public class ApplicativeController {
             @RequestBody(description = "Crea un nuevo applicative.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Applicative.class))) Applicative applicative) {
 
 
-        return Response.status(Response.Status.CREATED).entity(applicativeRepository.update(applicative)).build();
+         if(applicativeRepository.update(applicative)){
+               return Response.status(201).entity(applicative).build();
+        }else{
+              return Response.status(400).entity("Error " + applicativeRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
 
@@ -147,8 +154,11 @@ public class ApplicativeController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response delete(
             @Parameter(description = "El elemento idapplicative", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idapplicative") Long idapplicative) {
-        applicativeRepository.deleteByPk(idapplicative);
-        return Response.status(Response.Status.NO_CONTENT).build();
+        if(applicativeRepository.deleteByPk(idapplicative) ==0L){
+              return Response.status(201).entity(Boolean.TRUE).build();
+        }else{
+            return Response.status(400).entity("Error " + applicativeRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
     // </editor-fold>
     

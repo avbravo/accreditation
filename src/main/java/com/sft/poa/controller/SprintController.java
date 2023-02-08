@@ -89,8 +89,7 @@ public class SprintController {
     @APIResponse(description = "El sprint", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Sprint.class)))
     public Sprint findByIdsprint(
             @Parameter(description = "El idsprint", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idsprint") Long idsprint) {
-
-      
+     
 
         return sprintRepository.findByPk(idsprint).orElseThrow(
                 () -> new WebApplicationException("No hay sprint con idsprint " + idsprint, Response.Status.NOT_FOUND));
@@ -132,7 +131,12 @@ public class SprintController {
             @RequestBody(description = "Crea un nuevo sprint.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Sprint.class))) Sprint sprint) {
 
 
-        return Response.status(Response.Status.CREATED).entity(sprintRepository.update(sprint)).build();
+        if(sprintRepository.update(sprint)){
+               return Response.status(201).entity(sprint).build();
+        }else{
+              return Response.status(400).entity("Error " + sprintRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
+        
     }
 // </editor-fold>
 
@@ -146,8 +150,12 @@ public class SprintController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response delete(
             @Parameter(description = "El elemento idsprint", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idsprint") Long idsprint) {
-        sprintRepository.deleteByPk(idsprint);
-        return Response.status(Response.Status.NO_CONTENT).build();
+        if(sprintRepository.deleteByPk(idsprint) ==0L){
+              return Response.status(201).entity(Boolean.TRUE).build();
+        }else{
+            return Response.status(400).entity("Error " + sprintRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
+      
     }
     // </editor-fold>
     

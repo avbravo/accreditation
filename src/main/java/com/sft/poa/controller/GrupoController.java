@@ -8,7 +8,6 @@ import com.jmoordb.core.model.Search;
 import com.jmoordb.core.util.DocumentUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.sft.model.Grupo;
-import com.sft.model.Grupo;
 import com.sft.repository.GrupoRepository;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -26,6 +25,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metered;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -131,7 +131,12 @@ public class GrupoController {
             @RequestBody(description = "Crea un nuevo grupo.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Grupo.class))) Grupo grupo) {
 
 
-        return Response.status(Response.Status.CREATED).entity(grupoRepository.save(grupo)).build();
+      Optional<Grupo> grupoOptional=grupoRepository.save(grupo);
+        if(grupoOptional.isPresent()){
+               return Response.status(201).entity(grupoOptional.get()).build();
+        }else{
+              return Response.status(400).entity("Error " + grupoRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Response update">
@@ -146,7 +151,11 @@ public class GrupoController {
             @RequestBody(description = "Crea un nuevo grupo.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Grupo.class))) Grupo grupo) {
 
 
-        return Response.status(Response.Status.CREATED).entity(grupoRepository.update(grupo)).build();
+        if(grupoRepository.update(grupo)){
+               return Response.status(201).entity(grupo).build();
+        }else{
+              return Response.status(400).entity("Error " + grupoRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
 
@@ -160,8 +169,12 @@ public class GrupoController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response delete(
             @Parameter(description = "El elemento idgrupo", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idgrupo") Long idgrupo) {
-        grupoRepository.deleteByPk(idgrupo);
-        return Response.status(Response.Status.NO_CONTENT).build();
+ 
+      if(grupoRepository.deleteByPk(idgrupo) ==0L){
+              return Response.status(201).entity(Boolean.TRUE).build();
+        }else{
+            return Response.status(400).entity("Error " + grupoRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
     // </editor-fold>
     

@@ -8,7 +8,6 @@ import com.jmoordb.core.model.Search;
 import com.jmoordb.core.util.DocumentUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.sft.model.Tarjeta;
-import com.sft.model.Tarjeta;
 import com.sft.repository.TarjetaRepository;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -26,12 +25,9 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.eclipse.microprofile.metrics.Counter;
-import org.eclipse.microprofile.metrics.Histogram;
-import org.eclipse.microprofile.metrics.MetricRegistry;
+import java.util.Optional;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metered;
-import org.eclipse.microprofile.metrics.annotation.Metric;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -118,7 +114,13 @@ public class TarjetaController {
             @RequestBody(description = "Crea un nuevo tarjeta.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Tarjeta.class))) Tarjeta tarjeta) {
 
 
-        return Response.status(Response.Status.CREATED).entity(tarjetaRepository.save(tarjeta)).build();
+        Optional<Tarjeta> tarjetaOptional=tarjetaRepository.save(tarjeta);
+        if(tarjetaOptional.isPresent()){
+               return Response.status(201).entity(tarjetaOptional.get()).build();
+        }else{
+              return Response.status(400).entity("Error " + tarjetaRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
+ 
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Response update">
@@ -133,7 +135,11 @@ public class TarjetaController {
             @RequestBody(description = "Crea un nuevo tarjeta.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Tarjeta.class))) Tarjeta tarjeta) {
 
 
-        return Response.status(Response.Status.CREATED).entity(tarjetaRepository.update(tarjeta)).build();
+        if(tarjetaRepository.update(tarjeta)){
+               return Response.status(201).entity(tarjeta).build();
+        }else{
+              return Response.status(400).entity("Error " + tarjetaRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
 
@@ -147,8 +153,12 @@ public class TarjetaController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response delete(
             @Parameter(description = "El elemento idtarjeta", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idtarjeta") Long idtarjeta) {
-        tarjetaRepository.deleteByPk(idtarjeta);
-        return Response.status(Response.Status.NO_CONTENT).build();
+   
+       if(tarjetaRepository.deleteByPk(idtarjeta) ==0L){
+              return Response.status(201).entity(Boolean.TRUE).build();
+        }else{
+            return Response.status(400).entity("Error " + tarjetaRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
     // </editor-fold>
     

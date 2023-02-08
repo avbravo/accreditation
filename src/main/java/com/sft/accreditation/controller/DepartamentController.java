@@ -25,12 +25,10 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.eclipse.microprofile.metrics.Counter;
-import org.eclipse.microprofile.metrics.Histogram;
+import java.util.Optional;
 import org.eclipse.microprofile.metrics.MetricRegistry;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metered;
-import org.eclipse.microprofile.metrics.annotation.Metric;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -148,7 +146,12 @@ public class DepartamentController {
             @RequestBody(description = "Crea un nuevo departament.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Departament.class))) Departament departament) {
 
 
-        return Response.status(Response.Status.CREATED).entity(departamentRepository.save(departament)).build();
+       Optional<Departament> departamentOptional=departamentRepository.save(departament);
+        if(departamentOptional.isPresent()){
+               return Response.status(201).entity(departamentOptional.get()).build();
+        }else{
+              return Response.status(400).entity("Error " + departamentRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Response update">
@@ -163,7 +166,11 @@ public class DepartamentController {
             @RequestBody(description = "Crea un nuevo departament.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Departament.class))) Departament departament) {
 
 
-        return Response.status(Response.Status.CREATED).entity(departamentRepository.update(departament)).build();
+         if(departamentRepository.update(departament)){
+               return Response.status(201).entity(departament).build();
+        }else{
+              return Response.status(400).entity("Error " + departamentRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
 
@@ -177,8 +184,11 @@ public class DepartamentController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response delete(
             @Parameter(description = "El elemento iddepartament", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("iddepartament") Long iddepartament) {
-        departamentRepository.deleteByPk(iddepartament);
-        return Response.status(Response.Status.NO_CONTENT).build();
+        if(departamentRepository.deleteByPk(iddepartament) ==0L){
+              return Response.status(201).entity(Boolean.TRUE).build();
+        }else{
+            return Response.status(400).entity("Error " + departamentRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
     // </editor-fold>
     

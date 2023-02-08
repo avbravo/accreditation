@@ -25,12 +25,9 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.eclipse.microprofile.metrics.Counter;
-import org.eclipse.microprofile.metrics.Histogram;
-import org.eclipse.microprofile.metrics.MetricRegistry;
+import java.util.Optional;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metered;
-import org.eclipse.microprofile.metrics.annotation.Metric;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -146,7 +143,12 @@ public class BuildingController {
             @RequestBody(description = "Crea un nuevo building.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Building.class))) Building building) {
 
 
-        return Response.status(Response.Status.CREATED).entity(buildingRepository.save(building)).build();
+         Optional<Building> buildingOptional=buildingRepository.save(building);
+        if(buildingOptional.isPresent()){
+               return Response.status(201).entity(buildingOptional.get()).build();
+        }else{
+              return Response.status(400).entity("Error " + buildingRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Response update">
@@ -161,7 +163,11 @@ public class BuildingController {
             @RequestBody(description = "Crea un nuevo building.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Building.class))) Building building) {
 
 
-        return Response.status(Response.Status.CREATED).entity(buildingRepository.update(building)).build();
+     if(buildingRepository.update(building)){
+               return Response.status(201).entity(building).build();
+        }else{
+              return Response.status(400).entity("Error " + buildingRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
 
@@ -175,8 +181,11 @@ public class BuildingController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response delete(
             @Parameter(description = "El elemento idbuilding", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idbuilding") Long idbuilding) {
-        buildingRepository.deleteByPk(idbuilding);
-        return Response.status(Response.Status.NO_CONTENT).build();
+           if(buildingRepository.deleteByPk(idbuilding) ==0L){
+              return Response.status(201).entity(Boolean.TRUE).build();
+        }else{
+            return Response.status(400).entity("Error " + buildingRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
     // </editor-fold>
     

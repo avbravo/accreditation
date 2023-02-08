@@ -25,6 +25,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metered;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -113,7 +114,12 @@ public class TarjetaViewController {
             @RequestBody(description = "Crea un nuevo tarjetaView.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TarjetaView.class))) TarjetaView tarjetaView) {
 
 
-        return Response.status(Response.Status.CREATED).entity(tarjetaViewRepository.save(tarjetaView)).build();
+       Optional<TarjetaView> tarjetaViewOptional=tarjetaViewRepository.save(tarjetaView);
+        if(tarjetaViewOptional.isPresent()){
+               return Response.status(201).entity(tarjetaViewOptional.get()).build();
+        }else{
+              return Response.status(400).entity("Error " + tarjetaViewRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Response update">
@@ -128,7 +134,11 @@ public class TarjetaViewController {
             @RequestBody(description = "Crea un nuevo tarjetaView.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TarjetaView.class))) TarjetaView tarjetaView) {
 
 
-        return Response.status(Response.Status.CREATED).entity(tarjetaViewRepository.update(tarjetaView)).build();
+       if(tarjetaViewRepository.update(tarjetaView)){
+               return Response.status(201).entity(tarjetaView).build();
+        }else{
+              return Response.status(400).entity("Error " + tarjetaViewRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
 
@@ -142,8 +152,11 @@ public class TarjetaViewController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response delete(
             @Parameter(description = "El elemento idtarjetaView", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idtarjetaView") Long idtarjetaView) {
-        tarjetaViewRepository.deleteByPk(idtarjetaView);
-        return Response.status(Response.Status.NO_CONTENT).build();
+       if(tarjetaViewRepository.deleteByPk(idtarjetaView) ==0L){
+              return Response.status(201).entity(Boolean.TRUE).build();
+        }else{
+            return Response.status(400).entity("Error " + tarjetaViewRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
     // </editor-fold>
     

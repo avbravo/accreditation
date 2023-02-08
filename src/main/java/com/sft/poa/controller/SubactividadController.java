@@ -8,7 +8,6 @@ import com.jmoordb.core.model.Search;
 import com.jmoordb.core.util.DocumentUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.sft.model.Subactividad;
-import com.sft.model.Subactividad;
 import com.sft.repository.SubactividadRepository;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -25,14 +24,10 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
-import org.eclipse.microprofile.metrics.Counter;
-import org.eclipse.microprofile.metrics.Histogram;
-import org.eclipse.microprofile.metrics.MetricRegistry;
+import java.util.Optional;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metered;
-import org.eclipse.microprofile.metrics.annotation.Metric;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -116,8 +111,12 @@ public class SubactividadController {
     public Response save(
             @RequestBody(description = "Crea un nuevo subactividad.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Subactividad.class))) Subactividad subactividad) {
 
-
-        return Response.status(Response.Status.CREATED).entity(subactividadRepository.save(subactividad)).build();
+ Optional<Subactividad> subactividadOptional=subactividadRepository.save(subactividad);
+        if(subactividadOptional.isPresent()){
+               return Response.status(201).entity(subactividadOptional.get()).build();
+        }else{
+              return Response.status(400).entity("Error " + subactividadRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Response update">
@@ -132,7 +131,11 @@ public class SubactividadController {
             @RequestBody(description = "Crea un nuevo subactividad.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Subactividad.class))) Subactividad subactividad) {
 
 
-        return Response.status(Response.Status.CREATED).entity(subactividadRepository.update(subactividad)).build();
+          if(subactividadRepository.update(subactividad)){
+               return Response.status(201).entity(subactividad).build();
+        }else{
+              return Response.status(400).entity("Error " + subactividadRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
 
@@ -146,8 +149,12 @@ public class SubactividadController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response delete(
             @Parameter(description = "El elemento idsubactividad", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idsubactividad") Long idsubactividad) {
-        subactividadRepository.deleteByPk(idsubactividad);
-        return Response.status(Response.Status.NO_CONTENT).build();
+
+         if(subactividadRepository.deleteByPk(idsubactividad) ==0L){
+              return Response.status(201).entity(Boolean.TRUE).build();
+        }else{
+            return Response.status(400).entity("Error " + subactividadRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
     // </editor-fold>
     

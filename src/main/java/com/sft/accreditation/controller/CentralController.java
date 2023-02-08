@@ -25,12 +25,9 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.eclipse.microprofile.metrics.Counter;
-import org.eclipse.microprofile.metrics.Histogram;
-import org.eclipse.microprofile.metrics.MetricRegistry;
+import java.util.Optional;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metered;
-import org.eclipse.microprofile.metrics.annotation.Metric;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -146,8 +143,12 @@ public class CentralController {
     public Response save(
             @RequestBody(description = "Crea un nuevo central.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Central.class))) Central central) {
 
-
-        return Response.status(Response.Status.CREATED).entity(centralRepository.save(central)).build();
+ Optional<Central> centralOptional=centralRepository.save(central);
+        if(centralOptional.isPresent()){
+               return Response.status(201).entity(centralOptional.get()).build();
+        }else{
+              return Response.status(400).entity("Error " + centralRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Response update">
@@ -161,8 +162,11 @@ public class CentralController {
     public Response update(
             @RequestBody(description = "Crea un nuevo central.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Central.class))) Central central) {
 
-
-        return Response.status(Response.Status.CREATED).entity(centralRepository.update(central)).build();
+   if(centralRepository.update(central)){
+               return Response.status(201).entity(central).build();
+        }else{
+              return Response.status(400).entity("Error " + centralRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
 
@@ -176,8 +180,11 @@ public class CentralController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response delete(
             @Parameter(description = "El elemento idcentral", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idcentral") Long idcentral) {
-        centralRepository.deleteByPk(idcentral);
-        return Response.status(Response.Status.NO_CONTENT).build();
+     if(centralRepository.deleteByPk(idcentral) ==0L){
+              return Response.status(201).entity(Boolean.TRUE).build();
+        }else{
+            return Response.status(400).entity("Error " + centralRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
     // </editor-fold>
     

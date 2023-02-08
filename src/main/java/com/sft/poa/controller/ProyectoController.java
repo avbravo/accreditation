@@ -5,12 +5,9 @@
 package com.sft.poa.controller;
 
 import com.jmoordb.core.model.Search;
-import com.jmoordb.core.util.ConsoleUtil;
 import com.jmoordb.core.util.DocumentUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.sft.model.Proyecto;
-import com.sft.model.User;
-import com.sft.model.UserView;
 import com.sft.repository.ProyectoRepository;
 import com.sft.repository.UserRepository;
 import com.sft.repository.UserViewRepository;
@@ -142,8 +139,12 @@ public class ProyectoController {
     public Response save(
             @RequestBody(description = "Crea un nuevo proyecto.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Proyecto.class))) Proyecto proyecto) {
 
-
-        return Response.status(Response.Status.CREATED).entity(proyectoRepository.save(proyecto)).build();
+  Optional<Proyecto> proyectoOptional=proyectoRepository.save(proyecto);
+        if(proyectoOptional.isPresent()){
+               return Response.status(201).entity(proyectoOptional.get()).build();
+        }else{
+              return Response.status(400).entity("Error " + proyectoRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Response update">
@@ -158,7 +159,11 @@ public class ProyectoController {
             @RequestBody(description = "Crea un nuevo proyecto.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Proyecto.class))) Proyecto proyecto) {
 
 
-        return Response.status(Response.Status.CREATED).entity(proyectoRepository.update(proyecto)).build();
+       if(proyectoRepository.update(proyecto)){
+               return Response.status(201).entity(proyecto).build();
+        }else{
+              return Response.status(400).entity("Error " + proyectoRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
 
@@ -172,8 +177,12 @@ public class ProyectoController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response delete(
             @Parameter(description = "El elemento idproyecto", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idproyecto") Long idproyecto) {
-        proyectoRepository.deleteByPk(idproyecto);
-        return Response.status(Response.Status.NO_CONTENT).build();
+     
+         if(proyectoRepository.deleteByPk(idproyecto) ==0L){
+              return Response.status(201).entity(Boolean.TRUE).build();
+        }else{
+            return Response.status(400).entity("Error " + proyectoRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
     // </editor-fold>
     

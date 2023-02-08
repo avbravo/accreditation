@@ -8,7 +8,6 @@ import com.jmoordb.core.model.Search;
 import com.jmoordb.core.util.DocumentUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.sft.model.Actividad;
-import com.sft.model.Actividad;
 import com.sft.repository.ActividadRepository;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -26,12 +25,9 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.eclipse.microprofile.metrics.Counter;
-import org.eclipse.microprofile.metrics.Histogram;
-import org.eclipse.microprofile.metrics.MetricRegistry;
+import java.util.Optional;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metered;
-import org.eclipse.microprofile.metrics.annotation.Metric;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -117,7 +113,12 @@ public class ActividadController {
             @RequestBody(description = "Crea un nuevo actividad.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Actividad.class))) Actividad actividad) {
 
 
-        return Response.status(Response.Status.CREATED).entity(actividadRepository.save(actividad)).build();
+         Optional<Actividad> actividadOptional=actividadRepository.save(actividad);
+        if(actividadOptional.isPresent()){
+               return Response.status(201).entity(actividadOptional.get()).build();
+        }else{
+              return Response.status(400).entity("Error " + actividadRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Response update">
@@ -132,7 +133,12 @@ public class ActividadController {
             @RequestBody(description = "Crea un nuevo actividad.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Actividad.class))) Actividad actividad) {
 
 
-        return Response.status(Response.Status.CREATED).entity(actividadRepository.update(actividad)).build();
+       
+        if(actividadRepository.update(actividad)){
+               return Response.status(201).entity(actividad).build();
+        }else{
+              return Response.status(400).entity("Error " + actividadRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
 
@@ -146,8 +152,12 @@ public class ActividadController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response delete(
             @Parameter(description = "El elemento idactividad", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idactividad") Long idactividad) {
-        actividadRepository.deleteByPk(idactividad);
-        return Response.status(Response.Status.NO_CONTENT).build();
+
+    if(actividadRepository.deleteByPk(idactividad) ==0L){
+              return Response.status(201).entity(Boolean.TRUE).build();
+        }else{
+            return Response.status(400).entity("Error " + actividadRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
     // </editor-fold>
     

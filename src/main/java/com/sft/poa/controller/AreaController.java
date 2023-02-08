@@ -8,7 +8,6 @@ import com.jmoordb.core.model.Search;
 import com.jmoordb.core.util.DocumentUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.sft.model.Area;
-import com.sft.model.Area;
 import com.sft.repository.AreaRepository;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -26,6 +25,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metered;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -111,8 +111,12 @@ public class AreaController {
     public Response save(
             @RequestBody(description = "Crea un nuevo area.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Area.class))) Area area) {
 
-
-        return Response.status(Response.Status.CREATED).entity(areaRepository.save(area)).build();
+ Optional<Area> areaOptional=areaRepository.save(area);
+        if(areaOptional.isPresent()){
+               return Response.status(201).entity(areaOptional.get()).build();
+        }else{
+              return Response.status(400).entity("Error " + areaRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Response update">
@@ -127,7 +131,11 @@ public class AreaController {
             @RequestBody(description = "Crea un nuevo area.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Area.class))) Area area) {
 
 
-        return Response.status(Response.Status.CREATED).entity(areaRepository.update(area)).build();
+       if(areaRepository.update(area)){
+               return Response.status(201).entity(area).build();
+        }else{
+              return Response.status(400).entity("Error " + areaRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
 // </editor-fold>
 
@@ -141,8 +149,12 @@ public class AreaController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response delete(
             @Parameter(description = "El elemento idarea", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idarea") Long idarea) {
-        areaRepository.deleteByPk(idarea);
-        return Response.status(Response.Status.NO_CONTENT).build();
+
+       if(areaRepository.deleteByPk(idarea) ==0L){
+              return Response.status(201).entity(Boolean.TRUE).build();
+        }else{
+            return Response.status(400).entity("Error " + areaRepository.getJmoordbException().getLocalizedMessage()).build();
+        }
     }
     // </editor-fold>
     
