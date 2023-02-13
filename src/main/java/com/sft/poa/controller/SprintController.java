@@ -5,6 +5,7 @@
 package com.sft.poa.controller;
 
 import com.jmoordb.core.model.Search;
+import com.jmoordb.core.util.ConsoleUtil;
 import com.jmoordb.core.util.DocumentUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.sft.model.Sprint;
@@ -24,6 +25,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.eclipse.microprofile.metrics.MetricUnits;
@@ -177,6 +179,9 @@ public class SprintController {
         List<Sprint> suggestions = new ArrayList<>();
         try {
 
+            
+            
+                            
         Search search = DocumentUtil.convertForLookup(filter, sort, page, size);
         suggestions = sprintRepository.lookup(search);
 
