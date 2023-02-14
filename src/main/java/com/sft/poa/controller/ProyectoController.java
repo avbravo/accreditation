@@ -5,6 +5,7 @@
 package com.sft.poa.controller;
 
 import com.jmoordb.core.model.Search;
+import com.jmoordb.core.util.ConsoleUtil;
 import com.jmoordb.core.util.DocumentUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.sft.model.Proyecto;
@@ -157,11 +158,13 @@ public class ProyectoController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response update(
             @RequestBody(description = "Crea un nuevo proyecto.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Proyecto.class))) Proyecto proyecto) {
-
-
+        
+        
+        
        if(proyectoRepository.update(proyecto)){
                return Response.status(201).entity(proyecto).build();
         }else{
+           
               return Response.status(400).entity("Error " + proyectoRepository.getJmoordbException().getLocalizedMessage()).build();
         }
     }
