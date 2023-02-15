@@ -36,7 +36,8 @@ public class ProyectoView {
     @Column
     private Date fechainicial;
 
-   
+    @Referenced(from = "Icono", localField = "idicono")
+    private Icono icono;
    
     @Column
     private Double avance;
@@ -49,20 +50,18 @@ public class ProyectoView {
     public ProyectoView() {
     }
 
-    public ProyectoView(Long idproyecto, String proyecto, String descripcion, String prefijo, Date fechafinal, Date fechainicial, Double avance, String estado, Boolean active) {
+    public ProyectoView(Long idproyecto, String proyecto, String descripcion, String prefijo, Date fechafinal, Date fechainicial, Icono icono, Double avance, String estado, Boolean active) {
         this.idproyecto = idproyecto;
         this.proyecto = proyecto;
         this.descripcion = descripcion;
         this.prefijo = prefijo;
         this.fechafinal = fechafinal;
         this.fechainicial = fechainicial;
+        this.icono = icono;
         this.avance = avance;
         this.estado = estado;
         this.active = active;
     }
-
-    
-    
 
     public Long getIdproyecto() {
         return idproyecto;
@@ -112,6 +111,14 @@ public class ProyectoView {
         this.fechainicial = fechainicial;
     }
 
+    public Icono getIcono() {
+        return icono;
+    }
+
+    public void setIcono(Icono icono) {
+        this.icono = icono;
+    }
+
     public Double getAvance() {
         return avance;
     }
@@ -146,6 +153,7 @@ public class ProyectoView {
         sb.append(", prefijo=").append(prefijo);
         sb.append(", fechafinal=").append(fechafinal);
         sb.append(", fechainicial=").append(fechainicial);
+        sb.append(", icono=").append(icono);
         sb.append(", avance=").append(avance);
         sb.append(", estado=").append(estado);
         sb.append(", active=").append(active);
@@ -153,7 +161,7 @@ public class ProyectoView {
         return sb.toString();
     }
 
-  
+   
    
    
 

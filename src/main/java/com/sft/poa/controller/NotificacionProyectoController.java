@@ -74,7 +74,7 @@ public class NotificacionProyectoController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     @APIResponse(description = "Los notificacionProyecto", responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Collection.class, readOnly = true, description = "los notificacionProyecto", required = true, name = "notificacionProyecto")))
     public List<NotificacionProyecto> findAll() {
-        ConsoleUtil.info("--> Llego a findAll()");
+      
         return notificacionProyectoRepository.findAll();
     }
 // </editor-fold>
