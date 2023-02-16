@@ -4,12 +4,16 @@
  */
 package com.sft.repository;
 
+import com.jmoordb.core.annotation.date.ExcludeTime;
+import com.jmoordb.core.annotation.date.IncludeTime;
 import com.jmoordb.core.annotation.repository.Count;
+import com.jmoordb.core.annotation.repository.Find;
 import com.jmoordb.core.annotation.repository.Lookup;
 import com.jmoordb.core.annotation.repository.Repository;
 import com.jmoordb.core.model.Search;
 import com.jmoordb.core.repository.CrudRepository;
 import com.sft.model.Sprint;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +22,10 @@ import java.util.List;
  */
 @Repository(database = "{mongodb.database1}", entity = Sprint.class)
 public interface SprintRepository extends CrudRepository<Sprint, Long> {
+    
+    @Find
+    public List<Sprint> findByFechaGreaterThanEqualAndFechaLessThanEqual(@ExcludeTime Date start, @ExcludeTime Date end);
+
        @Lookup
 public List<Sprint> lookup(Search search);
   @Count()

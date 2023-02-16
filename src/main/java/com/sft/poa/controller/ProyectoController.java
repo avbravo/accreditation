@@ -4,8 +4,8 @@
  */
 package com.sft.poa.controller;
 
+import com.jmoordb.core.annotation.date.DateFormat;
 import com.jmoordb.core.model.Search;
-import com.jmoordb.core.util.ConsoleUtil;
 import com.jmoordb.core.util.DocumentUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.sft.model.Proyecto;
@@ -27,6 +27,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.eclipse.microprofile.metrics.MetricUnits;
@@ -153,7 +154,7 @@ public class ProyectoController {
     @PUT
     @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo proyecto", description = "Inserta un nuevo proyecto")
-    @APIResponse(responseCode = "201", description = "Cuanoo se crea un  proyecto")
+    @APIResponse(responseCode = "201", description = "Cuando se crea un  proyecto")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response update(
@@ -162,10 +163,12 @@ public class ProyectoController {
         
         
        if(proyectoRepository.update(proyecto)){
+        
                return Response.status(201).entity(proyecto).build();
         }else{
-           
-              return Response.status(400).entity("Error " + proyectoRepository.getJmoordbException().getLocalizedMessage()).build();
+        
+             return Response.status(400).entity("Error " + proyectoRepository.getJmoordbException().getLocalizedMessage()).build();
+
         }
     }
 // </editor-fold>
@@ -186,6 +189,16 @@ public class ProyectoController {
         }else{
             return Response.status(400).entity("Error " + proyectoRepository.getJmoordbException().getLocalizedMessage()).build();
         }
+    }
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="@Path("entrefechas")">
+
+    @Path("entrefechas")
+@GET
+@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})  
+ public List<Proyecto> findByFechaGreaterThanEqualAndFechaLessThanEqual(@QueryParam("fechainicial") @DateFormat("dd-MM-yyyy") final Date fechainicial,@QueryParam("fechafinal") @DateFormat("dd-MM-yyyy") final Date fechafinal) {
+        return proyectoRepository.findByFechaGreaterThanEqualAndFechaLessThanEqual(fechainicial, fechafinal);
     }
     // </editor-fold>
     

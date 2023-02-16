@@ -4,8 +4,8 @@
  */
 package com.sft.poa.controller;
 
+import com.jmoordb.core.annotation.date.DateFormat;
 import com.jmoordb.core.model.Search;
-import com.jmoordb.core.util.ConsoleUtil;
 import com.jmoordb.core.util.DocumentUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.sft.model.Sprint;
@@ -161,6 +161,16 @@ public class SprintController {
     }
     // </editor-fold>
     
+// <editor-fold defaultstate="collapsed" desc="code ()">
+
+    @Path("entrefechas")
+@GET
+@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+  
+ public List<Sprint>findByFechaGreaterThanEqualAndFechaLessThanEqual(@QueryParam("fechainicial") @DateFormat("dd-MM-yyyy") final Date fechainicial,@QueryParam("fechafinal") @DateFormat("dd-MM-yyyy") final Date fechafinal) {
+        return sprintRepository.findByFechaGreaterThanEqualAndFechaLessThanEqual(fechainicial, fechafinal);
+    }
+    // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="List<Sprint> lookup(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size)">
 
     @GET
