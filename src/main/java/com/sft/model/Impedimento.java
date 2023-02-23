@@ -24,16 +24,13 @@ public class Impedimento {
     @Column
     private Boolean active;
 
-      @ViewReferenced(from = "user", localField = "iduser")
-  private UserView userView; 
   public Impedimento() {
     }
 
-    public Impedimento(String impedimento, Date fecha, Boolean active, UserView userView) {
+    public Impedimento(String impedimento, Date fecha, Boolean active) {
         this.impedimento = impedimento;
         this.fecha = fecha;
         this.active = active;
-        this.userView = userView;
     }
 
     public String getImpedimento() {
@@ -60,14 +57,6 @@ public class Impedimento {
         this.active = active;
     }
 
-    public UserView getUserView() {
-        return userView;
-    }
-
-    public void setUserView(UserView userView) {
-        this.userView = userView;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -75,12 +64,12 @@ public class Impedimento {
         sb.append("impedimento=").append(impedimento);
         sb.append(", fecha=").append(fecha);
         sb.append(", active=").append(active);
-        sb.append(", userView=").append(userView);
         sb.append('}');
         return sb.toString();
     }
 
+ 
   
-    
+   
     
 }

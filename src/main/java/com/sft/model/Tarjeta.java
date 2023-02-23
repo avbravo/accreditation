@@ -38,38 +38,55 @@ public class Tarjeta {
     @Referenced(from = "icono", localField = "idicono", commentary = "Esta asociado a la prioridad")
     private Icono icono;
 
-    @ViewReferenced(from = "sprint", localField = "idsprint")
-    private SprintView sprintView;
+   @Column
+   private Long idsprint;
+   
+   @Column
+   private Long idproyecto;
+   
+   @Column
+   private Boolean backlog;
+   
 
-    @Column
+    @Column(commentary = "alta,baja,media")
     private String prioridad;
 
     @Column
     private String estimacion;
-
-    @Embedded
-    List<Etiqueta> etiqueta;
-
-    @Embedded
-    List<Tarea> tarea;
-
-    @Embedded
-    List<Impedimento> impedimento;
+    
+     @Column(commentary = "pendiente,progreso,finalizado")
+    private String columna;
     @Column
     private Boolean active;
 
+  
+
+    @Embedded
+    List<Tarea> tarea;
+    
+    
     @Embedded
     List<Comentario> comentario;
-    @Embedded
+    
+  @Embedded
+    List<Etiqueta> etiqueta;
+  
+      @Embedded
     List<Archivo> archivo;
+      
+      
+    @Embedded
+    List<Impedimento> impedimento;
 
-    @Column
-    private String columna;
 
+  
+
+
+   
     public Tarjeta() {
     }
 
-    public Tarjeta(Long idtarjeta, String tarjeta, String descripcion, List<UserView> userView, Date fechainicial, Date fechafinal, Icono icono, SprintView sprintView, String prioridad, String estimacion, List<Etiqueta> etiqueta, List<Tarea> tarea, List<Impedimento> impedimento, Boolean active, List<Comentario> comentario, List<Archivo> archivo, String columna) {
+    public Tarjeta(Long idtarjeta, String tarjeta, String descripcion, List<UserView> userView, Date fechainicial, Date fechafinal, Icono icono, Long idsprint, Long idproyecto, Boolean backlog, String prioridad, String estimacion, List<Etiqueta> etiqueta, List<Tarea> tarea, List<Impedimento> impedimento, Boolean active, List<Comentario> comentario, List<Archivo> archivo, String columna) {
         this.idtarjeta = idtarjeta;
         this.tarjeta = tarjeta;
         this.descripcion = descripcion;
@@ -77,7 +94,9 @@ public class Tarjeta {
         this.fechainicial = fechainicial;
         this.fechafinal = fechafinal;
         this.icono = icono;
-        this.sprintView = sprintView;
+        this.idsprint = idsprint;
+        this.idproyecto = idproyecto;
+        this.backlog = backlog;
         this.prioridad = prioridad;
         this.estimacion = estimacion;
         this.etiqueta = etiqueta;
@@ -89,6 +108,9 @@ public class Tarjeta {
         this.columna = columna;
     }
 
+    
+    
+    
     public Long getIdtarjeta() {
         return idtarjeta;
     }
@@ -145,12 +167,28 @@ public class Tarjeta {
         this.icono = icono;
     }
 
-    public SprintView getSprintView() {
-        return sprintView;
+    public Long getIdsprint() {
+        return idsprint;
     }
 
-    public void setSprintView(SprintView sprintView) {
-        this.sprintView = sprintView;
+    public void setIdsprint(Long idsprint) {
+        this.idsprint = idsprint;
+    }
+
+    public Long getIdproyecto() {
+        return idproyecto;
+    }
+
+    public void setIdproyecto(Long idproyecto) {
+        this.idproyecto = idproyecto;
+    }
+
+    public Boolean getBacklog() {
+        return backlog;
+    }
+
+    public void setBacklog(Boolean backlog) {
+        this.backlog = backlog;
     }
 
     public String getPrioridad() {
@@ -236,7 +274,9 @@ public class Tarjeta {
         sb.append(", fechainicial=").append(fechainicial);
         sb.append(", fechafinal=").append(fechafinal);
         sb.append(", icono=").append(icono);
-        sb.append(", sprintView=").append(sprintView);
+        sb.append(", idsprint=").append(idsprint);
+        sb.append(", idproyecto=").append(idproyecto);
+        sb.append(", backlog=").append(backlog);
         sb.append(", prioridad=").append(prioridad);
         sb.append(", estimacion=").append(estimacion);
         sb.append(", etiqueta=").append(etiqueta);
@@ -250,6 +290,7 @@ public class Tarjeta {
         return sb.toString();
     }
 
+   
     
 
 }

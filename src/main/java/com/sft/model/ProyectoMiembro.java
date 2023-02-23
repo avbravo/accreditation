@@ -14,39 +14,37 @@ import java.util.List;
  * @author avbravo
  */
 @DocumentEmbeddable
-public class Tarea {
+public class ProyectoMiembro {
     @Column
-    private String tarea;
-    @Column
-    private Boolean completado;
+    private Boolean propietario;
+      @ViewReferenced(from = "user", localField = "iduser")
+    private UserView userView;
     @Column
     private Boolean active;
-     
-  
 
-    public Tarea() {
+    public ProyectoMiembro() {
     }
 
-    public Tarea(String tarea, Boolean completado, Boolean active) {
-        this.tarea = tarea;
-        this.completado = completado;
+    public ProyectoMiembro(Boolean propietario, UserView userView, Boolean active) {
+        this.propietario = propietario;
+        this.userView = userView;
         this.active = active;
     }
 
-    public String getTarea() {
-        return tarea;
+    public Boolean getPropietario() {
+        return propietario;
     }
 
-    public void setTarea(String tarea) {
-        this.tarea = tarea;
+    public void setPropietario(Boolean propietario) {
+        this.propietario = propietario;
     }
 
-    public Boolean getCompletado() {
-        return completado;
+    public UserView getUserView() {
+        return userView;
     }
 
-    public void setCompletado(Boolean completado) {
-        this.completado = completado;
+    public void setUserView(UserView userView) {
+        this.userView = userView;
     }
 
     public Boolean getActive() {
@@ -60,19 +58,15 @@ public class Tarea {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Tarea{");
-        sb.append("tarea=").append(tarea);
-        sb.append(", completado=").append(completado);
+        sb.append("ProyectoMiembro{");
+        sb.append("propietario=").append(propietario);
+        sb.append(", userView=").append(userView);
         sb.append(", active=").append(active);
         sb.append('}');
         return sb.toString();
     }
-
-    
-   
-
+     
     
     
-    
-    
+      
 }

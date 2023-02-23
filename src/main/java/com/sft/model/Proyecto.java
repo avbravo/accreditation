@@ -5,6 +5,7 @@
 package com.sft.model;
 
 import com.jmoordb.core.annotation.Column;
+import com.jmoordb.core.annotation.Embedded;
 import com.jmoordb.core.annotation.Entity;
 import com.jmoordb.core.annotation.Id;
 import com.jmoordb.core.annotation.Referenced;
@@ -43,24 +44,41 @@ public class Proyecto {
     @Referenced(from = "grupo", localField = "idgrupo")
     private Grupo grupo;
 
-    @ViewReferenced(from = "user", localField = "iduser")
-    private List<UserView> userView;
-   
+//    @ViewReferenced(from = "user", localField = "iduser")
+//    private List<UserView> userView;
+   @Embedded
+   List<ProyectoMiembro> proyectoMiembro;
   
-
-    
+   
     @ViewReferenced(from = "central", localField = "idcentral")
     private CentralView centralView;
    
     @Column
     private Double avance;
 
-    @Column
+     @Column(commentary = "iniciado,detenido, finalizado")
     private String estado;
     @Column
     private Boolean active;
 
     public Proyecto() {
+    }
+
+    public Proyecto(Long idproyecto, String proyecto, String descripcion, Icono icono, String prefijo, Date fechafinal, Date fechainicial, List<DepartamentView> departamentView, Grupo grupo, List<ProyectoMiembro> proyectoMiembro, CentralView centralView, Double avance, String estado, Boolean active) {
+        this.idproyecto = idproyecto;
+        this.proyecto = proyecto;
+        this.descripcion = descripcion;
+        this.icono = icono;
+        this.prefijo = prefijo;
+        this.fechafinal = fechafinal;
+        this.fechainicial = fechainicial;
+        this.departamentView = departamentView;
+        this.grupo = grupo;
+        this.proyectoMiembro = proyectoMiembro;
+        this.centralView = centralView;
+        this.avance = avance;
+        this.estado = estado;
+        this.active = active;
     }
 
     
@@ -123,13 +141,6 @@ public class Proyecto {
 
     
 
-    public List<UserView> getUserView() {
-        return userView;
-    }
-
-    public void setUserView(List<UserView> userView) {
-        this.userView = userView;
-    }
 
     public List<DepartamentView> getDepartamentView() {
         return departamentView;
@@ -179,6 +190,14 @@ public class Proyecto {
         this.active = active;
     }
 
+    public List<ProyectoMiembro> getProyectoMiembro() {
+        return proyectoMiembro;
+    }
+
+    public void setProyectoMiembro(List<ProyectoMiembro> proyectoMiembro) {
+        this.proyectoMiembro = proyectoMiembro;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -186,13 +205,13 @@ public class Proyecto {
         sb.append("idproyecto=").append(idproyecto);
         sb.append(", proyecto=").append(proyecto);
         sb.append(", descripcion=").append(descripcion);
+        sb.append(", icono=").append(icono);
         sb.append(", prefijo=").append(prefijo);
         sb.append(", fechafinal=").append(fechafinal);
         sb.append(", fechainicial=").append(fechainicial);
-        sb.append(", icono=").append(icono);
         sb.append(", departamentView=").append(departamentView);
-        sb.append(", userView=").append(userView);
         sb.append(", grupo=").append(grupo);
+        sb.append(", proyectoMiembro=").append(proyectoMiembro);
         sb.append(", centralView=").append(centralView);
         sb.append(", avance=").append(avance);
         sb.append(", estado=").append(estado);
@@ -201,6 +220,7 @@ public class Proyecto {
         return sb.toString();
     }
 
+   
     
     
    

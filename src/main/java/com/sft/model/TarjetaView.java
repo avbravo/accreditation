@@ -39,20 +39,16 @@ public class TarjetaView {
       @Column
     private Boolean active;
     
-    @Column
-    private Long idrequisito;
- 
 
     @Column
     private String columna;
     
-   @ViewReferenced(from = "sprint",localField = "idsprint")
- private SprintView sprintView;
+
 
     public TarjetaView() {
     }
 
-    public TarjetaView(Long idtarjeta, String tarjeta, String descripcion, Date fechainicial, Date fechafinal, String prioridad, String estimacion, Boolean active, Long idrequisito, String columna, SprintView sprintView) {
+    public TarjetaView(Long idtarjeta, String tarjeta, String descripcion, Date fechainicial, Date fechafinal, String prioridad, String estimacion, Boolean active, String columna) {
         this.idtarjeta = idtarjeta;
         this.tarjeta = tarjeta;
         this.descripcion = descripcion;
@@ -61,9 +57,7 @@ public class TarjetaView {
         this.prioridad = prioridad;
         this.estimacion = estimacion;
         this.active = active;
-        this.idrequisito = idrequisito;
         this.columna = columna;
-        this.sprintView = sprintView;
     }
 
     public Long getIdtarjeta() {
@@ -130,28 +124,12 @@ public class TarjetaView {
         this.active = active;
     }
 
-    public Long getIdrequisito() {
-        return idrequisito;
-    }
-
-    public void setIdrequisito(Long idrequisito) {
-        this.idrequisito = idrequisito;
-    }
-
     public String getColumna() {
         return columna;
     }
 
     public void setColumna(String columna) {
         this.columna = columna;
-    }
-
-    public SprintView getSprintView() {
-        return sprintView;
-    }
-
-    public void setSprintView(SprintView sprintView) {
-        this.sprintView = sprintView;
     }
 
     @Override
@@ -166,13 +144,12 @@ public class TarjetaView {
         sb.append(", prioridad=").append(prioridad);
         sb.append(", estimacion=").append(estimacion);
         sb.append(", active=").append(active);
-        sb.append(", idrequisito=").append(idrequisito);
         sb.append(", columna=").append(columna);
-        sb.append(", sprintView=").append(sprintView);
         sb.append('}');
         return sb.toString();
     }
 
+    
     
     
     }
