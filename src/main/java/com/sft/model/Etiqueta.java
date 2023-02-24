@@ -17,13 +17,17 @@ public class Etiqueta {
     private String etiqueta;
     @Column
     private Boolean active;
+    
+    @Column(commentary = " , primary, success,info, warning,danger ")
+    private String severity;
 
     public Etiqueta() {
     }
 
-    public Etiqueta(String etiqueta, Boolean active) {
+    public Etiqueta(String etiqueta, Boolean active, String severity) {
         this.etiqueta = etiqueta;
         this.active = active;
+        this.severity = severity;
     }
 
     public String getEtiqueta() {
@@ -42,12 +46,21 @@ public class Etiqueta {
         this.active = active;
     }
 
+    public String getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Etiqueta{");
         sb.append("etiqueta=").append(etiqueta);
         sb.append(", active=").append(active);
+        sb.append(", severity=").append(severity);
         sb.append('}');
         return sb.toString();
     }
