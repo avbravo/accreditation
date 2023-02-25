@@ -123,6 +123,7 @@ docker ps -a
 
 ```
 docker exec -it c27edf2f87f4  bash
+
 ```
 
 
@@ -189,6 +190,7 @@ docker ps -a
 
 ```
 docker exec -it c27edf2f87f4  bash
+
 ```
 
 ### Restaurar un gzip
