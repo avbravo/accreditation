@@ -24,6 +24,18 @@ public class UserView {
     @Column
     private String photo;
 
+    public UserView() {
+    }
+
+    public UserView(Long iduser, String name, String photo) {
+        this.iduser = iduser;
+        this.name = name;
+        this.photo = photo;
+    }
+    
+    
+    
+
     public Long getIduser() {
         return iduser;
     }

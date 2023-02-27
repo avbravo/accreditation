@@ -6,6 +6,7 @@ package com.sft.poa.controller;
 
 import com.jmoordb.core.annotation.date.DateFormat;
 import com.jmoordb.core.model.Search;
+import com.jmoordb.core.util.ConsoleUtil;
 import com.jmoordb.core.util.DocumentUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.sft.model.Proyecto;
@@ -219,8 +220,12 @@ public class ProyectoController {
     public List<Proyecto> lookup(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size) {
         List<Proyecto> suggestions = new ArrayList<>();
         try {
+            
+      
 
         Search search = DocumentUtil.convertForLookup(filter, sort, page, size);
+        
+      
         suggestions = proyectoRepository.lookup(search);
 
         } catch (Exception e) {
