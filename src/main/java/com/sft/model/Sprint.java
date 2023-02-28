@@ -5,6 +5,7 @@
 package com.sft.model;
 
 import com.jmoordb.core.annotation.Column;
+import com.jmoordb.core.annotation.Embedded;
 import com.jmoordb.core.annotation.Entity;
 import com.jmoordb.core.annotation.Id;
 import com.jmoordb.core.annotation.ViewReferenced;
@@ -36,13 +37,16 @@ public class Sprint {
 
     @ViewReferenced(from = "proyecto", localField = "idproyecto")
     private ProyectoView proyectoView;
+    
+    @Embedded
+    private EstadisticaCierre estadisticaCierre;
     @Column
     private Boolean active;
 
     public Sprint() {
     }
 
-    public Sprint(Long idsprint, String sprint, String descripcion, Date fechainicial, Date fechafinal, Boolean open, ProyectoView proyectoView, Boolean active) {
+    public Sprint(Long idsprint, String sprint, String descripcion, Date fechainicial, Date fechafinal, Boolean open, ProyectoView proyectoView, EstadisticaCierre estadisticaCierre, Boolean active) {
         this.idsprint = idsprint;
         this.sprint = sprint;
         this.descripcion = descripcion;
@@ -50,6 +54,7 @@ public class Sprint {
         this.fechafinal = fechafinal;
         this.open = open;
         this.proyectoView = proyectoView;
+        this.estadisticaCierre = estadisticaCierre;
         this.active = active;
     }
 
@@ -109,6 +114,14 @@ public class Sprint {
         this.proyectoView = proyectoView;
     }
 
+    public EstadisticaCierre getEstadisticaCierre() {
+        return estadisticaCierre;
+    }
+
+    public void setEstadisticaCierre(EstadisticaCierre estadisticaCierre) {
+        this.estadisticaCierre = estadisticaCierre;
+    }
+
     public Boolean getActive() {
         return active;
     }
@@ -119,8 +132,22 @@ public class Sprint {
 
     @Override
     public String toString() {
-        return "Sprint{" + "idsprint=" + idsprint + ", sprint=" + sprint + ", descripcion=" + descripcion + ", fechainicial=" + fechainicial + ", fechafinal=" + fechafinal + ", open=" + open + ", proyectoView=" + proyectoView + ", active=" + active + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Sprint{");
+        sb.append("idsprint=").append(idsprint);
+        sb.append(", sprint=").append(sprint);
+        sb.append(", descripcion=").append(descripcion);
+        sb.append(", fechainicial=").append(fechainicial);
+        sb.append(", fechafinal=").append(fechafinal);
+        sb.append(", open=").append(open);
+        sb.append(", proyectoView=").append(proyectoView);
+        sb.append(", estadisticaCierre=").append(estadisticaCierre);
+        sb.append(", active=").append(active);
+        sb.append('}');
+        return sb.toString();
     }
+
+   
 
    
 
