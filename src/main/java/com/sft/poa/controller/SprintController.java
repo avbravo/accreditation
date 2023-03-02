@@ -161,7 +161,7 @@ public class SprintController {
     }
     // </editor-fold>
     
-// <editor-fold defaultstate="collapsed" desc="code ()">
+// <editor-fold defaultstate="collapsed" desc="@Path("entrefechas")">
 
     @Path("entrefechas")
 @GET
