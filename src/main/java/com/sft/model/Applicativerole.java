@@ -7,6 +7,7 @@ package com.sft.model;
 import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.DocumentEmbeddable;
 import com.jmoordb.core.annotation.Ignore;
+import java.util.Objects;
 
 /**
  *
@@ -77,6 +78,40 @@ public class Applicativerole {
         sb.append(", active=").append(active);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 29 * hash + Objects.hashCode(this.idrole);
+        hash = 29 * hash + Objects.hashCode(this.path);
+        hash = 29 * hash + Objects.hashCode(this.active);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Applicativerole other = (Applicativerole) obj;
+        if (!Objects.equals(this.path, other.path)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.idrole, other.idrole)) {
+            return false;
+        }
+        return Objects.equals(this.active, other.active);
     }
 
   

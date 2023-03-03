@@ -8,6 +8,7 @@ import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.Id;
 import com.jmoordb.core.annotation.Referenced;
 import com.jmoordb.core.annotation.ViewEntity;
+import java.util.Objects;
 
 /**
  *
@@ -67,6 +68,36 @@ public class CentralView {
         sb.append(", active=").append(active);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 23 * hash + Objects.hashCode(this.idcentral);
+        hash = 23 * hash + Objects.hashCode(this.central);
+        hash = 23 * hash + Objects.hashCode(this.active);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CentralView other = (CentralView) obj;
+        if (!Objects.equals(this.central, other.central)) {
+            return false;
+        }
+        if (!Objects.equals(this.idcentral, other.idcentral)) {
+            return false;
+        }
+        return Objects.equals(this.active, other.active);
     }
 
   

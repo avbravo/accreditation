@@ -9,6 +9,7 @@ import com.jmoordb.core.annotation.DocumentEmbeddable;
 import com.jmoordb.core.annotation.ViewReferenced;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -66,6 +67,36 @@ public class Impedimento {
         sb.append(", active=").append(active);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.impedimento);
+        hash = 89 * hash + Objects.hashCode(this.fecha);
+        hash = 89 * hash + Objects.hashCode(this.active);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Impedimento other = (Impedimento) obj;
+        if (!Objects.equals(this.impedimento, other.impedimento)) {
+            return false;
+        }
+        if (!Objects.equals(this.fecha, other.fecha)) {
+            return false;
+        }
+        return Objects.equals(this.active, other.active);
     }
 
  

@@ -9,6 +9,7 @@ import com.jmoordb.core.annotation.Entity;
 import com.jmoordb.core.annotation.Id;
 import com.jmoordb.core.annotation.ViewReferenced;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -105,6 +106,48 @@ public class Timeline {
         sb.append(", proyectoView=").append(proyectoView);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.idtimeline);
+        hash = 97 * hash + Objects.hashCode(this.titulo);
+        hash = 97 * hash + Objects.hashCode(this.subtitulo);
+        hash = 97 * hash + Objects.hashCode(this.active);
+        hash = 97 * hash + Objects.hashCode(this.fecha);
+        hash = 97 * hash + Objects.hashCode(this.proyectoView);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Timeline other = (Timeline) obj;
+        if (!Objects.equals(this.titulo, other.titulo)) {
+            return false;
+        }
+        if (!Objects.equals(this.subtitulo, other.subtitulo)) {
+            return false;
+        }
+        if (!Objects.equals(this.idtimeline, other.idtimeline)) {
+            return false;
+        }
+        if (!Objects.equals(this.active, other.active)) {
+            return false;
+        }
+        if (!Objects.equals(this.fecha, other.fecha)) {
+            return false;
+        }
+        return Objects.equals(this.proyectoView, other.proyectoView);
     }
 
    

@@ -8,6 +8,7 @@ import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.Entity;
 import com.jmoordb.core.annotation.Id;
 import com.jmoordb.core.annotation.Referenced;
+import java.util.Objects;
 
 /**
  *
@@ -76,6 +77,40 @@ public class Central {
         sb.append(", institution=").append(institution);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.idcentral);
+        hash = 29 * hash + Objects.hashCode(this.central);
+        hash = 29 * hash + Objects.hashCode(this.active);
+        hash = 29 * hash + Objects.hashCode(this.institution);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Central other = (Central) obj;
+        if (!Objects.equals(this.central, other.central)) {
+            return false;
+        }
+        if (!Objects.equals(this.idcentral, other.idcentral)) {
+            return false;
+        }
+        if (!Objects.equals(this.active, other.active)) {
+            return false;
+        }
+        return Objects.equals(this.institution, other.institution);
     }
 
    

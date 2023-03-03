@@ -8,6 +8,7 @@ import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.DocumentEmbeddable;
 import com.jmoordb.core.annotation.Ignore;
 import com.jmoordb.core.annotation.Referenced;
+import java.util.Objects;
 
 /**
  *
@@ -136,6 +137,56 @@ public class Applicativeprivilege {
         sb.append(", idrole=").append(idrole);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 13 * hash + Objects.hashCode(this.id);
+        hash = 13 * hash + Objects.hashCode(this.event);
+        hash = 13 * hash + Objects.hashCode(this.create);
+        hash = 13 * hash + Objects.hashCode(this.read);
+        hash = 13 * hash + Objects.hashCode(this.update);
+        hash = 13 * hash + Objects.hashCode(this.delete);
+        hash = 13 * hash + Objects.hashCode(this.active);
+        hash = 13 * hash + Objects.hashCode(this.idrole);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Applicativeprivilege other = (Applicativeprivilege) obj;
+        if (!Objects.equals(this.event, other.event)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.create, other.create)) {
+            return false;
+        }
+        if (!Objects.equals(this.read, other.read)) {
+            return false;
+        }
+        if (!Objects.equals(this.update, other.update)) {
+            return false;
+        }
+        if (!Objects.equals(this.delete, other.delete)) {
+            return false;
+        }
+        if (!Objects.equals(this.active, other.active)) {
+            return false;
+        }
+        return Objects.equals(this.idrole, other.idrole);
     }
 
     

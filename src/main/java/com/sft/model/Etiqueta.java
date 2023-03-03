@@ -6,6 +6,7 @@ package com.sft.model;
 
 import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.DocumentEmbeddable;
+import java.util.Objects;
 
 /**
  *
@@ -63,6 +64,36 @@ public class Etiqueta {
         sb.append(", severity=").append(severity);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(this.etiqueta);
+        hash = 67 * hash + Objects.hashCode(this.active);
+        hash = 67 * hash + Objects.hashCode(this.severity);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Etiqueta other = (Etiqueta) obj;
+        if (!Objects.equals(this.etiqueta, other.etiqueta)) {
+            return false;
+        }
+        if (!Objects.equals(this.severity, other.severity)) {
+            return false;
+        }
+        return Objects.equals(this.active, other.active);
     }
 
     

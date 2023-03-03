@@ -6,6 +6,7 @@ package com.sft.model;
 
 import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.DocumentEmbeddable;
+import java.util.Objects;
 
 /**
  *
@@ -50,6 +51,32 @@ public class Requisito {
         sb.append(", completado=").append(completado);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.requisito);
+        hash = 97 * hash + Objects.hashCode(this.completado);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Requisito other = (Requisito) obj;
+        if (!Objects.equals(this.requisito, other.requisito)) {
+            return false;
+        }
+        return Objects.equals(this.completado, other.completado);
     }
     
     

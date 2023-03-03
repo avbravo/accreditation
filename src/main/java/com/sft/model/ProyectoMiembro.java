@@ -8,6 +8,7 @@ import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.DocumentEmbeddable;
 import com.jmoordb.core.annotation.ViewReferenced;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -64,6 +65,36 @@ public class ProyectoMiembro {
         sb.append(", active=").append(active);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.propietario);
+        hash = 53 * hash + Objects.hashCode(this.userView);
+        hash = 53 * hash + Objects.hashCode(this.active);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ProyectoMiembro other = (ProyectoMiembro) obj;
+        if (!Objects.equals(this.propietario, other.propietario)) {
+            return false;
+        }
+        if (!Objects.equals(this.userView, other.userView)) {
+            return false;
+        }
+        return Objects.equals(this.active, other.active);
     }
      
     

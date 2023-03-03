@@ -8,6 +8,7 @@ import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.Entity;
 import com.jmoordb.core.annotation.Id;
 import com.jmoordb.core.annotation.Referenced;
+import java.util.Objects;
 
 /**
  *
@@ -80,4 +81,41 @@ public class District {
         return sb.toString();
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.iddistrict);
+        hash = 97 * hash + Objects.hashCode(this.active);
+        hash = 97 * hash + Objects.hashCode(this.district);
+        hash = 97 * hash + Objects.hashCode(this.province);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final District other = (District) obj;
+        if (!Objects.equals(this.iddistrict, other.iddistrict)) {
+            return false;
+        }
+        if (!Objects.equals(this.district, other.district)) {
+            return false;
+        }
+        if (!Objects.equals(this.active, other.active)) {
+            return false;
+        }
+        return Objects.equals(this.province, other.province);
+    }
+
+    
+    
+    
 }

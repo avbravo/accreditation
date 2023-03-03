@@ -9,6 +9,7 @@ import com.jmoordb.core.annotation.DocumentEmbeddable;
 import com.jmoordb.core.annotation.Ignore;
 import com.jmoordb.core.annotation.Referenced;
 import com.jmoordb.core.annotation.ViewReferenced;
+import java.util.Objects;
 
 /**
  *
@@ -94,4 +95,44 @@ public class Profile {
         return sb.toString();
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(this.applicativeView);
+        hash = 53 * hash + Objects.hashCode(this.role);
+        hash = 53 * hash + Objects.hashCode(this.departamentView);
+        hash = 53 * hash + Objects.hashCode(this.active);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Profile other = (Profile) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.applicativeView, other.applicativeView)) {
+            return false;
+        }
+        if (!Objects.equals(this.role, other.role)) {
+            return false;
+        }
+        if (!Objects.equals(this.departamentView, other.departamentView)) {
+            return false;
+        }
+        return Objects.equals(this.active, other.active);
+    }
+
+    
+    
 }

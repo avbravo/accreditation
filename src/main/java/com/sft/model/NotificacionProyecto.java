@@ -8,6 +8,7 @@ import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.Entity;
 import com.jmoordb.core.annotation.Id;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -126,6 +127,56 @@ public class NotificacionProyecto {
         sb.append(", fecha=").append(fecha);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.idNotifiacionProyecto);
+        hash = 47 * hash + Objects.hashCode(this.notificacion);
+        hash = 47 * hash + Objects.hashCode(this.titulo);
+        hash = 47 * hash + Objects.hashCode(this.iduser);
+        hash = 47 * hash + Objects.hashCode(this.iduserEmisor);
+        hash = 47 * hash + Objects.hashCode(this.idproyecto);
+        hash = 47 * hash + Objects.hashCode(this.visto);
+        hash = 47 * hash + Objects.hashCode(this.fecha);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final NotificacionProyecto other = (NotificacionProyecto) obj;
+        if (!Objects.equals(this.notificacion, other.notificacion)) {
+            return false;
+        }
+        if (!Objects.equals(this.titulo, other.titulo)) {
+            return false;
+        }
+        if (!Objects.equals(this.idNotifiacionProyecto, other.idNotifiacionProyecto)) {
+            return false;
+        }
+        if (!Objects.equals(this.iduser, other.iduser)) {
+            return false;
+        }
+        if (!Objects.equals(this.iduserEmisor, other.iduserEmisor)) {
+            return false;
+        }
+        if (!Objects.equals(this.idproyecto, other.idproyecto)) {
+            return false;
+        }
+        if (!Objects.equals(this.visto, other.visto)) {
+            return false;
+        }
+        return Objects.equals(this.fecha, other.fecha);
     }
 
     

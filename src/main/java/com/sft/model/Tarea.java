@@ -8,6 +8,7 @@ import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.DocumentEmbeddable;
 import com.jmoordb.core.annotation.ViewReferenced;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -66,6 +67,36 @@ public class Tarea {
         sb.append(", active=").append(active);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 23 * hash + Objects.hashCode(this.tarea);
+        hash = 23 * hash + Objects.hashCode(this.completado);
+        hash = 23 * hash + Objects.hashCode(this.active);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Tarea other = (Tarea) obj;
+        if (!Objects.equals(this.tarea, other.tarea)) {
+            return false;
+        }
+        if (!Objects.equals(this.completado, other.completado)) {
+            return false;
+        }
+        return Objects.equals(this.active, other.active);
     }
 
     

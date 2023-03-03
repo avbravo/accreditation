@@ -9,6 +9,7 @@ import com.jmoordb.core.annotation.DocumentEmbeddable;
 import com.jmoordb.core.annotation.Ignore;
 import com.jmoordb.core.annotation.Referenced;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
+import java.util.Objects;
 
 /**
  *
@@ -124,6 +125,56 @@ public class Emailconfiguration {
         sb.append(", active=").append(active);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.email);
+        hash = 89 * hash + Objects.hashCode(this.password);
+        hash = 89 * hash + Objects.hashCode(this.mailSmtpHost);
+        hash = 89 * hash + Objects.hashCode(this.mailSmtpAuth);
+        hash = 89 * hash + Objects.hashCode(this.mailSmtpPort);
+        hash = 89 * hash + Objects.hashCode(this.mailSmtpStarttlsEnable);
+        hash = 89 * hash + Objects.hashCode(this.active);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Emailconfiguration other = (Emailconfiguration) obj;
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        if (!Objects.equals(this.mailSmtpHost, other.mailSmtpHost)) {
+            return false;
+        }
+        if (!Objects.equals(this.mailSmtpAuth, other.mailSmtpAuth)) {
+            return false;
+        }
+        if (!Objects.equals(this.mailSmtpPort, other.mailSmtpPort)) {
+            return false;
+        }
+        if (!Objects.equals(this.mailSmtpStarttlsEnable, other.mailSmtpStarttlsEnable)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return Objects.equals(this.active, other.active);
     }
 
     

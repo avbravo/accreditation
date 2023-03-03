@@ -9,6 +9,7 @@ import com.jmoordb.core.annotation.DocumentEmbeddable;
 import com.jmoordb.core.annotation.ViewReferenced;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -78,6 +79,40 @@ private UserView userView;
         sb.append(", userView=").append(userView);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.comentario);
+        hash = 71 * hash + Objects.hashCode(this.fecha);
+        hash = 71 * hash + Objects.hashCode(this.active);
+        hash = 71 * hash + Objects.hashCode(this.userView);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Comentario other = (Comentario) obj;
+        if (!Objects.equals(this.comentario, other.comentario)) {
+            return false;
+        }
+        if (!Objects.equals(this.fecha, other.fecha)) {
+            return false;
+        }
+        if (!Objects.equals(this.active, other.active)) {
+            return false;
+        }
+        return Objects.equals(this.userView, other.userView);
     }
 
     

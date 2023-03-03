@@ -7,6 +7,7 @@ package com.sft.model;
 import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.Entity;
 import com.jmoordb.core.annotation.Id;
+import java.util.Objects;
 
 /**
  *
@@ -54,5 +55,33 @@ public class Country {
         return sb.toString();
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.idcountry);
+        hash = 47 * hash + Objects.hashCode(this.country);
+        return hash;
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Country other = (Country) obj;
+        if (!Objects.equals(this.idcountry, other.idcountry)) {
+            return false;
+        }
+        return Objects.equals(this.country, other.country);
+    }
+
+
+    
+    
 }

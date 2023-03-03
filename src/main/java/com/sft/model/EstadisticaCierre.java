@@ -9,6 +9,7 @@ import com.jmoordb.core.annotation.DocumentEmbeddable;
 import com.jmoordb.core.annotation.ViewReferenced;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -81,6 +82,42 @@ public class EstadisticaCierre {
         return sb.toString();
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + Objects.hashCode(this.pendiente);
+        hash = 17 * hash + Objects.hashCode(this.progreso);
+        hash = 17 * hash + Objects.hashCode(this.finalizado);
+        hash = 17 * hash + Objects.hashCode(this.fecha);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EstadisticaCierre other = (EstadisticaCierre) obj;
+        if (!Objects.equals(this.pendiente, other.pendiente)) {
+            return false;
+        }
+        if (!Objects.equals(this.progreso, other.progreso)) {
+            return false;
+        }
+        if (!Objects.equals(this.finalizado, other.finalizado)) {
+            return false;
+        }
+        return Objects.equals(this.fecha, other.fecha);
+    }
+
+    
+    
     
   
    
