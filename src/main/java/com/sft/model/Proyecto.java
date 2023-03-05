@@ -59,13 +59,15 @@ public class Proyecto {
 
      @Column(commentary = "iniciado,detenido, finalizado")
     private String estado;
+    @Column(commentary = "true indioa privado y false indica publico")
+    private Boolean privado;
     @Column
     private Boolean active;
 
     public Proyecto() {
     }
 
-    public Proyecto(Long idproyecto, String proyecto, String descripcion, Icono icono, String prefijo, Date fechafinal, Date fechainicial, List<DepartamentView> departamentView, Grupo grupo, List<ProyectoMiembro> proyectoMiembro, CentralView centralView, Double avance, String estado, Boolean active) {
+    public Proyecto(Long idproyecto, String proyecto, String descripcion, Icono icono, String prefijo, Date fechafinal, Date fechainicial, List<DepartamentView> departamentView, Grupo grupo, List<ProyectoMiembro> proyectoMiembro, CentralView centralView, Double avance, String estado, Boolean privado, Boolean active) {
         this.idproyecto = idproyecto;
         this.proyecto = proyecto;
         this.descripcion = descripcion;
@@ -79,10 +81,9 @@ public class Proyecto {
         this.centralView = centralView;
         this.avance = avance;
         this.estado = estado;
+        this.privado = privado;
         this.active = active;
     }
-
-    
 
     public Long getIdproyecto() {
         return idproyecto;
@@ -106,6 +107,14 @@ public class Proyecto {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Icono getIcono() {
+        return icono;
+    }
+
+    public void setIcono(Icono icono) {
+        this.icono = icono;
     }
 
     public String getPrefijo() {
@@ -132,17 +141,6 @@ public class Proyecto {
         this.fechainicial = fechainicial;
     }
 
-    public Icono getIcono() {
-        return icono;
-    }
-
-    public void setIcono(Icono icono) {
-        this.icono = icono;
-    }
-
-    
-
-
     public List<DepartamentView> getDepartamentView() {
         return departamentView;
     }
@@ -157,6 +155,14 @@ public class Proyecto {
 
     public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
+    }
+
+    public List<ProyectoMiembro> getProyectoMiembro() {
+        return proyectoMiembro;
+    }
+
+    public void setProyectoMiembro(List<ProyectoMiembro> proyectoMiembro) {
+        this.proyectoMiembro = proyectoMiembro;
     }
 
     public CentralView getCentralView() {
@@ -183,20 +189,20 @@ public class Proyecto {
         this.estado = estado;
     }
 
+    public Boolean getPrivado() {
+        return privado;
+    }
+
+    public void setPrivado(Boolean privado) {
+        this.privado = privado;
+    }
+
     public Boolean getActive() {
         return active;
     }
 
     public void setActive(Boolean active) {
         this.active = active;
-    }
-
-    public List<ProyectoMiembro> getProyectoMiembro() {
-        return proyectoMiembro;
-    }
-
-    public void setProyectoMiembro(List<ProyectoMiembro> proyectoMiembro) {
-        this.proyectoMiembro = proyectoMiembro;
     }
 
     @Override
@@ -216,6 +222,7 @@ public class Proyecto {
         sb.append(", centralView=").append(centralView);
         sb.append(", avance=").append(avance);
         sb.append(", estado=").append(estado);
+        sb.append(", privado=").append(privado);
         sb.append(", active=").append(active);
         sb.append('}');
         return sb.toString();
@@ -223,21 +230,22 @@ public class Proyecto {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 17 * hash + Objects.hashCode(this.idproyecto);
-        hash = 17 * hash + Objects.hashCode(this.proyecto);
-        hash = 17 * hash + Objects.hashCode(this.descripcion);
-        hash = 17 * hash + Objects.hashCode(this.icono);
-        hash = 17 * hash + Objects.hashCode(this.prefijo);
-        hash = 17 * hash + Objects.hashCode(this.fechafinal);
-        hash = 17 * hash + Objects.hashCode(this.fechainicial);
-        hash = 17 * hash + Objects.hashCode(this.departamentView);
-        hash = 17 * hash + Objects.hashCode(this.grupo);
-        hash = 17 * hash + Objects.hashCode(this.proyectoMiembro);
-        hash = 17 * hash + Objects.hashCode(this.centralView);
-        hash = 17 * hash + Objects.hashCode(this.avance);
-        hash = 17 * hash + Objects.hashCode(this.estado);
-        hash = 17 * hash + Objects.hashCode(this.active);
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.idproyecto);
+        hash = 37 * hash + Objects.hashCode(this.proyecto);
+        hash = 37 * hash + Objects.hashCode(this.descripcion);
+        hash = 37 * hash + Objects.hashCode(this.icono);
+        hash = 37 * hash + Objects.hashCode(this.prefijo);
+        hash = 37 * hash + Objects.hashCode(this.fechafinal);
+        hash = 37 * hash + Objects.hashCode(this.fechainicial);
+        hash = 37 * hash + Objects.hashCode(this.departamentView);
+        hash = 37 * hash + Objects.hashCode(this.grupo);
+        hash = 37 * hash + Objects.hashCode(this.proyectoMiembro);
+        hash = 37 * hash + Objects.hashCode(this.centralView);
+        hash = 37 * hash + Objects.hashCode(this.avance);
+        hash = 37 * hash + Objects.hashCode(this.estado);
+        hash = 37 * hash + Objects.hashCode(this.privado);
+        hash = 37 * hash + Objects.hashCode(this.active);
         return hash;
     }
 
@@ -290,6 +298,9 @@ public class Proyecto {
             return false;
         }
         if (!Objects.equals(this.avance, other.avance)) {
+            return false;
+        }
+        if (!Objects.equals(this.privado, other.privado)) {
             return false;
         }
         return Objects.equals(this.active, other.active);
