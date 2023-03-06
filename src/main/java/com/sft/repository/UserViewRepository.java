@@ -21,6 +21,9 @@ import java.util.Optional;
 @Repository(entity = UserView.class,collection = "user")
 public interface UserViewRepository extends CrudRepository<UserView, Long> {
     @Find
+    public Optional<UserView> findByIduser(Long iduser);
+    
+    @Find
     public Optional<UserView> findByUsername(String username);
     
     @Lookup
