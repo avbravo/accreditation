@@ -63,11 +63,22 @@ public class Proyecto {
     private Boolean privado;
     @Column
     private Boolean active;
+    
+    
+    
+    @Column(commentary="true cierra los sprint y genera nuevos de manera automatica ")
+   private Boolean generarsprintautomaticamente;
+    @Column(commentary="semanal,quincenal, mensual, trimestral, semestral,anual")
+    private String perocidiadsprint;
+    
+    @Embedded
+    DiasLaborable diasLaborable;
+   
 
     public Proyecto() {
     }
 
-    public Proyecto(Long idproyecto, String proyecto, String descripcion, Icono icono, String prefijo, Date fechafinal, Date fechainicial, List<DepartamentView> departamentView, Grupo grupo, List<ProyectoMiembro> proyectoMiembro, CentralView centralView, Double avance, String estado, Boolean privado, Boolean active) {
+    public Proyecto(Long idproyecto, String proyecto, String descripcion, Icono icono, String prefijo, Date fechafinal, Date fechainicial, List<DepartamentView> departamentView, Grupo grupo, List<ProyectoMiembro> proyectoMiembro, CentralView centralView, Double avance, String estado, Boolean privado, Boolean active, Boolean generarsprintautomaticamente, String perocidiadsprint, DiasLaborable diasLaborable) {
         this.idproyecto = idproyecto;
         this.proyecto = proyecto;
         this.descripcion = descripcion;
@@ -83,6 +94,9 @@ public class Proyecto {
         this.estado = estado;
         this.privado = privado;
         this.active = active;
+        this.generarsprintautomaticamente = generarsprintautomaticamente;
+        this.perocidiadsprint = perocidiadsprint;
+        this.diasLaborable = diasLaborable;
     }
 
     public Long getIdproyecto() {
@@ -205,6 +219,30 @@ public class Proyecto {
         this.active = active;
     }
 
+    public Boolean getGenerarsprintautomaticamente() {
+        return generarsprintautomaticamente;
+    }
+
+    public void setGenerarsprintautomaticamente(Boolean generarsprintautomaticamente) {
+        this.generarsprintautomaticamente = generarsprintautomaticamente;
+    }
+
+    public String getPerocidiadsprint() {
+        return perocidiadsprint;
+    }
+
+    public void setPerocidiadsprint(String perocidiadsprint) {
+        this.perocidiadsprint = perocidiadsprint;
+    }
+
+    public DiasLaborable getDiasLaborable() {
+        return diasLaborable;
+    }
+
+    public void setDiasLaborable(DiasLaborable diasLaborable) {
+        this.diasLaborable = diasLaborable;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -224,28 +262,34 @@ public class Proyecto {
         sb.append(", estado=").append(estado);
         sb.append(", privado=").append(privado);
         sb.append(", active=").append(active);
+        sb.append(", generarsprintautomaticamente=").append(generarsprintautomaticamente);
+        sb.append(", perocidiadsprint=").append(perocidiadsprint);
+        sb.append(", diasLaborable=").append(diasLaborable);
         sb.append('}');
         return sb.toString();
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.idproyecto);
-        hash = 37 * hash + Objects.hashCode(this.proyecto);
-        hash = 37 * hash + Objects.hashCode(this.descripcion);
-        hash = 37 * hash + Objects.hashCode(this.icono);
-        hash = 37 * hash + Objects.hashCode(this.prefijo);
-        hash = 37 * hash + Objects.hashCode(this.fechafinal);
-        hash = 37 * hash + Objects.hashCode(this.fechainicial);
-        hash = 37 * hash + Objects.hashCode(this.departamentView);
-        hash = 37 * hash + Objects.hashCode(this.grupo);
-        hash = 37 * hash + Objects.hashCode(this.proyectoMiembro);
-        hash = 37 * hash + Objects.hashCode(this.centralView);
-        hash = 37 * hash + Objects.hashCode(this.avance);
-        hash = 37 * hash + Objects.hashCode(this.estado);
-        hash = 37 * hash + Objects.hashCode(this.privado);
-        hash = 37 * hash + Objects.hashCode(this.active);
+        int hash = 5;
+        hash = 71 * hash + Objects.hashCode(this.idproyecto);
+        hash = 71 * hash + Objects.hashCode(this.proyecto);
+        hash = 71 * hash + Objects.hashCode(this.descripcion);
+        hash = 71 * hash + Objects.hashCode(this.icono);
+        hash = 71 * hash + Objects.hashCode(this.prefijo);
+        hash = 71 * hash + Objects.hashCode(this.fechafinal);
+        hash = 71 * hash + Objects.hashCode(this.fechainicial);
+        hash = 71 * hash + Objects.hashCode(this.departamentView);
+        hash = 71 * hash + Objects.hashCode(this.grupo);
+        hash = 71 * hash + Objects.hashCode(this.proyectoMiembro);
+        hash = 71 * hash + Objects.hashCode(this.centralView);
+        hash = 71 * hash + Objects.hashCode(this.avance);
+        hash = 71 * hash + Objects.hashCode(this.estado);
+        hash = 71 * hash + Objects.hashCode(this.privado);
+        hash = 71 * hash + Objects.hashCode(this.active);
+        hash = 71 * hash + Objects.hashCode(this.generarsprintautomaticamente);
+        hash = 71 * hash + Objects.hashCode(this.perocidiadsprint);
+        hash = 71 * hash + Objects.hashCode(this.diasLaborable);
         return hash;
     }
 
@@ -271,6 +315,9 @@ public class Proyecto {
             return false;
         }
         if (!Objects.equals(this.estado, other.estado)) {
+            return false;
+        }
+        if (!Objects.equals(this.perocidiadsprint, other.perocidiadsprint)) {
             return false;
         }
         if (!Objects.equals(this.idproyecto, other.idproyecto)) {
@@ -303,13 +350,15 @@ public class Proyecto {
         if (!Objects.equals(this.privado, other.privado)) {
             return false;
         }
-        return Objects.equals(this.active, other.active);
+        if (!Objects.equals(this.active, other.active)) {
+            return false;
+        }
+        if (!Objects.equals(this.generarsprintautomaticamente, other.generarsprintautomaticamente)) {
+            return false;
+        }
+        return Objects.equals(this.diasLaborable, other.diasLaborable);
     }
 
-   
-    
-    
-   
    
 
   

@@ -5,6 +5,7 @@
 package com.sft.model;
 
 import com.jmoordb.core.annotation.Column;
+import com.jmoordb.core.annotation.Embedded;
 import com.jmoordb.core.annotation.Id;
 import com.jmoordb.core.annotation.Referenced;
 import com.jmoordb.core.annotation.ViewEntity;
@@ -42,13 +43,24 @@ public class ProyectoView {
 
     @Column
     private String estado;
+    
+    
+     
+    @Column(commentary="true cierra los sprint y genera nuevos de manera automatica ")
+   private Boolean generarsprintautomaticamente;
+    @Column(commentary="semanal,quincenal, mensual, trimestral, semestral,anual")
+    private String perocidiadsprint;
+    
+    @Embedded
+    DiasLaborable diasLaborable;
+    
     @Column
     private Boolean active;
 
     public ProyectoView() {
     }
 
-    public ProyectoView(Long idproyecto, String proyecto, String descripcion, String prefijo, Date fechafinal, Date fechainicial, Icono icono, Double avance, String estado, Boolean active) {
+    public ProyectoView(Long idproyecto, String proyecto, String descripcion, String prefijo, Date fechafinal, Date fechainicial, Icono icono, Double avance, String estado, Boolean generarsprintautomaticamente, String perocidiadsprint, DiasLaborable diasLaborable, Boolean active) {
         this.idproyecto = idproyecto;
         this.proyecto = proyecto;
         this.descripcion = descripcion;
@@ -58,6 +70,9 @@ public class ProyectoView {
         this.icono = icono;
         this.avance = avance;
         this.estado = estado;
+        this.generarsprintautomaticamente = generarsprintautomaticamente;
+        this.perocidiadsprint = perocidiadsprint;
+        this.diasLaborable = diasLaborable;
         this.active = active;
     }
 
@@ -133,6 +148,30 @@ public class ProyectoView {
         this.estado = estado;
     }
 
+    public Boolean getGenerarsprintautomaticamente() {
+        return generarsprintautomaticamente;
+    }
+
+    public void setGenerarsprintautomaticamente(Boolean generarsprintautomaticamente) {
+        this.generarsprintautomaticamente = generarsprintautomaticamente;
+    }
+
+    public String getPerocidiadsprint() {
+        return perocidiadsprint;
+    }
+
+    public void setPerocidiadsprint(String perocidiadsprint) {
+        this.perocidiadsprint = perocidiadsprint;
+    }
+
+    public DiasLaborable getDiasLaborable() {
+        return diasLaborable;
+    }
+
+    public void setDiasLaborable(DiasLaborable diasLaborable) {
+        this.diasLaborable = diasLaborable;
+    }
+
     public Boolean getActive() {
         return active;
     }
@@ -154,6 +193,9 @@ public class ProyectoView {
         sb.append(", icono=").append(icono);
         sb.append(", avance=").append(avance);
         sb.append(", estado=").append(estado);
+        sb.append(", generarsprintautomaticamente=").append(generarsprintautomaticamente);
+        sb.append(", perocidiadsprint=").append(perocidiadsprint);
+        sb.append(", diasLaborable=").append(diasLaborable);
         sb.append(", active=").append(active);
         sb.append('}');
         return sb.toString();
@@ -161,17 +203,20 @@ public class ProyectoView {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.idproyecto);
-        hash = 67 * hash + Objects.hashCode(this.proyecto);
-        hash = 67 * hash + Objects.hashCode(this.descripcion);
-        hash = 67 * hash + Objects.hashCode(this.prefijo);
-        hash = 67 * hash + Objects.hashCode(this.fechafinal);
-        hash = 67 * hash + Objects.hashCode(this.fechainicial);
-        hash = 67 * hash + Objects.hashCode(this.icono);
-        hash = 67 * hash + Objects.hashCode(this.avance);
-        hash = 67 * hash + Objects.hashCode(this.estado);
-        hash = 67 * hash + Objects.hashCode(this.active);
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.idproyecto);
+        hash = 79 * hash + Objects.hashCode(this.proyecto);
+        hash = 79 * hash + Objects.hashCode(this.descripcion);
+        hash = 79 * hash + Objects.hashCode(this.prefijo);
+        hash = 79 * hash + Objects.hashCode(this.fechafinal);
+        hash = 79 * hash + Objects.hashCode(this.fechainicial);
+        hash = 79 * hash + Objects.hashCode(this.icono);
+        hash = 79 * hash + Objects.hashCode(this.avance);
+        hash = 79 * hash + Objects.hashCode(this.estado);
+        hash = 79 * hash + Objects.hashCode(this.generarsprintautomaticamente);
+        hash = 79 * hash + Objects.hashCode(this.perocidiadsprint);
+        hash = 79 * hash + Objects.hashCode(this.diasLaborable);
+        hash = 79 * hash + Objects.hashCode(this.active);
         return hash;
     }
 
@@ -199,6 +244,9 @@ public class ProyectoView {
         if (!Objects.equals(this.estado, other.estado)) {
             return false;
         }
+        if (!Objects.equals(this.perocidiadsprint, other.perocidiadsprint)) {
+            return false;
+        }
         if (!Objects.equals(this.idproyecto, other.idproyecto)) {
             return false;
         }
@@ -214,9 +262,16 @@ public class ProyectoView {
         if (!Objects.equals(this.avance, other.avance)) {
             return false;
         }
+        if (!Objects.equals(this.generarsprintautomaticamente, other.generarsprintautomaticamente)) {
+            return false;
+        }
+        if (!Objects.equals(this.diasLaborable, other.diasLaborable)) {
+            return false;
+        }
         return Objects.equals(this.active, other.active);
     }
 
+    
    
    
    

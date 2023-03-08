@@ -80,14 +80,15 @@ public class Tarjeta {
     List<Impedimento> impedimento;
 
 
-  
+@Column(commentary = "true cuando la crea un colaborador que no pertenece al proyecto y es un proyecto publico")
+    private Boolean foreaneo;
 
 
    
     public Tarjeta() {
     }
 
-    public Tarjeta(Long idtarjeta, String tarjeta, String descripcion, List<UserView> userView, Date fechainicial, Date fechafinal, Icono icono, Long idsprint, Long idproyecto, Boolean backlog, String prioridad, String estimacion, List<Etiqueta> etiqueta, List<Tarea> tarea, List<Impedimento> impedimento, Boolean active, List<Comentario> comentario, List<Archivo> archivo, String columna) {
+    public Tarjeta(Long idtarjeta, String tarjeta, String descripcion, List<UserView> userView, Date fechainicial, Date fechafinal, Icono icono, Long idsprint, Long idproyecto, Boolean backlog, String prioridad, String estimacion, String columna, Boolean active, List<Tarea> tarea, List<Comentario> comentario, List<Etiqueta> etiqueta, List<Archivo> archivo, List<Impedimento> impedimento, Boolean foreaneo) {
         this.idtarjeta = idtarjeta;
         this.tarjeta = tarjeta;
         this.descripcion = descripcion;
@@ -100,18 +101,16 @@ public class Tarjeta {
         this.backlog = backlog;
         this.prioridad = prioridad;
         this.estimacion = estimacion;
-        this.etiqueta = etiqueta;
-        this.tarea = tarea;
-        this.impedimento = impedimento;
-        this.active = active;
-        this.comentario = comentario;
-        this.archivo = archivo;
         this.columna = columna;
+        this.active = active;
+        this.tarea = tarea;
+        this.comentario = comentario;
+        this.etiqueta = etiqueta;
+        this.archivo = archivo;
+        this.impedimento = impedimento;
+        this.foreaneo = foreaneo;
     }
 
-    
-    
-    
     public Long getIdtarjeta() {
         return idtarjeta;
     }
@@ -208,28 +207,12 @@ public class Tarjeta {
         this.estimacion = estimacion;
     }
 
-    public List<Etiqueta> getEtiqueta() {
-        return etiqueta;
+    public String getColumna() {
+        return columna;
     }
 
-    public void setEtiqueta(List<Etiqueta> etiqueta) {
-        this.etiqueta = etiqueta;
-    }
-
-    public List<Tarea> getTarea() {
-        return tarea;
-    }
-
-    public void setTarea(List<Tarea> tarea) {
-        this.tarea = tarea;
-    }
-
-    public List<Impedimento> getImpedimento() {
-        return impedimento;
-    }
-
-    public void setImpedimento(List<Impedimento> impedimento) {
-        this.impedimento = impedimento;
+    public void setColumna(String columna) {
+        this.columna = columna;
     }
 
     public Boolean getActive() {
@@ -240,12 +223,28 @@ public class Tarjeta {
         this.active = active;
     }
 
+    public List<Tarea> getTarea() {
+        return tarea;
+    }
+
+    public void setTarea(List<Tarea> tarea) {
+        this.tarea = tarea;
+    }
+
     public List<Comentario> getComentario() {
         return comentario;
     }
 
     public void setComentario(List<Comentario> comentario) {
         this.comentario = comentario;
+    }
+
+    public List<Etiqueta> getEtiqueta() {
+        return etiqueta;
+    }
+
+    public void setEtiqueta(List<Etiqueta> etiqueta) {
+        this.etiqueta = etiqueta;
     }
 
     public List<Archivo> getArchivo() {
@@ -256,12 +255,20 @@ public class Tarjeta {
         this.archivo = archivo;
     }
 
-    public String getColumna() {
-        return columna;
+    public List<Impedimento> getImpedimento() {
+        return impedimento;
     }
 
-    public void setColumna(String columna) {
-        this.columna = columna;
+    public void setImpedimento(List<Impedimento> impedimento) {
+        this.impedimento = impedimento;
+    }
+
+    public Boolean getForeaneo() {
+        return foreaneo;
+    }
+
+    public void setForeaneo(Boolean foreaneo) {
+        this.foreaneo = foreaneo;
     }
 
     @Override
@@ -280,39 +287,41 @@ public class Tarjeta {
         sb.append(", backlog=").append(backlog);
         sb.append(", prioridad=").append(prioridad);
         sb.append(", estimacion=").append(estimacion);
-        sb.append(", etiqueta=").append(etiqueta);
-        sb.append(", tarea=").append(tarea);
-        sb.append(", impedimento=").append(impedimento);
-        sb.append(", active=").append(active);
-        sb.append(", comentario=").append(comentario);
-        sb.append(", archivo=").append(archivo);
         sb.append(", columna=").append(columna);
+        sb.append(", active=").append(active);
+        sb.append(", tarea=").append(tarea);
+        sb.append(", comentario=").append(comentario);
+        sb.append(", etiqueta=").append(etiqueta);
+        sb.append(", archivo=").append(archivo);
+        sb.append(", impedimento=").append(impedimento);
+        sb.append(", foreaneo=").append(foreaneo);
         sb.append('}');
         return sb.toString();
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.idtarjeta);
-        hash = 79 * hash + Objects.hashCode(this.tarjeta);
-        hash = 79 * hash + Objects.hashCode(this.descripcion);
-        hash = 79 * hash + Objects.hashCode(this.userView);
-        hash = 79 * hash + Objects.hashCode(this.fechainicial);
-        hash = 79 * hash + Objects.hashCode(this.fechafinal);
-        hash = 79 * hash + Objects.hashCode(this.icono);
-        hash = 79 * hash + Objects.hashCode(this.idsprint);
-        hash = 79 * hash + Objects.hashCode(this.idproyecto);
-        hash = 79 * hash + Objects.hashCode(this.backlog);
-        hash = 79 * hash + Objects.hashCode(this.prioridad);
-        hash = 79 * hash + Objects.hashCode(this.estimacion);
-        hash = 79 * hash + Objects.hashCode(this.columna);
-        hash = 79 * hash + Objects.hashCode(this.active);
-        hash = 79 * hash + Objects.hashCode(this.tarea);
-        hash = 79 * hash + Objects.hashCode(this.comentario);
-        hash = 79 * hash + Objects.hashCode(this.etiqueta);
-        hash = 79 * hash + Objects.hashCode(this.archivo);
-        hash = 79 * hash + Objects.hashCode(this.impedimento);
+        int hash = 3;
+        hash = 43 * hash + Objects.hashCode(this.idtarjeta);
+        hash = 43 * hash + Objects.hashCode(this.tarjeta);
+        hash = 43 * hash + Objects.hashCode(this.descripcion);
+        hash = 43 * hash + Objects.hashCode(this.userView);
+        hash = 43 * hash + Objects.hashCode(this.fechainicial);
+        hash = 43 * hash + Objects.hashCode(this.fechafinal);
+        hash = 43 * hash + Objects.hashCode(this.icono);
+        hash = 43 * hash + Objects.hashCode(this.idsprint);
+        hash = 43 * hash + Objects.hashCode(this.idproyecto);
+        hash = 43 * hash + Objects.hashCode(this.backlog);
+        hash = 43 * hash + Objects.hashCode(this.prioridad);
+        hash = 43 * hash + Objects.hashCode(this.estimacion);
+        hash = 43 * hash + Objects.hashCode(this.columna);
+        hash = 43 * hash + Objects.hashCode(this.active);
+        hash = 43 * hash + Objects.hashCode(this.tarea);
+        hash = 43 * hash + Objects.hashCode(this.comentario);
+        hash = 43 * hash + Objects.hashCode(this.etiqueta);
+        hash = 43 * hash + Objects.hashCode(this.archivo);
+        hash = 43 * hash + Objects.hashCode(this.impedimento);
+        hash = 43 * hash + Objects.hashCode(this.foreaneo);
         return hash;
     }
 
@@ -382,10 +391,11 @@ public class Tarjeta {
         if (!Objects.equals(this.archivo, other.archivo)) {
             return false;
         }
-        return Objects.equals(this.impedimento, other.impedimento);
+        if (!Objects.equals(this.impedimento, other.impedimento)) {
+            return false;
+        }
+        return Objects.equals(this.foreaneo, other.foreaneo);
     }
 
-   
-    
 
 }

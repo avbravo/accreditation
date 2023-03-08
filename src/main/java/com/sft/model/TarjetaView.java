@@ -44,12 +44,15 @@ public class TarjetaView {
     @Column
     private String columna;
     
+    @Column(commentary = "true cuando la crea un colaborador que no pertenece al proyecto y es un proyecto publico")
+    private Boolean foreaneo;
+    
 
 
     public TarjetaView() {
     }
 
-    public TarjetaView(Long idtarjeta, String tarjeta, String descripcion, Date fechainicial, Date fechafinal, String prioridad, String estimacion, Boolean active, String columna) {
+    public TarjetaView(Long idtarjeta, String tarjeta, String descripcion, Date fechainicial, Date fechafinal, String prioridad, String estimacion, Boolean active, String columna, Boolean foreaneo) {
         this.idtarjeta = idtarjeta;
         this.tarjeta = tarjeta;
         this.descripcion = descripcion;
@@ -59,6 +62,7 @@ public class TarjetaView {
         this.estimacion = estimacion;
         this.active = active;
         this.columna = columna;
+        this.foreaneo = foreaneo;
     }
 
     public Long getIdtarjeta() {
@@ -133,35 +137,32 @@ public class TarjetaView {
         this.columna = columna;
     }
 
+    public Boolean getForeaneo() {
+        return foreaneo;
+    }
+
+    public void setForeaneo(Boolean foreaneo) {
+        this.foreaneo = foreaneo;
+    }
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("TarjetaView{");
-        sb.append("idtarjeta=").append(idtarjeta);
-        sb.append(", tarjeta=").append(tarjeta);
-        sb.append(", descripcion=").append(descripcion);
-        sb.append(", fechainicial=").append(fechainicial);
-        sb.append(", fechafinal=").append(fechafinal);
-        sb.append(", prioridad=").append(prioridad);
-        sb.append(", estimacion=").append(estimacion);
-        sb.append(", active=").append(active);
-        sb.append(", columna=").append(columna);
-        sb.append('}');
-        return sb.toString();
+        return "TarjetaView{" + "idtarjeta=" + idtarjeta + ", tarjeta=" + tarjeta + ", descripcion=" + descripcion + ", fechainicial=" + fechainicial + ", fechafinal=" + fechafinal + ", prioridad=" + prioridad + ", estimacion=" + estimacion + ", active=" + active + ", columna=" + columna + ", foreaneo=" + foreaneo + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 79 * hash + Objects.hashCode(this.idtarjeta);
-        hash = 79 * hash + Objects.hashCode(this.tarjeta);
-        hash = 79 * hash + Objects.hashCode(this.descripcion);
-        hash = 79 * hash + Objects.hashCode(this.fechainicial);
-        hash = 79 * hash + Objects.hashCode(this.fechafinal);
-        hash = 79 * hash + Objects.hashCode(this.prioridad);
-        hash = 79 * hash + Objects.hashCode(this.estimacion);
-        hash = 79 * hash + Objects.hashCode(this.active);
-        hash = 79 * hash + Objects.hashCode(this.columna);
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.idtarjeta);
+        hash = 29 * hash + Objects.hashCode(this.tarjeta);
+        hash = 29 * hash + Objects.hashCode(this.descripcion);
+        hash = 29 * hash + Objects.hashCode(this.fechainicial);
+        hash = 29 * hash + Objects.hashCode(this.fechafinal);
+        hash = 29 * hash + Objects.hashCode(this.prioridad);
+        hash = 29 * hash + Objects.hashCode(this.estimacion);
+        hash = 29 * hash + Objects.hashCode(this.active);
+        hash = 29 * hash + Objects.hashCode(this.columna);
+        hash = 29 * hash + Objects.hashCode(this.foreaneo);
         return hash;
     }
 
@@ -201,9 +202,14 @@ public class TarjetaView {
         if (!Objects.equals(this.fechafinal, other.fechafinal)) {
             return false;
         }
-        return Objects.equals(this.active, other.active);
+        if (!Objects.equals(this.active, other.active)) {
+            return false;
+        }
+        return Objects.equals(this.foreaneo, other.foreaneo);
     }
 
+  
+  
     
     
     
