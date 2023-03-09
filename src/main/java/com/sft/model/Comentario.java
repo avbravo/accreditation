@@ -19,22 +19,26 @@ import java.util.Objects;
 public class Comentario {
     @Column
     private String comentario;
+    
+    @Column(commentary = "Se utiliza para evitar que el solicitante foreano vea algunos comentarios en la tarjeta")
+    private Boolean privado;
 
-     @Column
-    private Date fecha;
-    @Column
-    private Boolean active;
-        @ViewReferenced(from = "user", localField = "iduser")
-private UserView userView;
-
-    public Comentario() {
-    }
-
-    public Comentario(String comentario, Date fecha, Boolean active, UserView userView) {
+    public Comentario(String comentario, Boolean privado, Date fecha, Boolean active, UserView userView) {
         this.comentario = comentario;
+        this.privado = privado;
         this.fecha = fecha;
         this.active = active;
         this.userView = userView;
+    }
+
+    @Column
+    private Date fecha;
+    @Column
+    private Boolean active;
+    @ViewReferenced(from = "user", localField = "iduser")
+    private UserView userView;
+
+    public Comentario() {
     }
 
     public String getComentario() {
@@ -43,6 +47,14 @@ private UserView userView;
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
+    }
+
+    public Boolean getPrivado() {
+        return privado;
+    }
+
+    public void setPrivado(Boolean privado) {
+        this.privado = privado;
     }
 
     public Date getFecha() {
@@ -74,6 +86,7 @@ private UserView userView;
         StringBuilder sb = new StringBuilder();
         sb.append("Comentario{");
         sb.append("comentario=").append(comentario);
+        sb.append(", privado=").append(privado);
         sb.append(", fecha=").append(fecha);
         sb.append(", active=").append(active);
         sb.append(", userView=").append(userView);
@@ -84,10 +97,11 @@ private UserView userView;
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 71 * hash + Objects.hashCode(this.comentario);
-        hash = 71 * hash + Objects.hashCode(this.fecha);
-        hash = 71 * hash + Objects.hashCode(this.active);
-        hash = 71 * hash + Objects.hashCode(this.userView);
+        hash = 67 * hash + Objects.hashCode(this.comentario);
+        hash = 67 * hash + Objects.hashCode(this.privado);
+        hash = 67 * hash + Objects.hashCode(this.fecha);
+        hash = 67 * hash + Objects.hashCode(this.active);
+        hash = 67 * hash + Objects.hashCode(this.userView);
         return hash;
     }
 
@@ -106,6 +120,9 @@ private UserView userView;
         if (!Objects.equals(this.comentario, other.comentario)) {
             return false;
         }
+        if (!Objects.equals(this.privado, other.privado)) {
+            return false;
+        }
         if (!Objects.equals(this.fecha, other.fecha)) {
             return false;
         }
@@ -115,8 +132,6 @@ private UserView userView;
         return Objects.equals(this.userView, other.userView);
     }
 
-    
-    
     
     
 }
