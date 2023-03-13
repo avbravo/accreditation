@@ -9,7 +9,9 @@ import com.jmoordb.core.model.Search;
 import com.jmoordb.core.util.ConsoleUtil;
 import com.jmoordb.core.util.DocumentUtil;
 import com.jmoordb.core.util.MessagesUtil;
+import com.sft.model.History;
 import com.sft.model.Proyecto;
+import com.sft.repository.HistoryRepository;
 import com.sft.repository.ProyectoRepository;
 import com.sft.repository.UserRepository;
 import com.sft.repository.UserViewRepository;
@@ -56,6 +58,9 @@ public class ProyectoController {
     // <editor-fold defaultstate="collapsed" desc="Inject">
     @Inject
     ProyectoRepository proyectoRepository;
+    
+     @Inject
+HistoryRepository historyRepository;
     
     @Inject
  UserViewRepository userViewRepository;
@@ -144,6 +149,7 @@ public class ProyectoController {
 
   Optional<Proyecto> proyectoOptional=proyectoRepository.save(proyecto);
         if(proyectoOptional.isPresent()){
+             saveHistory(proyecto);
                return Response.status(201).entity(proyectoOptional.get()).build();
         }else{
               return Response.status(400).entity("Error " + proyectoRepository.getJmoordbException().getLocalizedMessage()).build();
@@ -164,7 +170,7 @@ public class ProyectoController {
         
         
        if(proyectoRepository.update(proyecto)){
-        
+         saveHistory(proyecto);
                return Response.status(201).entity(proyecto).build();
         }else{
         
@@ -269,4 +275,26 @@ public class ProyectoController {
     }
 
     // </editor-fold>
+    
+    
+    
+     // <editor-fold defaultstate="collapsed" desc="private void saveHistory(Proyecto proyecto)">
+    
+    private void saveHistory(Proyecto proyecto){
+        try {
+                History history = new History.Builder()                 
+               .collection("proyecto")
+                    .idcollection(proyecto.getIdproyecto().toString())
+                    .database("sft")
+                    .data(proyecto.toString())
+                    .actionHistory(proyecto.getActionHistory().get(proyecto.getActionHistory().size()-1)                  )
+                     .build();
+            historyRepository.save(history);
+        } catch (Exception e) {
+           ConsoleUtil.error("saveHistory() "+e.getLocalizedMessage());
+        }
+    }
+     
+    
+// </editor-fold>
 }

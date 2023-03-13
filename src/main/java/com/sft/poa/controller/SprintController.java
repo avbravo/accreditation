@@ -6,9 +6,13 @@ package com.sft.poa.controller;
 
 import com.jmoordb.core.annotation.date.DateFormat;
 import com.jmoordb.core.model.Search;
+import com.jmoordb.core.util.ConsoleUtil;
 import com.jmoordb.core.util.DocumentUtil;
 import com.jmoordb.core.util.MessagesUtil;
+import com.sft.model.History;
+import com.sft.model.Proyecto;
 import com.sft.model.Sprint;
+import com.sft.repository.HistoryRepository;
 import com.sft.repository.SprintRepository;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -56,7 +60,9 @@ public class SprintController {
     
  
 
- 
+      @Inject
+HistoryRepository historyRepository;
+    
 
 // </editor-fold>
 
@@ -114,6 +120,7 @@ public class SprintController {
             @RequestBody(description = "Crea un nuevo sprint.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Sprint.class))) Sprint sprint) {
         Optional<Sprint> sprintOptional=sprintRepository.save(sprint);
         if(sprintOptional.isPresent()){
+            saveHistory(sprint);
                return Response.status(201).entity(sprintOptional.get()).build();
         }else{
               return Response.status(400).entity("Error " + sprintRepository.getJmoordbException().getLocalizedMessage()).build();
@@ -134,6 +141,7 @@ public class SprintController {
 
 
         if(sprintRepository.update(sprint)){
+          saveHistory(sprint);
                return Response.status(201).entity(sprint).build();
         }else{
               return Response.status(400).entity("Error " + sprintRepository.getJmoordbException().getLocalizedMessage()).build();
@@ -235,4 +243,24 @@ public class SprintController {
 
     // </editor-fold>
     
+    
+     // <editor-fold defaultstate="collapsed" desc="private void saveHistory(Proyecto proyecto)">
+    
+    private void saveHistory(Sprint sprint){
+        try {
+                 History history = new History.Builder()                 
+               .collection("sprint")
+                    .idcollection(sprint.getIdsprint().toString())
+                    .database("sft")
+                    .data(sprint.toString())
+                    .actionHistory(sprint.getActionHistory().get(sprint.getActionHistory().size()-1)                  )
+                     .build();
+            historyRepository.save(history);
+        } catch (Exception e) {
+           ConsoleUtil.error("saveHistory() "+e.getLocalizedMessage());
+        }
+    }
+     
+    
+// </editor-fold>
 }

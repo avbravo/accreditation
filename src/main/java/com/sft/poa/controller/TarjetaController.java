@@ -5,6 +5,7 @@
 package com.sft.poa.controller;
 
 import com.jmoordb.core.model.Search;
+import com.jmoordb.core.util.ConsoleUtil;
 import com.jmoordb.core.util.DocumentUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.sft.model.History;
@@ -108,14 +109,9 @@ HistoryRepository historyRepository;
 
         Optional<Tarjeta> tarjetaOptional = tarjetaRepository.save(tarjeta);
         if (tarjetaOptional.isPresent()) {
-             History history = new History.Builder()                 
-               .collection("tarjeta")
-                    .idcollection(tarjeta.getIdtarjeta().toString())
-                    .database("sft")
-                    .data(tarjeta.toString())
-                    .actionHistory(tarjeta.getActionHistory().get(tarjeta.getActionHistory().size()-1)                  )
-                     .build();
-            historyRepository.save(history);
+            saveHistory(tarjeta);
+            
+         
             return Response.status(201).entity(tarjetaOptional.get()).build();
         } else {
             return Response.status(400).entity("Error " + tarjetaRepository.getJmoordbException().getLocalizedMessage()).build();
@@ -135,14 +131,7 @@ HistoryRepository historyRepository;
             @RequestBody(description = "Crea un nuevo tarjeta.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Tarjeta.class))) Tarjeta tarjeta) {
 
         if (tarjetaRepository.update(tarjeta)) {
-              History history = new History.Builder()                 
-               .collection("tarjeta")
-                    .idcollection(tarjeta.getIdtarjeta().toString())
-                    .database("sft")
-                      .data(tarjeta.toString())
-                    .actionHistory(tarjeta.getActionHistory().get(tarjeta.getActionHistory().size()-1)                  )
-                     .build();
-            historyRepository.save(history);
+              saveHistory(tarjeta);
             return Response.status(201).entity(tarjeta).build();
         } else {
             return Response.status(400).entity("Error " + tarjetaRepository.getJmoordbException().getLocalizedMessage()).build();
@@ -227,4 +216,25 @@ HistoryRepository historyRepository;
     }
 
     // </editor-fold>
+    
+    
+    // <editor-fold defaultstate="collapsed" desc="private void saveHistory(Tarjeta tarjeta)">
+    
+    private void saveHistory(Tarjeta tarjeta){
+        try {
+                History history = new History.Builder()                 
+               .collection("tarjeta")
+                    .idcollection(tarjeta.getIdtarjeta().toString())
+                    .database("sft")
+                    .data(tarjeta.toString())
+                    .actionHistory(tarjeta.getActionHistory().get(tarjeta.getActionHistory().size()-1)                  )
+                     .build();
+            historyRepository.save(history);
+        } catch (Exception e) {
+           ConsoleUtil.error("saveHistory() "+e.getLocalizedMessage());
+        }
+    }
+     
+    
+// </editor-fold>
 }

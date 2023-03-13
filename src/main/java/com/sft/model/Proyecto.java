@@ -73,12 +73,13 @@ public class Proyecto {
     
     @Embedded
     DiasLaborable diasLaborable;
-   
+   @Embedded
+List<ActionHistory> actionHistory;
 
     public Proyecto() {
     }
 
-    public Proyecto(Long idproyecto, String proyecto, String descripcion, Icono icono, String prefijo, Date fechafinal, Date fechainicial, List<DepartamentView> departamentView, Grupo grupo, List<ProyectoMiembro> proyectoMiembro, CentralView centralView, Double avance, String estado, Boolean privado, Boolean active, Boolean generarsprintautomaticamente, String perocidiadsprint, DiasLaborable diasLaborable) {
+    public Proyecto(Long idproyecto, String proyecto, String descripcion, Icono icono, String prefijo, Date fechafinal, Date fechainicial, List<DepartamentView> departamentView, Grupo grupo, List<ProyectoMiembro> proyectoMiembro, CentralView centralView, Double avance, String estado, Boolean privado, Boolean active, Boolean generarsprintautomaticamente, String perocidiadsprint, DiasLaborable diasLaborable, List<ActionHistory> actionHistory) {
         this.idproyecto = idproyecto;
         this.proyecto = proyecto;
         this.descripcion = descripcion;
@@ -97,6 +98,7 @@ public class Proyecto {
         this.generarsprintautomaticamente = generarsprintautomaticamente;
         this.perocidiadsprint = perocidiadsprint;
         this.diasLaborable = diasLaborable;
+        this.actionHistory = actionHistory;
     }
 
     public Long getIdproyecto() {
@@ -243,6 +245,14 @@ public class Proyecto {
         this.diasLaborable = diasLaborable;
     }
 
+    public List<ActionHistory> getActionHistory() {
+        return actionHistory;
+    }
+
+    public void setActionHistory(List<ActionHistory> actionHistory) {
+        this.actionHistory = actionHistory;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -265,6 +275,7 @@ public class Proyecto {
         sb.append(", generarsprintautomaticamente=").append(generarsprintautomaticamente);
         sb.append(", perocidiadsprint=").append(perocidiadsprint);
         sb.append(", diasLaborable=").append(diasLaborable);
+        sb.append(", actionHistory=").append(actionHistory);
         sb.append('}');
         return sb.toString();
     }
@@ -272,24 +283,25 @@ public class Proyecto {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 71 * hash + Objects.hashCode(this.idproyecto);
-        hash = 71 * hash + Objects.hashCode(this.proyecto);
-        hash = 71 * hash + Objects.hashCode(this.descripcion);
-        hash = 71 * hash + Objects.hashCode(this.icono);
-        hash = 71 * hash + Objects.hashCode(this.prefijo);
-        hash = 71 * hash + Objects.hashCode(this.fechafinal);
-        hash = 71 * hash + Objects.hashCode(this.fechainicial);
-        hash = 71 * hash + Objects.hashCode(this.departamentView);
-        hash = 71 * hash + Objects.hashCode(this.grupo);
-        hash = 71 * hash + Objects.hashCode(this.proyectoMiembro);
-        hash = 71 * hash + Objects.hashCode(this.centralView);
-        hash = 71 * hash + Objects.hashCode(this.avance);
-        hash = 71 * hash + Objects.hashCode(this.estado);
-        hash = 71 * hash + Objects.hashCode(this.privado);
-        hash = 71 * hash + Objects.hashCode(this.active);
-        hash = 71 * hash + Objects.hashCode(this.generarsprintautomaticamente);
-        hash = 71 * hash + Objects.hashCode(this.perocidiadsprint);
-        hash = 71 * hash + Objects.hashCode(this.diasLaborable);
+        hash = 59 * hash + Objects.hashCode(this.idproyecto);
+        hash = 59 * hash + Objects.hashCode(this.proyecto);
+        hash = 59 * hash + Objects.hashCode(this.descripcion);
+        hash = 59 * hash + Objects.hashCode(this.icono);
+        hash = 59 * hash + Objects.hashCode(this.prefijo);
+        hash = 59 * hash + Objects.hashCode(this.fechafinal);
+        hash = 59 * hash + Objects.hashCode(this.fechainicial);
+        hash = 59 * hash + Objects.hashCode(this.departamentView);
+        hash = 59 * hash + Objects.hashCode(this.grupo);
+        hash = 59 * hash + Objects.hashCode(this.proyectoMiembro);
+        hash = 59 * hash + Objects.hashCode(this.centralView);
+        hash = 59 * hash + Objects.hashCode(this.avance);
+        hash = 59 * hash + Objects.hashCode(this.estado);
+        hash = 59 * hash + Objects.hashCode(this.privado);
+        hash = 59 * hash + Objects.hashCode(this.active);
+        hash = 59 * hash + Objects.hashCode(this.generarsprintautomaticamente);
+        hash = 59 * hash + Objects.hashCode(this.perocidiadsprint);
+        hash = 59 * hash + Objects.hashCode(this.diasLaborable);
+        hash = 59 * hash + Objects.hashCode(this.actionHistory);
         return hash;
     }
 
@@ -356,9 +368,13 @@ public class Proyecto {
         if (!Objects.equals(this.generarsprintautomaticamente, other.generarsprintautomaticamente)) {
             return false;
         }
-        return Objects.equals(this.diasLaborable, other.diasLaborable);
+        if (!Objects.equals(this.diasLaborable, other.diasLaborable)) {
+            return false;
+        }
+        return Objects.equals(this.actionHistory, other.actionHistory);
     }
 
+   
    
 
   

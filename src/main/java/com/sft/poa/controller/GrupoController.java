@@ -9,6 +9,7 @@ import com.jmoordb.core.util.DocumentUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.sft.model.Grupo;
 import com.sft.repository.GrupoRepository;
+import com.sft.repository.HistoryRepository;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
@@ -52,7 +53,8 @@ public class GrupoController {
     @Inject
     GrupoRepository grupoRepository;
     
- 
+     @Inject
+HistoryRepository historyRepository;
 
 // </editor-fold>
 
