@@ -7,7 +7,9 @@ package com.sft.poa.controller;
 import com.jmoordb.core.model.Search;
 import com.jmoordb.core.util.DocumentUtil;
 import com.jmoordb.core.util.MessagesUtil;
+import com.sft.model.History;
 import com.sft.model.Tarjeta;
+import com.sft.repository.HistoryRepository;
 import com.sft.repository.TarjetaRepository;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -44,25 +46,18 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  */
 @Path("tarjeta")
 @Tag(name = "Información del tarjeta", description = "End-point para entidad Tarjeta")
-  @RolesAllowed({"admin"})
+@RolesAllowed({"admin"})
 public class TarjetaController {
 
-    
     // <editor-fold defaultstate="collapsed" desc="Inject">
     @Inject
     TarjetaRepository tarjetaRepository;
-    
- 
-
-;
-
+ @Inject
+HistoryRepository historyRepository;
 // </editor-fold>
-
-
-
     // <editor-fold defaultstate="collapsed" desc="findAll">
     @GET
-      @RolesAllowed({"admin"})
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Timed(name = "tarjetaesFindAll",
             description = "Monitorea el tiempo en que se obtiene la lista de todos los tarjetaes",
@@ -73,14 +68,14 @@ public class TarjetaController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     @APIResponse(description = "Los tarjetaes", responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Collection.class, readOnly = true, description = "los tarjetaes", required = true, name = "tarjetaes")))
     public List<Tarjeta> findAll() {
-        
+
         return tarjetaRepository.findAll();
     }
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Tarjeta findByIdtarjeta">
     @GET
-      @RolesAllowed({"admin"})
+    @RolesAllowed({"admin"})
     @Path("{idtarjeta}")
     @Operation(summary = "Busca un tarjeta por el idtarjeta", description = "Busqueda de tarjeta por idtarjeta")
     @APIResponse(responseCode = "200", description = "El tarjeta")
@@ -91,8 +86,6 @@ public class TarjetaController {
     public Tarjeta findByIdtarjeta(
             @Parameter(description = "El idtarjeta", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idtarjeta") Long idtarjeta) {
 
-   
-
         return tarjetaRepository.findByPk(idtarjeta).orElseThrow(
                 () -> new WebApplicationException("No hay tarjeta con idtarjeta " + idtarjeta, Response.Status.NOT_FOUND));
 
@@ -101,7 +94,7 @@ public class TarjetaController {
 
     // <editor-fold defaultstate="collapsed" desc="Response save">
     @POST
-      @RolesAllowed({"admin"})
+    @RolesAllowed({"admin"})
     @Metered(name = "tarjetaSave",
             unit = MetricUnits.MILLISECONDS,
             description = "Monitor la rata de eventos ocurridos al insertar tarjeta",
@@ -113,20 +106,27 @@ public class TarjetaController {
     public Response save(
             @RequestBody(description = "Crea un nuevo tarjeta.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Tarjeta.class))) Tarjeta tarjeta) {
 
-
-        Optional<Tarjeta> tarjetaOptional=tarjetaRepository.save(tarjeta);
-        if(tarjetaOptional.isPresent()){
-               return Response.status(201).entity(tarjetaOptional.get()).build();
-        }else{
-              return Response.status(400).entity("Error " + tarjetaRepository.getJmoordbException().getLocalizedMessage()).build();
+        Optional<Tarjeta> tarjetaOptional = tarjetaRepository.save(tarjeta);
+        if (tarjetaOptional.isPresent()) {
+             History history = new History.Builder()                 
+               .collection("tarjeta")
+                    .idcollection(tarjeta.getIdtarjeta().toString())
+                    .database("sft")
+                    .data(tarjeta.toString())
+                    .actionHistory(tarjeta.getActionHistory().get(tarjeta.getActionHistory().size()-1)                  )
+                     .build();
+            historyRepository.save(history);
+            return Response.status(201).entity(tarjetaOptional.get()).build();
+        } else {
+            return Response.status(400).entity("Error " + tarjetaRepository.getJmoordbException().getLocalizedMessage()).build();
         }
- 
+
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Response update">
 
     @PUT
-      @RolesAllowed({"admin"})
+    @RolesAllowed({"admin"})
     @Operation(summary = "Inserta un nuevo tarjeta", description = "Inserta un nuevo tarjeta")
     @APIResponse(responseCode = "201", description = "Cuanoo se crea un  tarjeta")
     @APIResponse(responseCode = "500", description = "Servidor inalcanzable")
@@ -134,18 +134,25 @@ public class TarjetaController {
     public Response update(
             @RequestBody(description = "Crea un nuevo tarjeta.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Tarjeta.class))) Tarjeta tarjeta) {
 
-
-        if(tarjetaRepository.update(tarjeta)){
-               return Response.status(201).entity(tarjeta).build();
-        }else{
-              return Response.status(400).entity("Error " + tarjetaRepository.getJmoordbException().getLocalizedMessage()).build();
+        if (tarjetaRepository.update(tarjeta)) {
+              History history = new History.Builder()                 
+               .collection("tarjeta")
+                    .idcollection(tarjeta.getIdtarjeta().toString())
+                    .database("sft")
+                      .data(tarjeta.toString())
+                    .actionHistory(tarjeta.getActionHistory().get(tarjeta.getActionHistory().size()-1)                  )
+                     .build();
+            historyRepository.save(history);
+            return Response.status(201).entity(tarjeta).build();
+        } else {
+            return Response.status(400).entity("Error " + tarjetaRepository.getJmoordbException().getLocalizedMessage()).build();
         }
     }
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Response delete">
     @DELETE
-      @RolesAllowed({"admin"})
+    @RolesAllowed({"admin"})
     @Path("{idtarjeta}")
     @Operation(summary = "Elimina un tarjeta por  idtarjeta", description = "Elimina un tarjeta por su idtarjeta")
     @APIResponse(responseCode = "200", description = "Cuando elimina el tarjeta")
@@ -153,17 +160,16 @@ public class TarjetaController {
     @Tag(name = "BETA", description = "Esta api esta en desarrollo")
     public Response delete(
             @Parameter(description = "El elemento idtarjeta", required = true, example = "1", schema = @Schema(type = SchemaType.NUMBER)) @PathParam("idtarjeta") Long idtarjeta) {
-   
-       if(tarjetaRepository.deleteByPk(idtarjeta) ==0L){
-              return Response.status(201).entity(Boolean.TRUE).build();
-        }else{
+
+        if (tarjetaRepository.deleteByPk(idtarjeta) == 0L) {
+            return Response.status(201).entity(Boolean.TRUE).build();
+        } else {
             return Response.status(400).entity("Error " + tarjetaRepository.getJmoordbException().getLocalizedMessage()).build();
         }
     }
     // </editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc="List<Tarjeta> lookup(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size)">
 
+    // <editor-fold defaultstate="collapsed" desc="List<Tarjeta> lookup(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size)">
     @GET
     @Path("lookup")
     @RolesAllowed({"admin"})
@@ -180,22 +186,19 @@ public class TarjetaController {
         List<Tarjeta> suggestions = new ArrayList<>();
         try {
 
-        Search search = DocumentUtil.convertForLookup(filter, sort, page, size);
-        suggestions = tarjetaRepository.lookup(search);
+            Search search = DocumentUtil.convertForLookup(filter, sort, page, size);
+            suggestions = tarjetaRepository.lookup(search);
 
         } catch (Exception e) {
-       
-          MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + "error: " + e.getLocalizedMessage());
+
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + "error: " + e.getLocalizedMessage());
         }
 
         return suggestions;
     }
 
     // </editor-fold>
-    
-    
     // <editor-fold defaultstate="collapsed" desc="Long count(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size)">
-
     @GET
     @Path("count")
     @RolesAllowed({"admin"})
@@ -209,15 +212,15 @@ public class TarjetaController {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 
     public Long count(@QueryParam("filter") String filter, @QueryParam("sort") String sort, @QueryParam("page") Integer page, @QueryParam("size") Integer size) {
-       Long result = 0L;
+        Long result = 0L;
         try {
 
-        Search search = DocumentUtil.convertForLookup(filter, sort, page, size);
-        result = tarjetaRepository.count(search);
+            Search search = DocumentUtil.convertForLookup(filter, sort, page, size);
+            result = tarjetaRepository.count(search);
 
         } catch (Exception e) {
-       
-          MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + "error: " + e.getLocalizedMessage());
+
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + "error: " + e.getLocalizedMessage());
         }
 
         return result;

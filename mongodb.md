@@ -51,6 +51,10 @@ mongodump --archive=configurationjmoordbdb.gz --gzip --db=configurationjmoordbdb
 
 mongodump --archive=sft.gz --gzip --db=sft
 
+
+mongodump --archive=historydb.gz --gzip --db=historydb
+
+
 mongodump --archive=sfthistory.gz --gzip --db=sfthistory
 
 mongodump --archive=accreditationhistory.gz --gzip --db=accreditationhistory
@@ -68,6 +72,9 @@ docker cp e321ee10e65e:/home/avbravo/accreditation.gz  /home/avbravo/Descargas/a
 docker cp e321ee10e65e:/home/avbravo/configurationjmoordbdb.gz  /home/avbravo/Descargas/configurationjmoordbdb.gz
 
 docker cp e321ee10e65e:/home/avbravo/sft.gz  /home/avbravo/Descargas/sft.gz
+
+docker cp e321ee10e65e:/home/avbravo/historydb.gz  /home/avbravo/Descargas/historydb.gz
+
 
 docker cp e321ee10e65e:/home/avbravo/sfthistory.gz  /home/avbravo/Descargas/sfthistory.gz
 
@@ -87,6 +94,8 @@ docker cp e321ee10e65e:/home/avbravo/accreditationhistory.gz  /home/avbravo/Desc
 
   docker cp /home/avbravo/Descargas/sft.gz e321ee10e65e:/home/avbravo/sft.gz
 
+  docker cp /home/avbravo/Descargas/historydb.gz e321ee10e65e:/home/avbravo/historydb.gz
+
   docker cp /home/avbravo/Descargas/sfthistory.gz e321ee10e65e:/home/avbravo/sfthistory.gz
 
   docker cp /home/avbravo/Descargas/accreditationhistory.gz e321ee10e65e:/home/avbravo/accreditationhistory.gz
@@ -102,6 +111,8 @@ mongorestore --gzip --archive=configurationjmoordbdb.gz
 
 
 mongorestore --gzip --archive=sft.gz
+
+mongorestore --gzip --archive=historydb.gz
 
 mongorestore --gzip --archive=sfthistory.gz.gz
 
@@ -139,6 +150,10 @@ mongodump --archive=configurationjmoordbdb.gz --gzip --db=configurationjmoordbdb
 
 mongodump --archive=sft.gz --gzip --db=sft
 
+
+mongodump --archive=historydb.gz --gzip --db=historydb
+
+
 mongodump --archive=sfthistory.gz --gzip --db=sfthistory
 
 mongodump --archive=accreditationhistory.gz --gzip --db=accreditationhistory
@@ -156,6 +171,8 @@ docker cp c27edf2f87f4:/home/avbravo/configurationjmoordbdb.gz  /home/avbravo/De
 
 docker cp c27edf2f87f4:/home/avbravo/sft.gz  /home/avbravo/Descargas/sft.gz
 
+docker cp c27edf2f87f4:/home/avbravo/historydb.gz  /home/avbravo/Descargas/historydb.gz
+
 docker cp c27edf2f87f4:/home/avbravo/sfthistory.gz  /home/avbravo/Descargas/sfthistory.gz
 
 docker cp c27edf2f87f4:/home/avbravo/accreditationhistory.gz  /home/avbravo/Descargas/accreditationhistory.gz
@@ -171,6 +188,8 @@ docker cp /home/avbravo/Descargas/accreditation.gz c27edf2f87f4:/home/avbravo/ac
 docker cp /home/avbravo/Descargas/configurationjmoordbdb.gz c27edf2f87f4:/home/avbravo/configurationjmoordbdb.gz
   
 docker cp /home/avbravo/Descargas/sft.gz c27edf2f87f4:/home/avbravo/sft.gz
+
+docker cp /home/avbravo/Descargas/historydb.gz c27edf2f87f4:/home/avbravo/historydb.gz
 
 docker cp /home/avbravo/Descargas/sfthistory.gz c27edf2f87f4:/home/avbravo/sfthistory.gz
 
@@ -200,6 +219,8 @@ mongorestore --gzip --archive=accreditation.gz
 mongorestore --gzip --archive=configurationjmoordbdb.gz
 
 mongorestore --gzip --archive=sft.gz
+
+mongorestore --gzip --archive=historydb.gz
 
 mongorestore --gzip --archive=sfthistory.gz.gz
 

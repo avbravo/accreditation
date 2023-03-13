@@ -84,11 +84,14 @@ public class Tarjeta {
     private Boolean foreaneo;
 
 
+@Embedded
+List<ActionHistory> actionHistory;
+
    
     public Tarjeta() {
     }
 
-    public Tarjeta(Long idtarjeta, String tarjeta, String descripcion, List<UserView> userView, Date fechainicial, Date fechafinal, Icono icono, Long idsprint, Long idproyecto, Boolean backlog, String prioridad, String estimacion, String columna, Boolean active, List<Tarea> tarea, List<Comentario> comentario, List<Etiqueta> etiqueta, List<Archivo> archivo, List<Impedimento> impedimento, Boolean foreaneo) {
+    public Tarjeta(Long idtarjeta, String tarjeta, String descripcion, List<UserView> userView, Date fechainicial, Date fechafinal, Icono icono, Long idsprint, Long idproyecto, Boolean backlog, String prioridad, String estimacion, String columna, Boolean active, List<Tarea> tarea, List<Comentario> comentario, List<Etiqueta> etiqueta, List<Archivo> archivo, List<Impedimento> impedimento, Boolean foreaneo, List<ActionHistory> actionHistory) {
         this.idtarjeta = idtarjeta;
         this.tarjeta = tarjeta;
         this.descripcion = descripcion;
@@ -109,6 +112,7 @@ public class Tarjeta {
         this.archivo = archivo;
         this.impedimento = impedimento;
         this.foreaneo = foreaneo;
+        this.actionHistory = actionHistory;
     }
 
     public Long getIdtarjeta() {
@@ -271,6 +275,14 @@ public class Tarjeta {
         this.foreaneo = foreaneo;
     }
 
+    public List<ActionHistory> getActionHistory() {
+        return actionHistory;
+    }
+
+    public void setActionHistory(List<ActionHistory> actionHistory) {
+        this.actionHistory = actionHistory;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -295,33 +307,35 @@ public class Tarjeta {
         sb.append(", archivo=").append(archivo);
         sb.append(", impedimento=").append(impedimento);
         sb.append(", foreaneo=").append(foreaneo);
+        sb.append(", actionHistory=").append(actionHistory);
         sb.append('}');
         return sb.toString();
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 43 * hash + Objects.hashCode(this.idtarjeta);
-        hash = 43 * hash + Objects.hashCode(this.tarjeta);
-        hash = 43 * hash + Objects.hashCode(this.descripcion);
-        hash = 43 * hash + Objects.hashCode(this.userView);
-        hash = 43 * hash + Objects.hashCode(this.fechainicial);
-        hash = 43 * hash + Objects.hashCode(this.fechafinal);
-        hash = 43 * hash + Objects.hashCode(this.icono);
-        hash = 43 * hash + Objects.hashCode(this.idsprint);
-        hash = 43 * hash + Objects.hashCode(this.idproyecto);
-        hash = 43 * hash + Objects.hashCode(this.backlog);
-        hash = 43 * hash + Objects.hashCode(this.prioridad);
-        hash = 43 * hash + Objects.hashCode(this.estimacion);
-        hash = 43 * hash + Objects.hashCode(this.columna);
-        hash = 43 * hash + Objects.hashCode(this.active);
-        hash = 43 * hash + Objects.hashCode(this.tarea);
-        hash = 43 * hash + Objects.hashCode(this.comentario);
-        hash = 43 * hash + Objects.hashCode(this.etiqueta);
-        hash = 43 * hash + Objects.hashCode(this.archivo);
-        hash = 43 * hash + Objects.hashCode(this.impedimento);
-        hash = 43 * hash + Objects.hashCode(this.foreaneo);
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.idtarjeta);
+        hash = 37 * hash + Objects.hashCode(this.tarjeta);
+        hash = 37 * hash + Objects.hashCode(this.descripcion);
+        hash = 37 * hash + Objects.hashCode(this.userView);
+        hash = 37 * hash + Objects.hashCode(this.fechainicial);
+        hash = 37 * hash + Objects.hashCode(this.fechafinal);
+        hash = 37 * hash + Objects.hashCode(this.icono);
+        hash = 37 * hash + Objects.hashCode(this.idsprint);
+        hash = 37 * hash + Objects.hashCode(this.idproyecto);
+        hash = 37 * hash + Objects.hashCode(this.backlog);
+        hash = 37 * hash + Objects.hashCode(this.prioridad);
+        hash = 37 * hash + Objects.hashCode(this.estimacion);
+        hash = 37 * hash + Objects.hashCode(this.columna);
+        hash = 37 * hash + Objects.hashCode(this.active);
+        hash = 37 * hash + Objects.hashCode(this.tarea);
+        hash = 37 * hash + Objects.hashCode(this.comentario);
+        hash = 37 * hash + Objects.hashCode(this.etiqueta);
+        hash = 37 * hash + Objects.hashCode(this.archivo);
+        hash = 37 * hash + Objects.hashCode(this.impedimento);
+        hash = 37 * hash + Objects.hashCode(this.foreaneo);
+        hash = 37 * hash + Objects.hashCode(this.actionHistory);
         return hash;
     }
 
@@ -394,8 +408,13 @@ public class Tarjeta {
         if (!Objects.equals(this.impedimento, other.impedimento)) {
             return false;
         }
-        return Objects.equals(this.foreaneo, other.foreaneo);
+        if (!Objects.equals(this.foreaneo, other.foreaneo)) {
+            return false;
+        }
+        return Objects.equals(this.actionHistory, other.actionHistory);
     }
+
+   
 
 
 }
